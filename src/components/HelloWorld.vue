@@ -108,7 +108,7 @@
       </li>
     </ul>
   </div>
-  <FormText v-model="address" id="unique" label="Elo" />
+  <FormText v-model="address" id="unique" label="Adres" />
   <p>{{ address }}</p>
 </template>
 
