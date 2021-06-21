@@ -4,19 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'main-color': "#4118EA",
-        'warning-color': '#FF6565',
-        'basic-font-color:': '#343434',
-        'seperator-color': "#e5e5e5",
+        main: "#4118EA",
+        warning: "#FF6565",
+        seperator: "#e5e5e5",
+        "dark-gray": "#343434",
       },
       fontSize: {
-        'base': '18px',
-        'large': '20px',
-        'xl': '48px'
+        base: "1.8rem",
+        large: "2rem",
+        xl: "4.8rem",
       },
-      fontFamily: {
-        'sans': ['Ubuntu', 'sans-serif']
-      }
     },
   },
   variants: {
