@@ -1,10 +1,8 @@
 module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     extend: {
-
-      //add bg-<class-name> to class
       colors: {
         'main-color': "#4118EA",
         'warning-color': '#FF6565',
@@ -15,8 +13,8 @@ module.exports = {
         'base': '18px',
         'large': '20px',
         'xl': '48px'
-
-      }, fontFamily: {
+      },
+      fontFamily: {
         'sans': ['Ubuntu', 'sans-serif']
       }
     },
