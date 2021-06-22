@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-start" :class="classes">
-    <label class="max-w-full">{{ label }}</label>
+    <label class="max-w-full font-medium">{{ label }}</label>
     <input
       class="border border-solid border-black rounded-sm max-w-full"
       type="text"
