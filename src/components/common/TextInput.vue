@@ -2,7 +2,6 @@
   <div class="flex flex-col items-start" :class="classes">
     <label class="max-w-full font-medium">{{ label }}</label>
     <input
-      :id="id"
       :placeholder="placeholder"
       :value="modelValue"
       @input="updateValue"
@@ -16,11 +15,22 @@
 export default {
   name: "TextInput",
   props: {
-    id: String,
-    label: String,
-    placeholder: String,
-    modelValue: String,
-    classes: String,
+    label: {
+      type: String,
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    modelValue: {
+      type: String,
+      required: false,
+    },
+    classes: {
+      type: String,
+      required: false,
+    },
   },
   setup(props, { emit }) {
     const updateValue = (event) => {
