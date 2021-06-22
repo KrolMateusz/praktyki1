@@ -2,10 +2,10 @@
   <div class="flex flex-col items-start" :class="classes">
     <label class="max-w-full font-medium">{{ label }}</label>
     <input
-      @input="updateValue"
       :id="id"
       :placeholder="placeholder"
       :value="modelValue"
+      @input="updateValue"
       class="border border-solid border-black rounded-sm max-w-full"
       type="text"
     />
