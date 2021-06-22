@@ -1,0 +1,24 @@
+<template>
+  <div class="">
+    <div class="grid grid-cols-2">
+      <div class="profile">Profile goes here</div>
+      <div class="">Trip setting goes here</div>
+
+    </div>
+    <GoogleMaps/>
+
+  </div>
+
+</template>
+
+<script>
+// @ is an alias to /src
+import GoogleMaps from '../googleMaps/GoogleMaps.vue';
+
+export default {
+  name: 'Home',
+  components: {
+    GoogleMaps,
+  }
+};
+</script>
