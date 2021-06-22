@@ -108,13 +108,9 @@
       </li>
     </ul>
   </div>
-  <FormText v-model="address" id="unique" label="Adres" />
-  <p>{{ address }}</p>
 </template>
 
 <script>
-import FormText from "./common/Input.vue";
-
 export default {
   name: "HelloWorld",
   props: {
@@ -124,9 +120,6 @@ export default {
     return {
       address: "",
     };
-  },
-  components: {
-    FormText,
   },
 };
 </script>
