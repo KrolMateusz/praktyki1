@@ -8,7 +8,7 @@
         :name="option.name"
         :id="option.key"
         :value="option.value"
-        v-model="value"
+        v-model="selected"
       />
       <label :for="option.key">{{ option.label }}</label>
     </div>
@@ -22,7 +22,7 @@ export default {
     modelValue: String,
   },
   computed: {
-    value: {
+    selected: {
       get() {
         return this.modelValue;
       },
