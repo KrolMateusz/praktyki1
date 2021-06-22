@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full flex flex-col items-start">
+  <div class="flex flex-col items-start" :class="classes">
     <label class="max-w-full">{{ label }}</label>
     <input
-      class="max-w-full"
+      class="border border-solid border-black rounded-sm max-w-full"
       type="text"
       :id="id"
       :placeholder="placeholder"
@@ -20,6 +20,7 @@ export default {
     label: String,
     placeholder: String,
     modelValue: String,
+    classes: String,
   },
 };
 </script>
