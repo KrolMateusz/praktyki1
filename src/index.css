@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-font: 'Ubuntu', sans-serif;
+}
+
 html {
   font-size: 10px;
   font-family: var(--fallback-font);
