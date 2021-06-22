@@ -107,11 +107,14 @@
         >
       </li>
     </ul>
+    <Avatar firstName="tomek" hover="true" />
   </div>
 </template>
 
 <script>
+import Avatar from "./Avatar.vue";
 export default {
+  components: { Avatar },
   name: "HelloWorld",
   props: {
     msg: String,
