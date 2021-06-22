@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main: "#4118EA",
-        warning: "#FF6565",
-        seperator: "#e5e5e5",
-        "dark-gray": "#343434",
+        main: "var(--main)",
+        warning: "var(--warning)",
+        seperator: "var(--separator)",
+        "dark-gray": "var(--dark-gray)",
       },
       fontSize: {
         base: "1.8rem",
