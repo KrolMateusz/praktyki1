@@ -5,9 +5,10 @@
       <input
         class="mr-1"
         type="radio"
+        :name="option.name"
         :id="option.key"
         :value="option.value"
-        v-model="selected"
+        v-model="value"
       />
       <label :for="option.key">{{ option.label }}</label>
     </div>
@@ -18,11 +19,17 @@ export default {
   props: {
     groupLabel: String,
     options: Array,
+    modelValue: String,
   },
-  data() {
-    return {
-      selected: "",
-    };
+  computed: {
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit("update:modelValue", value);
+      },
+    },
   },
 };
 </script>
