@@ -1,25 +1,42 @@
 <template>
-  <p>{{ groupLabel }}</p>
+  <span>{{ groupLabel }}</span>
   <div class="flex justify-between items-center">
-    <div v-for="option in options" :key="option.key">
+    <div v-for="(option, index) in options" :key="option.key">
       <input
+        :name="option.name"
+        :id="index"
+        :value="option.value"
         class="mr-1"
         type="radio"
-        :name="option.name"
-        :id="option.key"
-        :value="option.value"
         v-model="selected"
       />
-      <label :for="option.key">{{ option.label }}</label>
+      <label :for="index">{{ option.label }}</label>
     </div>
   </div>
 </template>
 <script>
 export default {
   props: {
-    groupLabel: String,
-    options: Array,
-    modelValue: String,
+    groupLabel: {
+      type: String,
+      required: true,
+    },
+    options: {
+      type: Array,
+      required: true,
+      validator(options) {
+        return options.every(
+          (option) =>
+            typeof option.value === "string" &&
+            typeof option.name === "string" &&
+            typeof option.label === "string"
+        );
+      },
+    },
+    modelValue: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     selected: {
