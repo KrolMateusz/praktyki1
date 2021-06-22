@@ -22,10 +22,11 @@ export default {
     modelValue: String,
     classes: String,
   },
-  methods: {
-    updateValue(event) {
-      this.$emit("update:modelValue", event.target.value);
-    },
+  setup(props, { emit }) {
+    const updateValue = (event) => {
+      emit("update:modelValue", event.target.value);
+    };
+    return { updateValue };
   },
 };
 </script>
