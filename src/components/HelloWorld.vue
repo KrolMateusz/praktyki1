@@ -107,7 +107,7 @@
         >
       </li>
     </ul>
-    <Avatar firstName="tomek" hover="true" />
+    <Avatar firstName="tomek" imgPath="" hover="true" />
   </div>
 </template>
 
