@@ -15,13 +15,10 @@ export default {};
 
 }
 
-nav::after {
+
+
+.router-link-active.router-link-exact-active.link::after {
     content: '';
     @apply absolute w-10 h-10 bg-white rounded-full inset-y-0
 }
-
-/* .router-link-active.router-link-exact-active.link::after {
-    content: '';
-    @apply absolute w-10 h-10 bg-white rounded-full inset-y-0
-} */
 </style>
