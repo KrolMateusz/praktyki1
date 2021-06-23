@@ -1,19 +1,17 @@
 <template>
   <span>{{ groupLabel }}</span>
   <div class="flex justify-between items-center">
-    <div v-for="option in options" :key="option.key">
-      <label>
-        <input
-          :name="option.name"
-          :value="selected"
-          :checked="selected === option.value"
-          @change="$emit('update:selected', option.value)"
-          class="mr-1"
-          type="radio"
-        />
-        {{ option.label }}
-      </label>
-    </div>
+    <label :key="option.key" v-for="option in options">
+      <input
+        :name="option.name"
+        :value="selected"
+        :checked="selected === option.value"
+        @change="$emit('update:selected', option.value)"
+        class="mr-1"
+        type="radio"
+      />
+      {{ option.label }}
+    </label>
   </div>
 </template>
 <script>
