@@ -1,0 +1,8 @@
+:root {
+  --fallback-font: Verdana, sans-serif;
+  --main-font: Ubuntu, sans-serif;
+  --main: #4118ea;
+  --warning: #ff6565;
+  --seperator: #e5e5e5;
+  --dark-gray: #343434;
+}
