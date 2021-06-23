@@ -1,8 +1,8 @@
 <template>
-  <li>
+  <li ref="link">
     <router-link
-      @click="$emit(getOffSetLeft)"
-      class="text-white text-3xl relative mr-10"
+      @click="$emit('getoffsetposition', $event)"
+      class="text-white text-3xl relative mr-20"
       :to="to"
       >{{ name }}</router-link
     >
@@ -10,13 +10,20 @@
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
 export default {
-  emits: {
-    getOffSetLeft: null,
-  },
+  emits: ["getoffsetposition"],
   props: {
     to: { type: String, required: true },
     name: { type: String, required: true },
+    setup() {
+      const link = ref(null);
+      console.log(link);
+      onMounted(() => {
+        console.log(link.value.offSetWidth);
+      });
+      return { link };
+    },
   },
 };
 </script>
