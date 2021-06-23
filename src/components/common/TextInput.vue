@@ -26,6 +26,7 @@ export default {
     modelValue: {
       type: String,
       required: false,
+      default: "",
     },
     classes: {
       type: String,
