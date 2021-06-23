@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-start" :class="classes">
+  <div :class="classes" class="flex flex-col items-start">
     <label class="max-w-full font-medium">{{ label }}</label>
     <input
       :placeholder="placeholder"
@@ -30,13 +30,17 @@ export default {
     classes: {
       type: String,
       required: false,
+      default: "",
     },
   },
   setup(props, { emit }) {
     const updateValue = (event) => {
       emit("update:modelValue", event.target.value);
     };
-    return { updateValue };
+
+    return {
+      updateValue,
+    };
   },
 };
 </script>
