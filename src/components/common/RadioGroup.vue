@@ -5,9 +5,9 @@
       <label>
         <input
           :name="option.name"
-          :id="index"
-          :value="option.value"
-          v-model="selected"
+          :value="selected"
+          :checked="selected === option.value"
+          @change="$emit('update:selected', option.value)"
           class="mr-1"
           type="radio"
         />
@@ -17,8 +17,6 @@
   </div>
 </template>
 <script>
-import { computed } from "vue";
-
 export default {
   props: {
     groupLabel: {
@@ -31,31 +29,15 @@ export default {
       validator(options) {
         return options.every(
           (option) =>
-            typeof option.value === "string" &&
-            typeof option.name === "string" &&
-            typeof option.label === "string"
+            typeof option.value === "string" && typeof option.label === "string"
         );
       },
     },
-    modelValue: {
+    selected: {
       type: String,
       required: false,
       default: "",
     },
-  },
-  setup(props, { emit }) {
-    const selected = computed({
-      get() {
-        return props.modelValue;
-      },
-      set(value) {
-        emit("update:modelValue", value);
-      },
-    });
-
-    return {
-      selected,
-    };
   },
 };
 </script>
