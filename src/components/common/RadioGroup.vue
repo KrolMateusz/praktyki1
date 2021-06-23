@@ -1,20 +1,24 @@
 <template>
   <span>{{ groupLabel }}</span>
   <div class="flex justify-between items-center">
-    <div v-for="(option, index) in options" :key="option.key">
-      <input
-        :name="option.name"
-        :id="index"
-        :value="option.value"
-        class="mr-1"
-        type="radio"
-        v-model="selected"
-      />
-      <label :for="index">{{ option.label }}</label>
+    <div v-for="option in options" :key="option.key">
+      <label>
+        <input
+          :name="option.name"
+          :id="index"
+          :value="option.value"
+          v-model="selected"
+          class="mr-1"
+          type="radio"
+        />
+        {{ option.label }}
+      </label>
     </div>
   </div>
 </template>
 <script>
+import { computed } from "vue";
+
 export default {
   props: {
     groupLabel: {
@@ -36,17 +40,22 @@ export default {
     modelValue: {
       type: String,
       required: false,
+      default: "",
     },
   },
-  computed: {
-    selected: {
+  setup(props, { emit }) {
+    const selected = computed({
       get() {
-        return this.modelValue;
+        return props.modelValue;
       },
       set(value) {
-        this.$emit("update:modelValue", value);
+        emit("update:modelValue", value);
       },
-    },
+    });
+
+    return {
+      selected,
+    };
   },
 };
 </script>
