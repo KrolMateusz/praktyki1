@@ -1,16 +1,13 @@
 <template>
   <div>
-    <div class="Google">Google API goes here</div>
-
+    <div>Google API goes here</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "GoogleMaps"
-}
+  name: "GoogleMaps",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
