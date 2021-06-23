@@ -1,0 +1,47 @@
+<template>
+  <div :class="classes" class="flex flex-col items-start">
+    <label class="max-w-full font-medium">{{ label }}</label>
+    <input
+      :placeholder="placeholder"
+      :value="value"
+      @input="updateValue"
+      class="border border-solid border-black rounded-sm max-w-full"
+      type="text"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TextInput",
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    value: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    classes: {
+      type: String,
+      required: false,
+      default: "",
+    },
+  },
+  setup(props, { emit }) {
+    const updateValue = (event) => {
+      emit("update:value", event.target.value);
+    };
+
+    return {
+      updateValue,
+    };
+  },
+};
+</script>
