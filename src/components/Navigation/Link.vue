@@ -10,18 +10,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
 export default {
   emits: ["getoffsetposition"],
   props: {
     to: { type: String, required: true },
     name: { type: String, required: true },
-    setup() {
-      const link = ref(null);
-      console.log(link);
-
-      return { link };
-    },
   },
 };
 </script>
