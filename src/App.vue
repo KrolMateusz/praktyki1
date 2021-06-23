@@ -5,10 +5,6 @@
 
 <script>
 import Navigation from "@/components/Navigation/Navigation";
-
-{
-  Navigation;
-}
 export default {
   components: { Navigation },
 };

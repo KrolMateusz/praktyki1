@@ -12,29 +12,30 @@
         :to="route.path"
         :name="route.name"
         @getoffsetposition="handleDotAnimation"
+        @setdefaultvalue="setDefaultDotValue"
       />
-      <div
-        ref="dot"
-        :style="{ transform: `translate(${position}px, 15px)` }"
-        class="
-          absolute
-          w-10
-          h-10
-          bg-main
-          rounded-full
-          bottom-0
-          left-0
-          border-4 border-white
-          transform
-          transition-transform
-        "
-      ></div>
     </ul>
+    <div
+      ref="dot"
+      :style="{ transform: `translate(${position}px, 15px)` }"
+      class="
+        absolute
+        w-10
+        h-10
+        bg-main
+        rounded-full
+        bottom-0
+        left-0
+        border-4 border-white
+        transform
+        transition-transform
+      "
+    ></div>
   </nav>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { routes } from "@/router/index";
 import Link from "./Link.vue";
 
@@ -46,14 +47,19 @@ export default {
     const position = ref(0);
     const dot = ref(null);
     const routeValues = ref(routes);
-    const links = ref([]);
-    function handleDotAnimation(e) {
+    const links = computed(() => links);
+    const handleDotAnimation = (e) => {
       position.value = e.target.offsetLeft + dot.value.offsetWidth / 2;
-    }
+    };
+
+    const setDefaultDotValue = (value) => {
+      console.log(value);
+    };
 
     onMounted(() => {
       position.value =
         links.value[0].$el.offsetWidth + dot.value.offsetWidth / 2;
+      console.log(links);
     });
 
     return {
@@ -62,6 +68,7 @@ export default {
       dot,
       routeValues,
       links,
+      setDefaultDotValue,
     };
   },
 };
