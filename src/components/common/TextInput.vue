@@ -3,7 +3,7 @@
     <label class="max-w-full font-medium">{{ label }}</label>
     <input
       :placeholder="placeholder"
-      :value="modelValue"
+      :value="value"
       @input="updateValue"
       class="border border-solid border-black rounded-sm max-w-full"
       type="text"
@@ -23,7 +23,7 @@ export default {
       type: String,
       required: false,
     },
-    modelValue: {
+    value: {
       type: String,
       required: false,
       default: "",
@@ -36,7 +36,7 @@ export default {
   },
   setup(props, { emit }) {
     const updateValue = (event) => {
-      emit("update:modelValue", event.target.value);
+      emit("update:value", event.target.value);
     };
 
     return {
