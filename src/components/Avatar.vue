@@ -1,8 +1,13 @@
 <template>
   <div class="group relative w-24 h-24">
-    <img v-if="imgPath" :src="imgPath" alt="" class="w-24 h-24 rounded-full" />
+    <img
+      v-if="getImage"
+      :src="getImage"
+      alt="Your avatar"
+      class="w-24 h-24 rounded-full"
+    />
     <div
-      v-if="!imgPath"
+      v-else
       class="
         w-24
         h-24
@@ -16,22 +21,33 @@
         uppercase
       "
     >
-      {{ giveName() }}
+      {{ getName }}
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from "vue";
 export default {
   props: {
-    firstName: String,
-    imgPath: String,
+    firstName: {
+      String,
+      required: true,
+    },
+    imgPath: {
+      String,
+      required: false,
+      default: "",
+    },
   },
   setup(props) {
-    function giveName() {
-      return props.firstName.charAt(0).toUpperCase();
-    }
-    return { giveName };
+    const getName = computed(() => props.firstName.charAt(0).toUpperCase());
+    const getImage = computed(() => props.imgPath);
+
+    return {
+      getName,
+      getImage,
+    };
   },
 };
 </script>
