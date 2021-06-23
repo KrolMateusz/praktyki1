@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 export default {
   emits: ["getoffsetposition"],
   props: {
@@ -19,9 +19,7 @@ export default {
     setup() {
       const link = ref(null);
       console.log(link);
-      onMounted(() => {
-        console.log(link.value.offSetWidth);
-      });
+
       return { link };
     },
   },
