@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-baseline my-8">
     <label :key="index" v-for="(icon, index) in icons">
-      <input class="opacity-0 absolute" name="size" type="radio" value="m" />
+      <input class="opacity-0 absolute" name="icon" type="radio" />
       <component :is="icon"></component>
     </label>
   </div>

@@ -7,9 +7,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
-import RadioButtons from "../common/RadioButtons";
+import RadioButtons from "@/common/RadioButtons";
 
 export default {
   name: "Home",
