@@ -3,7 +3,11 @@
     <ul class="flex">
       <Link
         v-for="(route, index) in routeValues"
-        :ref="el => {links[index] = el}"
+        :ref="
+          (el) => {
+            links[index] = el;
+          }
+        "
         :key="route.name"
         :to="route.path"
         :name="route.name"
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-import {  onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { routes } from "@/router/index";
 import Link from "./Link.vue";
 
@@ -42,23 +46,22 @@ export default {
     const position = ref(0);
     const dot = ref(null);
     const routeValues = ref(routes);
-    const links = ref([])
+    const links = ref([]);
     function handleDotAnimation(e) {
       position.value = e.target.offsetLeft + dot.value.offsetWidth / 2;
-      
     }
 
     onMounted(() => {
-    position.value =links.value[0].$el.offsetWidth + dot.value.offsetWidth / 2
-    }
-    )
+      position.value =
+        links.value[0].$el.offsetWidth + dot.value.offsetWidth / 2;
+    });
 
     return {
       handleDotAnimation,
       position,
       dot,
       routeValues,
-      links
+      links,
     };
   },
 };

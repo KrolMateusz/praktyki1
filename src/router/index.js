@@ -11,8 +11,7 @@ export const routes = [
     path: "/charts",
     name: "Charts",
 
-    component: () =>
-      import( "../views/About.vue"),
+    component: () => import("../views/About.vue"),
   },
 ];
 
