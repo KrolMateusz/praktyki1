@@ -10,7 +10,6 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 import RadioButtons from "@/common/RadioButtons";
 
-
 export default {
   name: "Home",
   components: {
