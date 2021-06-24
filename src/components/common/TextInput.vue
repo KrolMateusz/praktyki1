@@ -9,6 +9,7 @@
       @input="updateValue"
       class="border border-solid border-black rounded-sm w-full"
     />
+    <slot />
   </div>
 </template>
 
