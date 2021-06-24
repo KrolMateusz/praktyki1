@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { computed, watchEffect, ref } from "@vue/runtime-core";
+import { computed, watchEffect, ref } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -26,7 +26,7 @@ export default {
 
     watchEffect(() => {
       const isActiveLink = activeLinkName.value === props.name;
-      if (isActiveLink) {
+      if (isActiveLink && link.value) {
         emit("getLinkPosition", link.value.offsetLeft);
       }
     });
