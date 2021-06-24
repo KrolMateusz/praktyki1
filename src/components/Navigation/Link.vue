@@ -1,9 +1,7 @@
 <template>
-  <li>
+  <li ref="link">
     <router-link
-      :active="activeRoute"
       ref="link"
-      @click="$emit('getoffsetposition', $event)"
       class="text-white text-3xl relative mr-20"
       :to="to"
       >{{ name }}</router-link
@@ -12,20 +10,28 @@
 </template>
 
 <script>
-import { RouterLink, useLink } from "vue-router";
+import { computed, watchEffect, ref } from "@vue/runtime-core";
+import { useStore } from "vuex";
 
 export default {
-  emits: ["getoffsetposition", "setdefaultvalue"],
+  emits: ["getLinkPosition"],
   props: {
     to: { type: String, required: true },
     name: { type: String, required: true },
-    ...RouterLink.props,
   },
-  setup(props) {
-    const { isActive } = useLink(props);
-    const activeRoute = isActive;
+  setup(props, { emit }) {
+    const store = useStore();
+    const activeLinkName = computed(() => store.getters.getActiveRouteName);
+    const link = ref(null);
 
-    return { activeRoute };
+    watchEffect(() => {
+      const isActiveLink = activeLinkName.value === props.name;
+      if (isActiveLink) {
+        emit("getLinkPosition", link.value.offsetLeft);
+      }
+    });
+
+    return { activeLinkName, link };
   },
 };
 </script>

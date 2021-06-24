@@ -2,22 +2,16 @@
   <nav class="px-40 py-8 relative bg-main">
     <ul class="flex">
       <Link
-        v-for="(route, index) in routeValues"
-        :ref="
-          (el) => {
-            links[index] = el;
-          }
-        "
+        v-for="route in routeValues"
         :key="route.name"
         :to="route.path"
         :name="route.name"
-        @getoffsetposition="handleDotAnimation"
-        @setdefaultvalue="setDefaultDotValue"
+        @getLinkPosition="setDotPosition"
       />
     </ul>
     <div
       ref="dot"
-      :style="{ transform: `translate(${position}px, 15px)` }"
+      :style="{ transform: `translate(${linkPosition}px, 15px)` }"
       class="
         absolute
         w-10
@@ -35,7 +29,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from "vue";
+import { ref } from "vue";
 import { routes } from "@/router/index";
 import Link from "./Link.vue";
 
@@ -44,31 +38,21 @@ export default {
     Link,
   },
   setup() {
-    const position = ref(0);
+    const linkPosition = ref(0);
     const dot = ref(null);
+    const isMounted = ref(false);
     const routeValues = ref(routes);
-    const links = computed(() => links);
-    const handleDotAnimation = (e) => {
-      position.value = e.target.offsetLeft + dot.value.offsetWidth / 2;
-    };
 
-    const setDefaultDotValue = (value) => {
-      console.log(value);
+    const setDotPosition = (value) => {
+      linkPosition.value = value + dot.value.offsetWidth / 2;
     };
-
-    onMounted(() => {
-      position.value =
-        links.value[0].$el.offsetWidth + dot.value.offsetWidth / 2;
-      console.log(links);
-    });
 
     return {
-      handleDotAnimation,
-      position,
+      linkPosition,
       dot,
       routeValues,
-      links,
-      setDefaultDotValue,
+      isMounted,
+      setDotPosition,
     };
   },
 };
