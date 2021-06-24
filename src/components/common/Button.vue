@@ -1,7 +1,7 @@
 <template>
   <button
     class="bg-main rounded-sm text-white font-normal py-1 px-10 text-base"
-    :class="bindClasses()"
+    :class="{ 'px-40': isBig, 'bg-warning text-gray-900': isWarning }"
   >
     {{ label }}
   </button>
@@ -23,23 +23,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  setup(props) {
-    const bindClasses = () => {
-      const classes = [];
-      if (props.isBig) {
-        classes.push("px-40");
-      }
-
-      if (props.isWarning) {
-        classes.push("bg-warning text-gray-900");
-      }
-
-      return classes;
-    };
-    return {
-      bindClasses,
-    };
   },
 };
 </script>
