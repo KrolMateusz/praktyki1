@@ -1,46 +1,43 @@
 <template>
   <div class="fixed z-50 top-0 left-0 bg-black bg-opacity-60 h-screen w-screen">
     <div class="flex justify-center items-center w-full h-full">
-      <form
-        @submit="checkForm"
-        class="flex flex-col justify-between w-1/3 h-1/2 bg-white"
-      >
-        <div class="flex justify-between m-6">
+      <form @submit="checkForm" class="flex flex-col justify-between bg-white">
+        <div class="flex justify-between m-5">
           <span>Edytuj profil</span>
           <button @click="hideModal">x</button>
         </div>
-        <div class="flex justify-between items-center mx-12 my-5">
+        <div class="flex justify-between items-center mx-12 mb-5">
           <Avatar :first-name="name" />
           <div class="flex flex-col">
             <button>Wrzuć awatar</button>
             <button>Usuń awatar</button>
           </div>
         </div>
-        <div class="flex flex-col items-center mx-12 my-5">
+        <div class="flex flex-col items-center mx-12">
           <text-input
-            classes="relative w-full mb-4"
+            classes="relative w-full mb-14"
             label="Imię"
             v-model:value="name"
           >
             <Error
               :message="errors.name"
-              classes="absolute -bottom-6"
+              classes="absolute -bottom-12"
               v-if="errors.name"
             />
           </text-input>
           <text-input
-            classes="relative w-full my-4"
+            classes="relative w-full mb-14"
             label="Nazwisko"
             v-model:value="surname"
           >
             <Error
               :message="errors.surname"
-              classes="absolute -bottom-6"
+              classes="absolute -bottom-12"
               v-if="errors.surname"
             />
           </text-input>
         </div>
-        <div class="flex justify-center mx-12 my-2">
+        <div class="flex justify-center mx-12 mb-8">
           <text-input
             classes="relative w-24"
             type="number"
@@ -49,19 +46,19 @@
             v-model:value.number="height"
           >
             <Error
-              classes="absolute w-max -bottom-7 -left-7"
+              classes="absolute w-max -bottom-6"
               :message="errors.height"
               v-if="errors.height"
             />
           </text-input>
           <radio-group
-            classes="ml-4 w-36"
+            classes="ml-8 w-36"
             :options="heightRadioOptions"
             group-label="Jednostka"
             v-model:selected="heightUnit"
           />
         </div>
-        <div class="flex justify-center mx-12 my-5">
+        <div class="flex justify-center items-end mx-12 mb-8">
           <text-input
             classes="relative w-24"
             type="number"
@@ -70,19 +67,19 @@
             v-model:value.number="weight"
           >
             <Error
-              classes="absolute w-max -bottom-7 -left-6"
+              classes="absolute w-max -bottom-6"
               :message="errors.weight"
               v-if="errors.weight"
             />
           </text-input>
           <radio-group
-            classes="relative ml-4 w-36"
+            classes="relative ml-8 w-36"
             :options="weightRadioOptions"
             group-label="Jednostka"
             v-model:selected="weightUnit"
           />
         </div>
-        <button class="border border-black mx-12 mb-6">Zapisz</button>
+        <button class="border border-black mx-12 my-6">Zapisz</button>
       </form>
     </div>
   </div>
