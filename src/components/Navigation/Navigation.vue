@@ -40,7 +40,6 @@ export default {
   setup() {
     const linkPosition = ref(0);
     const dot = ref(null);
-    const routeValues = ref(routes);
 
     const setDotPosition = (value) => {
       linkPosition.value = value + dot.value.offsetWidth / 2;
@@ -49,7 +48,7 @@ export default {
     return {
       linkPosition,
       dot,
-      routeValues,
+      routes,
       setDotPosition,
     };
   },

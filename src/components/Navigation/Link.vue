@@ -1,11 +1,8 @@
 <template>
   <li ref="link">
-    <router-link
-      ref="link"
-      class="text-white text-3xl relative mr-20"
-      :to="to"
-      >{{ name }}</router-link
-    >
+    <router-link ref="link" class="text-white text-3xl relative mr-20" :to="to">
+      {{ name }}
+    </router-link>
   </li>
 </template>
 
