@@ -4,18 +4,18 @@
       <div>Profile goes here</div>
       <div>Trip setting goes here</div>
     </div>
-    <GoogleMaps />
+    <TravelMap />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import GoogleMaps from "../googleMaps/GoogleMaps.vue";
+import TravelMap from "../googleMaps/TravelMap.vue";
 
 export default {
   name: "Home",
   components: {
-    GoogleMaps,
+    TravelMap,
   },
 };
 </script>
