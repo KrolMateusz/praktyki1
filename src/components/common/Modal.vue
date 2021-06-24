@@ -3,9 +3,9 @@
     <div class="flex justify-center items-center w-full h-full">
       <form
         @submit="checkForm"
-        class="flex flex-col justify-around items-stretch w-1/3 h-2/5 bg-white"
+        class="flex flex-col justify-between w-1/3 h-1/2 bg-white"
       >
-        <div class="flex justify-between m-4">
+        <div class="flex justify-between m-6">
           <span>Edytuj profil</span>
           <button @click="hideModal">x</button>
         </div>
@@ -17,52 +17,72 @@
           </div>
         </div>
         <div class="flex flex-col items-center mx-12 my-5">
-          <text-input label="Imię" classes="w-full" v-model:value="name" />
-          <Error :message="errors.name" v-if="errors.name" />
           <text-input
+            classes="relative w-full mb-4"
+            label="Imię"
+            v-model:value="name"
+          >
+            <Error
+              :message="errors.name"
+              classes="absolute -bottom-6"
+              v-if="errors.name"
+            />
+          </text-input>
+          <text-input
+            classes="relative w-full my-4"
             label="Nazwisko"
-            classes="w-full"
             v-model:value="surname"
-          />
-          <Error :message="errors.surname" v-if="errors.surname" />
+          >
+            <Error
+              :message="errors.surname"
+              classes="absolute -bottom-6"
+              v-if="errors.surname"
+            />
+          </text-input>
         </div>
-        <div class="relative flex justify-center mx-12 my-2">
+        <div class="flex justify-center mx-12 my-2">
           <text-input
+            classes="relative w-24"
             type="number"
             label="Wzrost"
-            classes="w-24"
             min="0"
             v-model:value.number="height"
-          />
+          >
+            <Error
+              classes="absolute w-max -bottom-7 -left-7"
+              :message="errors.height"
+              v-if="errors.height"
+            />
+          </text-input>
           <radio-group
             classes="ml-4 w-36"
             :options="heightRadioOptions"
             group-label="Jednostka"
             v-model:selected="heightUnit"
           />
-          <Error
-            classes="absolute bottom-0"
-            :message="errors.height"
-            v-if="errors.height"
-          />
         </div>
-        <div class="flex justify-center mx-12 my-2">
+        <div class="flex justify-center mx-12 my-5">
           <text-input
+            classes="relative w-24"
             type="number"
             label="Waga"
-            classes="w-24"
             min="0"
             v-model:value.number="weight"
-          />
+          >
+            <Error
+              classes="absolute w-max -bottom-7 -left-6"
+              :message="errors.weight"
+              v-if="errors.weight"
+            />
+          </text-input>
           <radio-group
-            classes="ml-4 w-36"
+            classes="relative ml-4 w-36"
             :options="weightRadioOptions"
             group-label="Jednostka"
             v-model:selected="weightUnit"
           />
-          <Error classes="" :message="errors.weight" v-if="errors.weight" />
         </div>
-        <button class="border border-black mx-12 my-5">Zapisz</button>
+        <button class="border border-black mx-12 mb-6">Zapisz</button>
       </form>
     </div>
   </div>
