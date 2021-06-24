@@ -8,7 +8,7 @@ const store = createStore({
     isModalDisplayed: true,
     user: {
       name: "",
-      surname: null,
+      lastname: null,
       height: null,
       weight: null,
       heightUnit: "cm",
@@ -19,8 +19,8 @@ const store = createStore({
     getName(state) {
       return state.user.name;
     },
-    getSurname(state) {
-      return state.user.surname;
+    getLastname(state) {
+      return state.user.lastname;
     },
     getHeight(state) {
       return state.user.height;
@@ -43,7 +43,7 @@ const store = createStore({
       state.isModalDisplayed = false;
     },
     [SET_USER](state, payload) {
-      state.user = { ...payload };
+      state.user = { ...state.user, ...payload };
     },
   },
   actions: {},

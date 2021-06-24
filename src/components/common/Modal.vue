@@ -28,12 +28,12 @@
           <text-input
             classes="relative w-full mb-14"
             label="Nazwisko"
-            v-model:value="surname"
+            v-model:value="lastname"
           >
             <Error
-              :message="errors.surname"
+              :message="errors.lastname"
               classes="absolute -bottom-12"
-              v-if="errors.surname"
+              v-if="errors.lastname"
             />
           </text-input>
         </div>
@@ -46,14 +46,14 @@
             v-model:value.number="height"
           >
             <Error
-              classes="absolute w-max -bottom-6"
               :message="errors.height"
+              classes="absolute w-max -bottom-6"
               v-if="errors.height"
             />
           </text-input>
           <radio-group
-            classes="ml-8 w-36"
             :options="heightRadioOptions"
+            classes="ml-8 w-36"
             group-label="Jednostka"
             v-model:selected="heightUnit"
           />
@@ -67,14 +67,14 @@
             v-model:value.number="weight"
           >
             <Error
-              classes="absolute w-max -bottom-6"
               :message="errors.weight"
+              classes="absolute w-max -bottom-6"
               v-if="errors.weight"
             />
           </text-input>
           <radio-group
-            classes="relative ml-8 w-36"
             :options="weightRadioOptions"
+            classes="relative ml-8 w-36"
             group-label="Jednostka"
             v-model:selected="weightUnit"
           />
@@ -104,7 +104,7 @@ export default {
   setup() {
     const store = useStore();
     const name = ref(store.getters.getName);
-    const surname = ref(store.getters.getSurname);
+    const lastname = ref(store.getters.getLastname);
     const height = ref(store.getters.getHeight);
     const weight = ref(store.getters.getWeight);
     const heightUnit = ref(store.getters.getHeightUnit);
@@ -138,8 +138,8 @@ export default {
         errors.value.name =
           "Imię musi posiadać co najmniej 2 litery i żadnych cyfr";
       }
-      if (!/^\D{2,}$/.test(surname.value) || !surname.value) {
-        errors.value.surname =
+      if (!/^\D{2,}$/.test(lastname.value) || !lastname.value) {
+        errors.value.lastname =
           "Nazwisko musi posiadać co najmniej 2 litery i żadnych cyfr";
       }
       if (!height.value) {
@@ -154,7 +154,7 @@ export default {
     const setUser = () =>
       store.commit("SET_USER", {
         name: name.value,
-        surname: surname.value,
+        lastname: lastname.value,
         height: height.value,
         heightUnit: heightUnit.value,
         weight: weight.value,
@@ -163,7 +163,7 @@ export default {
 
     return {
       name,
-      surname,
+      lastname,
       height,
       weight,
       heightUnit,
