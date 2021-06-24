@@ -11,7 +11,7 @@
     </ul>
     <div
       ref="dot"
-      :style="{ transform: `translate(${linkPosition}px, 15px)` }"
+      :style="{ transform: `translate(${linkPosition}px, 1.5rem)  ` }"
       class="
         absolute
         w-10
@@ -40,7 +40,6 @@ export default {
   setup() {
     const linkPosition = ref(0);
     const dot = ref(null);
-    const isMounted = ref(false);
     const routeValues = ref(routes);
 
     const setDotPosition = (value) => {
@@ -51,11 +50,14 @@ export default {
       linkPosition,
       dot,
       routeValues,
-      isMounted,
       setDotPosition,
     };
   },
 };
 </script>
 
-<style></style>
+<style>
+.isActive {
+  display: block;
+}
+</style>
