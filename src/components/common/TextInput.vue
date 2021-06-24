@@ -1,12 +1,13 @@
 <template>
   <div :class="classes" class="flex flex-col items-start">
-    <label class="max-w-full font-medium">{{ label }}</label>
+    <label class="w-full font-medium">{{ label }}</label>
     <input
       :placeholder="placeholder"
       :value="value"
+      :type="type"
+      :min="min"
       @input="updateValue"
-      class="border border-solid border-black rounded-sm max-w-full"
-      type="text"
+      class="border border-solid border-black rounded-sm w-full"
     />
   </div>
 </template>
@@ -15,22 +16,31 @@
 export default {
   name: "TextInput",
   props: {
+    type: {
+      type: String,
+      default: "text",
+      validator(type) {
+        return ["text", "number"].includes(type);
+      },
+    },
+    min: {
+      type: String,
+      default: null,
+    },
     label: {
       type: String,
       required: true,
     },
     placeholder: {
       type: String,
-      required: false,
+      default: "",
     },
     value: {
-      type: String,
-      required: false,
+      type: [String, Number],
       default: "",
     },
     classes: {
       type: String,
-      required: false,
       default: "",
     },
   },
