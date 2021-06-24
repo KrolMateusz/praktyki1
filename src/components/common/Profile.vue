@@ -1,47 +1,116 @@
 <template>
-  <div class="w-80">
-    <div class="flex p-8">
-      <a href="#"
-        ><img v-bind:src="img" alt="" class="w-24 h-24 rounded-full"
-      /></a>
-      <div class="flex flex-col p-3">
-        <p class="font-medium text-5xl">Jan</p>
-        <p class="text-2xl">Kowalski</p>
+  <div class="max-w-sm">
+    <div class="flex w-full p-2">
+      <div class="group relative w-1/4">
+        <p
+          class="
+            w-24
+            text-center
+            opacity-0
+            absolute
+            top-1/2
+            left-1/2
+            transform
+            -translate-x-1/2 -translate-y-1/2
+            group-hover:opacity-100
+          "
+        >
+          Edit profile
+        </p>
+        <Avatar
+          @click="buttonFunction"
+          :firstName="name"
+          class="group-hover:opacity-50"
+        />
+      </div>
+      <div class="flex flex-col justify-center w-3/4 ml-3">
+        <p class="font-medium text-5xl break-words">
+          {{ name }}
+        </p>
+        <p class="text-2xl">{{ surname }}</p>
       </div>
     </div>
-    <div class="flex flex-col p-3">
-      <p>Podstawowe informacje:</p>
-      <p>Waga: <span class="font-medium">weight</span></p>
-      <p>Wzrost: <span class="font-medium">height</span></p>
+    <div class="flex flex-col p-2">
+      <p class="">Podstawowe informacje:</p>
       <p>
-        BMI: <span class="font-medium">{{ bmi() }}</span>
+        Waga: <span class="font-semibold">{{ weight }} kg</span>
       </p>
       <p>
-        FFMI: <span class="font-medium">ffmi kg/m<sup>2</sup></span>
+        Wzrost: <span class="font-semibold">{{ height }} cm</span>
+      </p>
+      <p>
+        BMI: <span class="font-semibold">{{ getBMI }}</span>
+      </p>
+      <p>
+        FFMI:
+        <span class="font-semibold">{{ getFFMI }} kg/m<sup>2</sup></span>
       </p>
     </div>
-    <div class="infoContainer p-3">
-      <p>Spalasz:</p>
-      <p>Wolno: <span class="font-medium">0.10 kg/h</span></p>
-      <p>Szybko: <span class="font-medium">0.80 kg/h</span></p>
+    <div class="infoContainer p-2">
+      <p class="">Spalasz:</p>
+      <p>
+        Wolno: <span class="font-semibold">{{ getLowTemp }} kg/h</span>
+      </p>
+      <p>
+        Szybko: <span class="font-semibold">{{ getFastTemp }} kg/h</span>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from "vue";
+import Avatar from "./Avatar.vue";
+
 export default {
-  // props: [name, surname, weight, height],
-  data() {
-    const imgLink = require("../../assets/avatar.jpg");
-    const weight = 80;
-    const height = 1.8;
-    function bmi() {
-      return (weight / Math.pow(height, 2)).toFixed(1);
+  components: { Avatar },
+  props: {
+    name: {
+      String,
+      required: true,
+    },
+    surname: {
+      String,
+      required: true,
+    },
+    weight: {
+      Number,
+      required: true,
+    },
+    height: {
+      Number,
+      required: true,
+    },
+    lowtemp: {
+      Number,
+      required: true,
+    },
+    fasttemp: {
+      Number,
+      required: true,
+    },
+  },
+  setup(props) {
+    const getName = computed(() => props.name.capitalize);
+    const getBMI = computed(() =>
+      (props.weight / Math.pow(props.height, 2)).toFixed(2)
+    );
+    const getFFMI = computed(() => (props.weight * 0.83).toFixed(2));
+    const getLowTemp = computed(() => (props.weight * 0.005).toFixed(2));
+    const getFastTemp = computed(() => (props.weight * 0.005 + 0.5).toFixed(2));
+
+    function buttonFunction() {
+      console.log("Add modal here...");
     }
-    return { img: imgLink, bmi };
+
+    return {
+      getName,
+      getBMI,
+      getFFMI,
+      getLowTemp,
+      getFastTemp,
+      buttonFunction,
+    };
   },
 };
 </script>
-
-<style>
-</style>

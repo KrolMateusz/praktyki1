@@ -108,13 +108,26 @@
       </li>
     </ul>
   </div>
+  <Profile :name="name" :surname="surname" :weight="weight" :height="height" />
 </template>
 
 <script>
+import Profile from "./common/Profile.vue";
+import { ref } from "vue";
+
 export default {
+  components: { Profile },
   name: "HelloWorld",
   props: {
     msg: String,
+  },
+  setup() {
+    const name = ref("Michał");
+    const surname = ref("Kowalski");
+    const weight = ref(86);
+    const height = ref(180);
+
+    return { name, surname, weight, height };
   },
 };
 </script>

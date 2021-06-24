@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative w-24 h-24">
+  <div class="relative w-24 h-24">
     <img
       v-if="getImage"
       :src="getImage"
