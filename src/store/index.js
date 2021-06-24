@@ -7,7 +7,7 @@ const store = createStore({
   state: {
     isModalDisplayed: true,
     user: {
-      name: "Jan",
+      name: "",
       surname: null,
       height: null,
       weight: null,
