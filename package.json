@@ -9,9 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "core-js": "^3.6.5",
     "@vuelidate/core": "^2.0.0-alpha.19",
     "@vuelidate/validators": "^2.0.0-alpha.17",
-    "core-js": "^3.6.5",
     "echarts": "^5.1.2",
     "lint-staged": "^11.0.0",
     "vue": "^3.0.0",
