@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-sm">
     <div class="flex w-full p-2">
-      <div class="group relative w-1/4">
+      <div class="group relative">
         <p
           class="
             w-24
@@ -23,11 +23,11 @@
           class="group-hover:opacity-50"
         />
       </div>
-      <div class="flex flex-col justify-center w-3/4 ml-3">
-        <p class="font-medium text-5xl break-words">
+      <div class="flex flex-col justify-center ml-3">
+        <p class="font-medium text-5xl break-all">
           {{ name }}
         </p>
-        <p class="text-2xl">{{ surname }}</p>
+        <p class="text-2xl break-all">{{ surname }}</p>
       </div>
     </div>
     <div class="flex flex-col p-2">
@@ -89,6 +89,9 @@ export default {
       Number,
       required: true,
     },
+  },
+  extend: {
+    wordBreak: ["hover", "focus"],
   },
   setup(props) {
     const getName = computed(() => props.name.capitalize);
