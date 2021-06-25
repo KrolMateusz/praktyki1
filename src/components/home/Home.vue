@@ -10,6 +10,7 @@
         :FFMI="FFMI"
         :lowTempo="lowTempo"
         :fastTempo="fastTempo"
+        @open-modal="openModal"
         class="col-span-3"
       />
       <div>Trip setting goes here</div>
@@ -25,6 +26,7 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
 import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
 import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
@@ -39,10 +41,11 @@ export default {
     UserInfoForm,
   },
   setup() {
-    const name = ref("Jan");
-    const lastname = ref("Kowalski");
-    const weight = ref(86);
-    const height = ref(180);
+    const store = useStore();
+    const name = ref(store.getters.getName);
+    const lastname = ref(store.getters.getLastname);
+    const weight = ref(store.getters.getWeight);
+    const height = ref(store.getters.getHeight);
     const BMI = ref(23.42);
     const FFMI = ref(null);
     const lowTempo = ref(0.3);
