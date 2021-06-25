@@ -42,28 +42,14 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { computed } from "vue";
 import Avatar from "@/components/common/Avatar.vue";
 import UserStats from "@/components/common/UserStats.vue";
 
 export default {
   components: { Avatar, UserStats },
   props: {
-    name: {
-      String,
-      required: true,
-    },
-    lastname: {
-      String,
-      required: true,
-    },
-    weight: {
-      Number,
-      required: true,
-    },
-    height: {
-      Number,
-      required: true,
-    },
     BMI: {
       Number,
       required: true,
@@ -80,6 +66,23 @@ export default {
       Number,
       required: true,
     },
+  },
+  setup() {
+    const store = useStore();
+    const name = computed(() => store.getters.getName);
+    const lastname = computed(() => store.getters.getLastname);
+    const height = computed(() => store.getters.getHeight);
+    const weight = computed(() => store.getters.getWeight);
+    const actualName = computed({
+      get() {
+        return this.actualName;
+      },
+      set(value) {
+        this.actualName = value;
+      },
+    });
+
+    return { name, lastname, height, weight, actualName };
   },
 };
 </script>
