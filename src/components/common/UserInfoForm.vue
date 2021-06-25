@@ -78,13 +78,13 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useStore } from "vuex";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
-import { ref } from "vue";
-import { useStore } from "vuex";
 
 export default {
   name: "Modal",
