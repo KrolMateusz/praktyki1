@@ -32,6 +32,7 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
 export default {
   props: {
     weight: {
@@ -60,9 +61,9 @@ export default {
     },
   },
   setup() {
-    //Jednostki będą zaciągane z modala, czekam na merge do deva, zebym mogł zaciagnac
-    const weightUnit = ref("kg");
-    const heightUnit = ref("cm");
+    const store = useStore();
+    const weightUnit = ref(store.getters.getWeightUnit);
+    const heightUnit = ref(store.getters.getHeightUnit);
 
     return { weightUnit, heightUnit };
   },

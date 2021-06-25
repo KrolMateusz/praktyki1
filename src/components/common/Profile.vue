@@ -19,7 +19,7 @@
         </p>
         <Avatar
           :firstName="name"
-          @click="buttonFunction"
+          @click="$emit('openModal')"
           class="group-hover:opacity-50"
         />
       </div>
@@ -80,15 +80,6 @@ export default {
       Number,
       required: true,
     },
-  },
-  setup() {
-    function buttonFunction() {
-      console.log("Add modal here...");
-    }
-
-    return {
-      buttonFunction,
-    };
   },
 };
 </script>

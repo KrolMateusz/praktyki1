@@ -7,7 +7,7 @@ const store = createStore({
   state: {
     user: {
       name: "",
-      lastname: null,
+      lastname: "",
       height: null,
       weight: null,
       heightUnit: "cm",
