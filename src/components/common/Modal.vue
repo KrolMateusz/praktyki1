@@ -1,5 +1,16 @@
 <template>
-  <div class="fixed z-50 top-0 left-0 bg-black bg-opacity-60 h-screen w-screen">
+  <div
+    class="
+      fixed
+      z-50
+      top-0
+      left-0
+      bg-black bg-opacity-60
+      h-screen
+      w-screen
+      text-base
+    "
+  >
     <div class="flex justify-center items-center w-full h-full">
       <form @submit="checkForm" class="flex flex-col justify-between bg-white">
         <div class="flex justify-between m-5">
@@ -8,9 +19,9 @@
         </div>
         <div class="flex justify-between items-center mx-12 mb-5">
           <Avatar :first-name="name" />
-          <div class="flex flex-col">
-            <button>Wrzuć awatar</button>
-            <button>Usuń awatar</button>
+          <div class="flex flex-col justify-between h-24">
+            <Button label="Wrzuć awatar" class="h-10 ml-8" />
+            <Button label="Wrzuć awatar" class="h-10 ml-8" is-warning />
           </div>
         </div>
         <div class="flex flex-col items-center mx-12">
@@ -87,6 +98,7 @@
 
 <script>
 import Avatar from "@/components/Avatar";
+import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
@@ -97,6 +109,7 @@ export default {
   name: "Modal",
   components: {
     Avatar,
+    Button,
     Error,
     RadioGroup,
     TextInput,
