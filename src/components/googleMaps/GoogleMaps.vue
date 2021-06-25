@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div ref="googleMap" class="map">Google API goes here</div>
+  <div class="flex justify-center w-screen">
+    <div ref="googleMap" class="w-1/2 visible h-96">Google API goes here</div>
   </div>
 </template>
 
@@ -25,13 +25,13 @@ export default {
       version: "weekly",
     });
 
-    onMounted(() => {
-      loader
-        .load()
-        .then((google) => {
-          new google.maps.Map(googleMap.value, mapOptions);
-        })
-        .catch((err) => console.log(err));
+    onMounted(async () => {
+      try {
+        const google = await loader.load();
+        new google.maps.Map(googleMap.value, mapOptions);
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     return { googleMap };
@@ -39,10 +39,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.map {
-  height: 500px;
-  width: 500px;
-  overflow: visible;
-}
-</style>
+<style scoped></style>
