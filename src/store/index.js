@@ -1,11 +1,10 @@
 import { createStore } from "vuex";
+import { SET_USER } from "@/store/mutation-types";
 import { routerModule } from "./routerModule";
 import router from "@/router";
-import { DISPLAY_MODAL, HIDE_MODAL, SET_USER } from "./mutation-types";
 
 const store = createStore({
   state: {
-    isModalDisplayed: true,
     user: {
       name: "",
       lastname: null,
@@ -36,12 +35,6 @@ const store = createStore({
     },
   },
   mutations: {
-    [DISPLAY_MODAL](state) {
-      state.isModalDisplayed = true;
-    },
-    [HIDE_MODAL](state) {
-      state.isModalDisplayed = false;
-    },
     [SET_USER](state, payload) {
       state.user = { ...state.user, ...payload };
     },
