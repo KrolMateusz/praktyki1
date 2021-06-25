@@ -4,9 +4,13 @@
       <Profile
         class="col-span-3"
         :name="name"
-        :surname="surname"
+        :lastname="lastname"
         :weight="weight"
         :height="height"
+        :BMI="BMI"
+        :FFMI="FFMI"
+        :lowTempo="lowTempo"
+        :fastTempo="fastTempo"
       />
       <div>Trip setting goes here</div>
     </div>
@@ -15,9 +19,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import GoogleMaps from "../googleMaps/GoogleMaps.vue";
-import Profile from "../common/Profile.vue";
+import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
+import Profile from "@/components/common/Profile.vue";
 import { ref } from "vue";
 
 export default {
@@ -28,11 +31,15 @@ export default {
   },
   setup() {
     const name = ref("Jan");
-    const surname = ref("Kowalski");
+    const lastname = ref("Kowalski");
     const weight = ref(86);
     const height = ref(180);
+    const BMI = ref(23.42);
+    const FFMI = ref();
+    const lowTempo = ref(0.3);
+    const fastTempo = ref(0.9);
 
-    return { name, surname, weight, height };
+    return { name, lastname, weight, height, BMI, FFMI, lowTempo, fastTempo };
   },
 };
 </script>

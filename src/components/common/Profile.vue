@@ -27,49 +27,32 @@
         <p class="font-medium text-5xl break-all">
           {{ name }}
         </p>
-        <p class="text-2xl break-all">{{ surname }}</p>
+        <p class="text-2xl break-all">{{ lastname }}</p>
       </div>
     </div>
-    <div class="flex flex-col p-2">
-      <p class="">Podstawowe informacje:</p>
-      <p>
-        Waga: <span class="font-semibold">{{ weight }} kg</span>
-      </p>
-      <p>
-        Wzrost: <span class="font-semibold">{{ height }} cm</span>
-      </p>
-      <p>
-        BMI: <span class="font-semibold">{{ getBMI }}</span>
-      </p>
-      <p>
-        FFMI:
-        <span class="font-semibold">{{ getFFMI }} kg/m<sup>2</sup></span>
-      </p>
-    </div>
-    <div class="infoContainer p-2">
-      <p class="">Spalasz:</p>
-      <p>
-        Wolno: <span class="font-semibold">{{ getLowTemp }} kg/h</span>
-      </p>
-      <p>
-        Szybko: <span class="font-semibold">{{ getFastTemp }} kg/h</span>
-      </p>
-    </div>
+    <UserStats
+      :weight="weight"
+      :height="height"
+      :BMI="BMI"
+      :FFMI="FFMI"
+      :lowTempo="lowTempo"
+      :fastTempo="fastTempo"
+    />
   </div>
 </template>
 
 <script>
-import { computed } from "vue";
-import Avatar from "./Avatar.vue";
+import Avatar from "@/components/common/Avatar.vue";
+import UserStats from "@/components/common/UserStats.vue";
 
 export default {
-  components: { Avatar },
+  components: { Avatar, UserStats },
   props: {
     name: {
       String,
       required: true,
     },
-    surname: {
+    lastname: {
       String,
       required: true,
     },
@@ -81,37 +64,29 @@ export default {
       Number,
       required: true,
     },
-    lowtemp: {
+    BMI: {
       Number,
       required: true,
     },
-    fasttemp: {
+    FFMI: {
+      Number,
+      default: "",
+    },
+    lowTempo: {
+      Number,
+      required: true,
+    },
+    fastTempo: {
       Number,
       required: true,
     },
   },
-  extend: {
-    wordBreak: ["hover", "focus"],
-  },
-  setup(props) {
-    const getName = computed(() => props.name.capitalize);
-    const getBMI = computed(() =>
-      (props.weight / Math.pow(props.height, 2)).toFixed(2)
-    );
-    const getFFMI = computed(() => (props.weight * 0.83).toFixed(2));
-    const getLowTemp = computed(() => (props.weight * 0.005).toFixed(2));
-    const getFastTemp = computed(() => (props.weight * 0.005 + 0.5).toFixed(2));
-
+  setup() {
     function buttonFunction() {
       console.log("Add modal here...");
     }
 
     return {
-      getName,
-      getBMI,
-      getFFMI,
-      getLowTemp,
-      getFastTemp,
       buttonFunction,
     };
   },
