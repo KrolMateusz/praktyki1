@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="
-      fixed
-      z-50
-      top-0
-      left-0
-      bg-black bg-opacity-60
-      h-screen
-      w-screen
-      text-base
-    "
-  >
+  <div class="fixed z-50 top-0 left-0 bg-black bg-opacity-60 h-screen w-screen">
     <div class="flex justify-center items-center w-full h-full">
       <form @submit="checkForm" class="flex flex-col justify-between bg-white">
         <div class="flex justify-between m-5">
@@ -26,18 +15,18 @@
         </div>
         <div class="flex flex-col items-center mx-12">
           <text-input
-            classes="relative w-full mb-14"
+            classes="relative w-full mb-10"
             label="Imię"
             v-model:value="name"
           >
             <Error
               :message="errors.name"
-              classes="absolute -bottom-12"
+              classes="absolute -bottom-7"
               v-if="errors.name"
             />
           </text-input>
           <text-input
-            classes="relative w-full mb-14"
+            classes="relative w-full mb-12"
             label="Nazwisko"
             v-model:value="lastname"
           >
@@ -90,7 +79,7 @@
             v-model:selected="weightUnit"
           />
         </div>
-        <button class="border border-black mx-12 my-6">Zapisz</button>
+        <Button class="border border-black mx-12 my-6" label="Zapisz" />
       </form>
     </div>
   </div>

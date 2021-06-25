@@ -7,7 +7,7 @@
       :type="type"
       :min="min"
       @input="updateValue"
-      class="border border-solid border-black rounded-sm w-full"
+      class="border border-solid border-black rounded-sm w-full px-2"
     />
     <slot />
   </div>
