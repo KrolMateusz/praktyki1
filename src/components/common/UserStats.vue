@@ -31,18 +31,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
-    weight: {
-      Number,
-      required: true,
-    },
-    height: {
-      Number,
-      required: true,
-    },
     BMI: {
       Number,
       required: true,
@@ -62,10 +54,12 @@ export default {
   },
   setup() {
     const store = useStore();
-    const weightUnit = ref(store.getters.getWeightUnit);
-    const heightUnit = ref(store.getters.getHeightUnit);
+    const weight = computed(() => store.getters.getWeight);
+    const height = computed(() => store.getters.getHeight);
+    const weightUnit = computed(() => store.getters.getWeightUnit);
+    const heightUnit = computed(() => store.getters.getHeightUnit);
 
-    return { weightUnit, heightUnit };
+    return { weightUnit, heightUnit, weight, height };
   },
 };
 </script>
