@@ -2,7 +2,7 @@
   <nav class="px-40 py-8 relative bg-main">
     <ul class="flex">
       <Link
-        v-for="route in routeValues"
+        v-for="route in routes"
         :key="route.name"
         :to="route.path"
         :name="route.name"
