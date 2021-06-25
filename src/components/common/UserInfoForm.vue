@@ -95,7 +95,7 @@ export default {
     RadioGroup,
     TextInput,
   },
-  setup() {
+  setup(props, { emit }) {
     const store = useStore();
     const name = ref(store.getters.getName);
     const lastname = ref(store.getters.getLastname);
@@ -154,7 +154,10 @@ export default {
       if (!weight.value) {
         errors.value.weight = "Waga jest wymagana";
       }
-      if (Object.keys(errors.value).length === 0) setUser();
+      if (Object.keys(errors.value).length === 0) {
+        setUser();
+        emit("closeModal");
+      }
     };
     const hideModal = () => store.commit("HIDE_MODAL");
     const setUser = () =>
