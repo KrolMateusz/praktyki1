@@ -159,7 +159,6 @@ export default {
         emit("closeModal");
       }
     };
-    const hideModal = () => store.commit("HIDE_MODAL");
     const setUser = () =>
       store.commit("SET_USER", {
         name: name.value,
@@ -182,7 +181,6 @@ export default {
       weightRadioOptions,
       errors,
       checkForm,
-      hideModal,
       setUser,
     };
   },
