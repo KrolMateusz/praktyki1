@@ -12,13 +12,13 @@
     </p>
     <p v-if="FFMI">
       FFMI:
-      <span v-if="FFMI" class="font-semibold"
+      <span class="font-semibold" v-if="FFMI"
         >{{ FFMI }} {{ weightUnit }}<sup>2</sup></span
       >
     </p>
   </div>
   <div class="infoContainer p-2">
-    <p class="">Spalasz:</p>
+    <p>Spalasz:</p>
     <p>
       Wolno:
       <span class="font-semibold">{{ lowTempo }} {{ weightUnit }}/h</span>

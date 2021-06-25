@@ -2,7 +2,6 @@
   <div class="container">
     <div class="grid grid-cols-12 items-center">
       <Profile
-        class="col-span-3"
         :name="name"
         :lastname="lastname"
         :weight="weight"
@@ -11,6 +10,7 @@
         :FFMI="FFMI"
         :lowTempo="lowTempo"
         :fastTempo="fastTempo"
+        class="col-span-3"
       />
       <div>Trip setting goes here</div>
     </div>
@@ -19,9 +19,9 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
 import Profile from "@/components/common/Profile.vue";
-import { ref } from "vue";
 
 export default {
   name: "Home",
@@ -35,7 +35,7 @@ export default {
     const weight = ref(86);
     const height = ref(180);
     const BMI = ref(23.42);
-    const FFMI = ref();
+    const FFMI = ref(null);
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
 

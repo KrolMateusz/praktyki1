@@ -18,8 +18,8 @@
           Edit profile
         </p>
         <Avatar
-          @click="buttonFunction"
           :firstName="name"
+          @click="buttonFunction"
           class="group-hover:opacity-50"
         />
       </div>

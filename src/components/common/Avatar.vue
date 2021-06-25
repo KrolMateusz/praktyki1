@@ -1,13 +1,12 @@
 <template>
   <div class="relative w-24 h-24">
     <img
-      v-if="getImage"
       :src="getImage"
       alt="Your avatar"
       class="w-24 h-24 rounded-full"
+      v-if="getImage"
     />
     <div
-      v-else
       class="
         w-24
         h-24
@@ -20,6 +19,7 @@
         text-6xl text-white
         uppercase
       "
+      v-else
     >
       {{ getName }}
     </div>
