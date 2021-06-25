@@ -80,7 +80,7 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
-import Avatar from "@/components/Avatar";
+import Avatar from "@/components/common/Avatar";
 import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
