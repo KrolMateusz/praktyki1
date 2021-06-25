@@ -55,8 +55,4 @@ export default {
 };
 </script>
 
-<style>
-.isActive {
-  display: block;
-}
-</style>
+<style></style>
