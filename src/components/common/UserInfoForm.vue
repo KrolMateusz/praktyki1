@@ -187,11 +187,7 @@ export default {
       };
       reader.readAsDataURL(e.target.files[0]);
     };
-    const clearAvatar = () => {
-      file.value = null;
-      console.log(image.value);
-      image.value = "";
-    };
+    const clearAvatar = () => (image.value = "");
 
     return {
       file,
