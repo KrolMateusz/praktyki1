@@ -1,12 +1,32 @@
 <template>
-  <form @submit="checkForm" class="flex flex-col justify-between px-14 py-14">
+  <form
+    @submit.prevent="checkForm"
+    class="flex flex-col justify-between px-14 py-14"
+  >
     <div class="flex justify-between items-center mb-5">
       <Avatar :first-name="name" :img-path="image" />
       <div class="flex flex-col justify-between h-24">
-        <input @change="uploadImage" ref="file" type="file" hidden />
-        <Button @click="fireInput" label="Wrzuć awatar" class="h-10 ml-8" />
+        <label
+          class="
+            flex
+            justify-center
+            items-center
+            bg-main
+            rounded-sm
+            text-white
+            font-normal
+            py-1
+            px-10
+            text-base
+            h-10
+            ml-8
+          "
+        >
+          Wrzuć awatar
+          <input @change="uploadImage" ref="file" type="file" hidden />
+        </label>
         <Button
-          @click="clearAvatar"
+          @click.prevent="clearAvatar"
           label="Usuń awatar"
           class="h-10 ml-8"
           is-warning
@@ -103,14 +123,13 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore();
-    const file = ref(null);
-    const image = ref(null);
     const name = ref(store.getters.getName);
     const lastname = ref(store.getters.getLastname);
     const height = ref(store.getters.getHeight);
     const weight = ref(store.getters.getWeight);
     const heightUnit = ref(store.getters.getHeightUnit);
     const weightUnit = ref(store.getters.getWeightUnit);
+    const image = ref(store.getters.getImage);
     const heightRadioOptions = [
       {
         value: "m",
@@ -145,9 +164,8 @@ export default {
       return actualBMI.toFixed(1);
     };
 
-    const checkForm = (e) => {
+    const checkForm = () => {
       errors.value = {};
-      e.preventDefault();
       if (!/^\D{2,}$/.test(name.value) || !name.value) {
         errors.value.name =
           "Imię musi posiadać co najmniej 2 litery i żadnych cyfr";
@@ -175,9 +193,9 @@ export default {
         heightUnit: heightUnit.value,
         weight: weight.value,
         weightUnit: weightUnit.value,
+        image: image.value,
         BMI: calculateBMI(),
       });
-    const fireInput = () => file.value.click();
     const uploadImage = (e) => {
       const reader = new FileReader();
       if (!e.target.files[0]) return;
@@ -190,7 +208,6 @@ export default {
     const clearAvatar = () => (image.value = "");
 
     return {
-      file,
       image,
       name,
       lastname,
@@ -203,7 +220,6 @@ export default {
       errors,
       checkForm,
       setUser,
-      fireInput,
       uploadImage,
       clearAvatar,
     };
