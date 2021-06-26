@@ -12,7 +12,6 @@
     </div>
     <GoogleMaps />
   </div>
-  <button @click="openModal">OPEN MODAL</button>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
