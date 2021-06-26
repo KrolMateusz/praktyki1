@@ -19,7 +19,7 @@
             group-hover:opacity-100
           "
         >
-          Edit profile
+          Edytuj profil
         </p>
       </div>
       <div class="flex flex-col justify-center ml-3">

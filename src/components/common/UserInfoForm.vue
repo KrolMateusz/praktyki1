@@ -20,6 +20,7 @@
             text-base
             h-10
             ml-8
+            cursor-pointer
           "
         >
           Wrzuć awatar
