@@ -1,10 +1,16 @@
 <template>
   <form @submit="checkForm" class="flex flex-col justify-between px-14 py-14">
     <div class="flex justify-between items-center mb-5">
-      <Avatar :first-name="name" />
+      <Avatar :first-name="name" :img-path="image" />
       <div class="flex flex-col justify-between h-24">
-        <Button label="Wrzuć awatar" class="h-10 ml-8" />
-        <Button label="Usuń awatar" class="h-10 ml-8" is-warning />
+        <input @change="uploadImage" ref="file" type="file" hidden />
+        <Button @click="fireInput" label="Wrzuć awatar" class="h-10 ml-8" />
+        <Button
+          @click="clearAvatar"
+          label="Usuń awatar"
+          class="h-10 ml-8"
+          is-warning
+        />
       </div>
     </div>
     <div class="flex flex-col items-center">
@@ -97,6 +103,8 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore();
+    const file = ref(null);
+    const image = ref(null);
     const name = ref(store.getters.getName);
     const lastname = ref(store.getters.getLastname);
     const height = ref(store.getters.getHeight);
@@ -169,8 +177,25 @@ export default {
         weightUnit: weightUnit.value,
         BMI: calculateBMI(),
       });
+    const fireInput = () => file.value.click();
+    const uploadImage = (e) => {
+      const reader = new FileReader();
+      if (!e.target.files[0]) return;
+      reader.onload = () => {
+        image.value = reader.result;
+        e.target.value = "";
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    };
+    const clearAvatar = () => {
+      file.value = null;
+      console.log(image.value);
+      image.value = "";
+    };
 
     return {
+      file,
+      image,
       name,
       lastname,
       height,
@@ -182,6 +207,9 @@ export default {
       errors,
       checkForm,
       setUser,
+      fireInput,
+      uploadImage,
+      clearAvatar,
     };
   },
 };
