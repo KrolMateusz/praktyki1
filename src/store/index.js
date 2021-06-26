@@ -12,6 +12,7 @@ const store = createStore({
       weight: null,
       heightUnit: "cm",
       weightUnit: "kg",
+      image: "",
       BMI: null,
       FFMI: null,
     },
@@ -34,6 +35,9 @@ const store = createStore({
     },
     getWeightUnit(state) {
       return state.user.weightUnit;
+    },
+    getImage(state) {
+      return state.user.image;
     },
     getBMI(state) {
       return state.user.BMI;
