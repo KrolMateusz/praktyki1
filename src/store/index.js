@@ -12,6 +12,8 @@ const store = createStore({
       weight: null,
       heightUnit: "cm",
       weightUnit: "kg",
+      BMI: null,
+      FFMI: null,
     },
   },
   getters: {
@@ -32,6 +34,10 @@ const store = createStore({
     },
     getWeightUnit(state) {
       return state.user.weightUnit;
+    },
+    getBMI(state) {
+      console.log(state.user.BMI);
+      return state.user.BMI;
     },
   },
   mutations: {

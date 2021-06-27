@@ -124,8 +124,21 @@ export default {
       },
     ];
     const errors = ref({});
+    const calculateBMI = () => {
+      let actualHeight = height.value;
+      let actualWeight = weight.value;
+      if (heightUnit.value === "cm") {
+        actualHeight = height.value / 100;
+      }
+      if (weightUnit.value === "lbs") {
+        actualWeight = weight.value * 0.454;
+      }
+      const actualBMI = actualWeight / actualHeight ** 2;
+      return actualBMI.toFixed(1);
+    };
 
     const checkForm = (e) => {
+      console.log(calculateBMI());
       errors.value = {};
       e.preventDefault();
       if (!/^\D{2,}$/.test(name.value) || !name.value) {
@@ -153,6 +166,7 @@ export default {
         heightUnit: heightUnit.value,
         weight: weight.value,
         weightUnit: weightUnit.value,
+        BMI: calculateBMI(),
       });
 
     return {
