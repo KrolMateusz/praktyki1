@@ -30,13 +30,7 @@
         <p class="text-2xl break-all">{{ lastname }}</p>
       </div>
     </div>
-    <UserStats
-      :weight="weight"
-      :height="height"
-      :FFMI="FFMI"
-      :lowTempo="lowTempo"
-      :fastTempo="fastTempo"
-    />
+    <UserStats :FFMI="FFMI" :lowTempo="lowTempo" :fastTempo="fastTempo" />
   </div>
 </template>
 

@@ -36,7 +36,6 @@ const store = createStore({
       return state.user.weightUnit;
     },
     getBMI(state) {
-      console.log(state.user.BMI);
       return state.user.BMI;
     },
   },

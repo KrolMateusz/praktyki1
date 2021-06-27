@@ -138,7 +138,6 @@ export default {
     };
 
     const checkForm = (e) => {
-      console.log(calculateBMI());
       errors.value = {};
       e.preventDefault();
       if (!/^\D{2,}$/.test(name.value) || !name.value) {
