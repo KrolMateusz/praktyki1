@@ -33,7 +33,6 @@
     <UserStats
       :weight="weight"
       :height="height"
-      :BMI="BMI"
       :FFMI="FFMI"
       :lowTempo="lowTempo"
       :fastTempo="fastTempo"
@@ -50,10 +49,6 @@ import UserStats from "@/components/common/UserStats.vue";
 export default {
   components: { Avatar, UserStats },
   props: {
-    BMI: {
-      Number,
-      required: true,
-    },
     FFMI: {
       Number,
       default: "",
@@ -71,8 +66,6 @@ export default {
     const store = useStore();
     const name = computed(() => store.getters.getName);
     const lastname = computed(() => store.getters.getLastname);
-    const height = computed(() => store.getters.getHeight);
-    const weight = computed(() => store.getters.getWeight);
     const actualName = computed({
       get() {
         return this.actualName;
@@ -82,7 +75,7 @@ export default {
       },
     });
 
-    return { name, lastname, height, weight, actualName };
+    return { name, lastname, actualName };
   },
 };
 </script>

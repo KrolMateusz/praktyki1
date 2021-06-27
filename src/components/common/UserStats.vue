@@ -35,10 +35,6 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
-    BMI: {
-      Number,
-      required: true,
-    },
     FFMI: {
       Number,
       default: "",
@@ -58,8 +54,9 @@ export default {
     const height = computed(() => store.getters.getHeight);
     const weightUnit = computed(() => store.getters.getWeightUnit);
     const heightUnit = computed(() => store.getters.getHeightUnit);
+    const BMI = computed(() => store.getters.getBMI);
 
-    return { weightUnit, heightUnit, weight, height };
+    return { weightUnit, heightUnit, weight, height, BMI };
   },
 };
 </script>
