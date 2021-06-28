@@ -1,6 +1,7 @@
 <template>
   <div class="flex justify-center w-screen">
-    <div ref="googleMap" class="w-1/2 visible h-160">Google API goes here</div>
+    <div ref="googleMap" class="w-1/2 visible h-160"></div>
+    <input ref="input" type="text" />
   </div>
 </template>
 
@@ -10,13 +11,8 @@ import { onMounted, ref } from "vue";
 export default {
   name: "GoogleMaps",
   setup() {
-    const mapOptions = {
-      center: { lat: 51.107883, lng: 17.038538 },
-      zoom: 14,
-      region: "PL",
-    };
-
     const googleMap = ref(null);
+    const input = ref(null);
     const loader = new Loader({
       apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       libraries: ["drawing", "geometry", "places", "visualization"],
@@ -26,6 +22,11 @@ export default {
 
     onMounted(async () => {
       try {
+        const mapOptions = {
+          center: { lat: 51.107883, lng: 17.038538 },
+          zoom: 14,
+          region: "PL",
+        };
         const { maps } = await loader.load();
         new maps.Map(googleMap.value, mapOptions);
       } catch (e) {
@@ -33,7 +34,7 @@ export default {
       }
     });
 
-    return { googleMap };
+    return { googleMap, input };
   },
 };
 </script>
