@@ -47,7 +47,7 @@ export default {
     },
     step: {
       type: String,
-      default: "",
+      default: null,
     },
   },
   setup(props, { emit }) {

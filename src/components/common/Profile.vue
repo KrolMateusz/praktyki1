@@ -3,7 +3,11 @@
     <div class="flex w-full p-2">
       <div @click="$emit('openModal')" class="group relative cursor-pointer">
         <div class="relative bg-black rounded-full hover:opacity-100">
-          <Avatar :firstName="name" class="group-hover:opacity-30" />
+          <Avatar
+            :firstName="name"
+            :img-path="image"
+            class="group-hover:opacity-30"
+          />
         </div>
         <p
           class="
@@ -59,8 +63,9 @@ export default {
     const store = useStore();
     const name = computed(() => store.getters.getName);
     const lastname = computed(() => store.getters.getLastname);
+    const image = computed(() => store.getters.getImage);
 
-    return { name, lastname };
+    return { name, lastname, image };
   },
 };
 </script>

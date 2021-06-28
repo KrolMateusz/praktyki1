@@ -188,7 +188,6 @@ export default {
       });
     const uploadImage = (e) => {
       const reader = new FileReader();
-      if (!e.target.files[0]) return;
       reader.onload = () => {
         image.value = reader.result;
         e.target.value = "";
