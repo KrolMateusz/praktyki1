@@ -14,6 +14,7 @@ export default function () {
   const messages = {
     alpha: "Pole powinno zawierać tylko litery",
     decimal: "Pole powinno zawierać liczby",
+    fixed: (length) => `Pole powinno zawierać do ${length} miejsc po przecinku`,
     minLength: "Pole powinno zawierać przynajmniej 2 litery",
     minValue: "Pole powinno zawierać dodatnie wartości",
     required: "Pole jest wymagane",
@@ -25,6 +26,10 @@ export default function () {
   const weight = ref(store.getters.getWeight);
   const heightUnit = ref(store.getters.getHeightUnit);
   const weightUnit = ref(store.getters.getWeightUnit);
+  const maxDecimalPlaces = (length) => (value) =>
+    new RegExp(
+      `^\\s*-?(\\d+(\\.\\d{1,${length}})?|\\.\\d{1,${length}})\\s*$`
+    ).test(value);
   const rules = computed(() => ({
     name: {
       alpha: helpers.withMessage(messages.alpha, alpha),
@@ -40,11 +45,19 @@ export default function () {
       decimal: helpers.withMessage(messages.decimal, decimal),
       minValue: helpers.withMessage(messages.minValue, minValue(0)),
       required: helpers.withMessage(messages.required, required),
+      maxDecimalPlaces: helpers.withMessage(
+        messages.fixed(2),
+        maxDecimalPlaces(2)
+      ),
     },
     weight: {
       decimal: helpers.withMessage(messages.decimal, decimal),
       minValue: helpers.withMessage(messages.minValue, minValue(0)),
       required: helpers.withMessage(messages.required, required),
+      maxDecimalPlaces: helpers.withMessage(
+        messages.fixed(1),
+        maxDecimalPlaces(1)
+      ),
     },
     heightUnit: { required: helpers.withMessage(messages.required, required) },
     weightUnit: { required: helpers.withMessage(messages.required, required) },

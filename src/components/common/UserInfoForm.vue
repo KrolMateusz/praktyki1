@@ -2,6 +2,7 @@
   <form
     @submit.prevent="checkForm(setUser)"
     class="flex flex-col justify-between px-14 py-14 w-160"
+    novalidate
   >
     <div class="flex justify-between items-center mb-5">
       <Avatar :first-name="name" :img-path="image" />
@@ -48,49 +49,55 @@
         />
       </text-input>
     </div>
-    <div class="flex justify-center mb-11 text-base">
-      <text-input
-        classes="relative w-24"
-        type="number"
-        label="Wzrost"
-        min="0"
-        step="0.01"
-        v-model:value.number="height"
-      >
+    <div class="flex flex-col items-center mb-2 text-base">
+      <div class="w-80 flex justify-between items-center">
+        <text-input
+          classes="w-32"
+          type="number"
+          label="Wzrost"
+          min="0"
+          step="0.01"
+          v-model:value.number="height"
+        />
+        <radio-group
+          :options="heightRadioOptions"
+          classes="ml-8 w-36"
+          group-label="Jednostka"
+          v-model:selected="heightUnit"
+        />
+      </div>
+      <div class="w-80">
         <Error
           :message="v$.height.$errors[0].$message"
-          classes="absolute w-max -bottom-10"
+          classes="w-full"
           v-if="v$.height.$error"
         />
-      </text-input>
-      <radio-group
-        :options="heightRadioOptions"
-        classes="ml-8 w-36"
-        group-label="Jednostka"
-        v-model:selected="heightUnit"
-      />
+      </div>
     </div>
-    <div class="flex justify-center items-end mb-11 text-base">
-      <text-input
-        classes="relative w-24"
-        type="number"
-        label="Waga"
-        min="0"
-        step="0.1"
-        v-model:value.number="weight"
-      >
+    <div class="flex flex-col items-center mb-4 text-base">
+      <div class="w-80 flex justify-between items-center">
+        <text-input
+          classes="w-32"
+          type="number"
+          label="Waga"
+          min="0"
+          step="0.1"
+          v-model:value.number="weight"
+        />
+        <radio-group
+          :options="weightRadioOptions"
+          classes="relative ml-8 w-36"
+          group-label="Jednostka"
+          v-model:selected="weightUnit"
+        />
+      </div>
+      <div class="w-80">
         <Error
           :message="v$.weight.$errors[0].$message"
-          classes="absolute w-max -bottom-10"
+          classes="w-full"
           v-if="v$.weight.$error"
         />
-      </text-input>
-      <radio-group
-        :options="weightRadioOptions"
-        classes="relative ml-8 w-36"
-        group-label="Jednostka"
-        v-model:selected="weightUnit"
-      />
+      </div>
     </div>
     <Button class="border border-black mt-6" label="Zapisz" />
   </form>
