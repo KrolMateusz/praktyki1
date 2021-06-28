@@ -2,7 +2,9 @@
   <div class="max-w-sm">
     <div class="flex w-full p-2">
       <div @click="$emit('openModal')" class="group relative cursor-pointer">
-        <div class="relative bg-black rounded-full hover:opacity-100">
+        <div
+          class="relative group-hover:bg-black rounded-full hover:opacity-100"
+        >
           <Avatar
             :firstName="name"
             :img-path="image"
