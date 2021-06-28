@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center w-screen">
-    <div ref="googleMap" class="w-1/2 visible h-96">Google API goes here</div>
+    <div ref="googleMap" class="w-1/2 visible h-160">Google API goes here</div>
   </div>
 </template>
 
@@ -11,24 +11,23 @@ export default {
   name: "GoogleMaps",
   setup() {
     const mapOptions = {
-      center: {
-        lat: 54,
-        lng: 12,
-      },
-      zoom: 4,
+      center: { lat: 51.107883, lng: 17.038538 },
+      zoom: 14,
+      region: "PL",
     };
 
     const googleMap = ref(null);
     const loader = new Loader({
-      apiKey: "AIzaSyBk1HDrCjUgyVzhowW85akNFEVwygpNNDY",
-      libraries: ["places"],
+      apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+      libraries: ["drawing", "geometry", "places", "visualization"],
       version: "weekly",
+      region: "PL",
     });
 
     onMounted(async () => {
       try {
-        const google = await loader.load();
-        new google.maps.Map(googleMap.value, mapOptions);
+        const { maps } = await loader.load();
+        new maps.Map(googleMap.value, mapOptions);
       } catch (e) {
         console.log(e);
       }

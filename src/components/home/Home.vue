@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container text-base">
     <div class="grid grid-cols-12 items-center">
       <Profile
         :FFMI="FFMI"
