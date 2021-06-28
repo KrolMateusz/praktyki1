@@ -19,28 +19,28 @@ const store = createStore({
   },
   getters: {
     getName(state) {
-      return state.user.name;
+      return state.user?.name;
     },
     getLastname(state) {
-      return state.user.lastname;
+      return state.user?.lastname;
     },
     getHeight(state) {
-      return state.user.height;
+      return state.user?.height;
     },
     getWeight(state) {
-      return state.user.weight;
+      return state.user?.weight;
     },
     getHeightUnit(state) {
-      return state.user.heightUnit;
+      return state.user?.heightUnit;
     },
     getWeightUnit(state) {
-      return state.user.weightUnit;
+      return state.user?.weightUnit;
     },
     getImage(state) {
-      return state.user.image;
+      return state.user?.image;
     },
     getBMI(state) {
-      return state.user.BMI;
+      return state.user?.BMI;
     },
   },
   mutations: {
