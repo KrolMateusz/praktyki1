@@ -1,7 +1,6 @@
 <template>
   <div class="flex justify-center w-screen">
     <div ref="googleMap" class="w-1/2 visible h-160"></div>
-    <input ref="input" type="text" />
   </div>
 </template>
 
@@ -12,7 +11,6 @@ export default {
   name: "GoogleMaps",
   setup() {
     const googleMap = ref(null);
-    const input = ref(null);
     const loader = new Loader({
       apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       libraries: ["drawing", "geometry", "places", "visualization"],
@@ -34,7 +32,7 @@ export default {
       }
     });
 
-    return { googleMap, input };
+    return { googleMap };
   },
 };
 </script>
