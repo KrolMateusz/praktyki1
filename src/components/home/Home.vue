@@ -1,23 +1,52 @@
 <template>
   <div class="container">
-    <div class="grid grid-cols-2 items-center">
-      <div>Profile goes here</div>
-      <div><Button label="it works" /></div>
+    <div class="grid grid-cols-12 items-center">
+      <Profile
+        :FFMI="FFMI"
+        :lowTempo="lowTempo"
+        :fastTempo="fastTempo"
+        @open-modal="openModal"
+        class="col-span-3"
+      />
+      <div>Trip setting goes here</div>
     </div>
     <GoogleMaps />
   </div>
+  <Modal @close-modal="closeModal" v-if="isModalOpened">
+    <span class="absolute top-3 left-4">Edytuj profil</span>
+    <user-info-form @close-modal="closeModal" />
+  </Modal>
 </template>
 
 <script>
-// @ is an alias to /src
-import GoogleMaps from "../googleMaps/GoogleMaps.vue";
-import Button from "../common/Button";
+import { ref } from "vue";
+import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
+import Profile from "@/components/common/Profile.vue";
+import Modal from "@/components/common/Modal";
+import UserInfoForm from "@/components/common/UserInfoForm";
 
 export default {
   name: "Home",
   components: {
-    Button,
     GoogleMaps,
+    Profile,
+    Modal,
+    UserInfoForm,
+  },
+  setup() {
+    const FFMI = ref(0);
+    const lowTempo = ref(0.3);
+    const fastTempo = ref(0.9);
+    const isModalOpened = ref(false);
+
+    return {
+      FFMI,
+      lowTempo,
+      fastTempo,
+      isModalOpened,
+      openModal: () => (isModalOpened.value = true),
+      closeModal: () => (isModalOpened.value = false),
+    };
   },
 };
 </script>
