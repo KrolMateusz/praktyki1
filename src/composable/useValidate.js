@@ -11,6 +11,13 @@ import {
 } from "@vuelidate/validators";
 
 export default function () {
+  const messages = {
+    alpha: "Pole powinno zawierać tylko litery",
+    decimal: "Pole powinno zawierać liczby",
+    minLength: "Pole powinno zawierać przynajmniej 2 litery",
+    minValue: "Pole powinno zawierać dodatnie wartości",
+    required: "Pole jest wymagane",
+  };
   const store = useStore();
   const name = ref(store.getters.getName);
   const lastname = ref(store.getters.getLastname);
@@ -20,27 +27,27 @@ export default function () {
   const weightUnit = ref(store.getters.getWeightUnit);
   const rules = computed(() => ({
     name: {
-      alpha: helpers.withMessage("MOJA ALPHA", alpha),
-      minLength: minLength(2),
-      required,
+      alpha: helpers.withMessage(messages.alpha, alpha),
+      minLength: helpers.withMessage(messages.minLength, minLength(2)),
+      required: helpers.withMessage(messages.required, required),
     },
     lastname: {
-      alpha,
-      minLength: minLength(2),
-      required,
+      alpha: helpers.withMessage(messages.alpha, alpha),
+      minLength: helpers.withMessage(messages.minLength, minLength(2)),
+      required: helpers.withMessage(messages.required, required),
     },
     height: {
-      decimal,
-      minValue: minValue(0),
-      required,
+      decimal: helpers.withMessage(messages.decimal, decimal),
+      minValue: helpers.withMessage(messages.minValue, minValue(0)),
+      required: helpers.withMessage(messages.required, required),
     },
     weight: {
-      decimal,
-      minValue: minValue(0),
-      required,
+      decimal: helpers.withMessage(messages.decimal, decimal),
+      minValue: helpers.withMessage(messages.minValue, minValue(0)),
+      required: helpers.withMessage(messages.required, required),
     },
-    heightUnit: { required },
-    weightUnit: { required },
+    heightUnit: { required: helpers.withMessage(messages.required, required) },
+    weightUnit: { required: helpers.withMessage(messages.required, required) },
   }));
 
   const v$ = useVuelidate(rules, {
