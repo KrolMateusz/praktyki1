@@ -31,21 +31,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   props: {
-    weight: {
-      Number,
-      required: true,
-    },
-    height: {
-      Number,
-      required: true,
-    },
-    BMI: {
-      Number,
-      required: true,
-    },
     FFMI: {
       Number,
       default: "",
@@ -60,11 +49,14 @@ export default {
     },
   },
   setup() {
-    //Jednostki będą zaciągane z modala, czekam na merge do deva, zebym mogł zaciagnac
-    const weightUnit = ref("kg");
-    const heightUnit = ref("cm");
+    const store = useStore();
+    const weight = computed(() => store.getters.getWeight);
+    const height = computed(() => store.getters.getHeight);
+    const weightUnit = computed(() => store.getters.getWeightUnit);
+    const heightUnit = computed(() => store.getters.getHeightUnit);
+    const BMI = computed(() => store.getters.getBMI);
 
-    return { weightUnit, heightUnit };
+    return { weightUnit, heightUnit, weight, height, BMI };
   },
 };
 </script>
