@@ -6,6 +6,7 @@
       :value="value"
       :type="type"
       :min="min"
+      :step="step"
       @input="updateValue"
       class="border border-solid border-black rounded-sm w-full px-2"
     />
@@ -41,6 +42,10 @@ export default {
       default: "",
     },
     classes: {
+      type: String,
+      default: "",
+    },
+    step: {
       type: String,
       default: "",
     },

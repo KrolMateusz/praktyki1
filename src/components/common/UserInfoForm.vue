@@ -1,11 +1,11 @@
 <template>
   <form
     @submit.prevent="checkForm"
-    class="flex flex-col justify-between px-14 py-14"
+    class="flex flex-col justify-between px-14 py-14 w-160"
   >
     <div class="flex justify-between items-center mb-5">
       <Avatar :first-name="name" :img-path="image" />
-      <div class="flex flex-col justify-between h-24">
+      <div class="flex flex-col justify-between h-24 text-base">
         <label
           class="
             flex
@@ -17,9 +17,8 @@
             font-normal
             py-1
             px-10
-            text-base
-            h-10
-            ml-8
+            h-11
+            ml-12
             cursor-pointer
           "
         >
@@ -29,46 +28,47 @@
         <Button
           @click.prevent="clearAvatar"
           label="Usuń awatar"
-          class="h-10 ml-8"
+          class="h-11 ml-12"
           is-warning
         />
       </div>
     </div>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center text-base">
       <text-input
-        classes="relative w-full mb-10"
+        classes="relative w-full mb-24"
         label="Imię"
         v-model:value="name"
       >
         <Error
           :message="errors.name"
-          classes="absolute -bottom-7"
+          classes="absolute -bottom-22"
           v-if="errors.name"
         />
       </text-input>
       <text-input
-        classes="relative w-full mb-12"
+        classes="relative w-full mb-24"
         label="Nazwisko"
         v-model:value="lastname"
       >
         <Error
           :message="errors.lastname"
-          classes="absolute -bottom-12"
+          classes="absolute -bottom-22"
           v-if="errors.lastname"
         />
       </text-input>
     </div>
-    <div class="flex justify-center mb-8">
+    <div class="flex justify-center mb-11 text-base">
       <text-input
         classes="relative w-24"
         type="number"
         label="Wzrost"
         min="0"
+        step="0.1"
         v-model:value.number="height"
       >
         <Error
           :message="errors.height"
-          classes="absolute w-max -bottom-6"
+          classes="absolute w-max -bottom-10"
           v-if="errors.height"
         />
       </text-input>
@@ -79,17 +79,18 @@
         v-model:selected="heightUnit"
       />
     </div>
-    <div class="flex justify-center items-end mb-8">
+    <div class="flex justify-center items-end mb-11 text-base">
       <text-input
         classes="relative w-24"
         type="number"
         label="Waga"
         min="0"
+        step="0.1"
         v-model:value.number="weight"
       >
         <Error
           :message="errors.weight"
-          classes="absolute w-max -bottom-6"
+          classes="absolute w-max -bottom-10"
           v-if="errors.weight"
         />
       </text-input>
