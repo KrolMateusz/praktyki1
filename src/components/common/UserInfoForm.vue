@@ -177,8 +177,8 @@ export default {
     };
     const setUser = () =>
       store.commit("SET_USER", {
-        name: name.value,
-        lastname: lastname.value,
+        name: name.value.charAt(0).toUpperCase(),
+        lastname: lastname.value.charAt(0).toUpperCase(),
         height: height.value,
         heightUnit: heightUnit.value,
         weight: weight.value,
