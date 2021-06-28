@@ -54,7 +54,7 @@
         type="number"
         label="Wzrost"
         min="0"
-        step="0.1"
+        step="0.01"
         v-model:value.number="height"
       >
         <Error
