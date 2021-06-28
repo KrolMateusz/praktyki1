@@ -1,12 +1,16 @@
 <template>
   <div class="max-w-sm">
     <div class="flex w-full p-2">
-      <div class="group relative">
+      <div @click="$emit('openModal')" class="group relative cursor-pointer">
+        <div class="relative bg-black rounded-full hover:opacity-100">
+          <Avatar :firstName="name" class="group-hover:opacity-30" />
+        </div>
         <p
           class="
-            w-24
-            text-center
+            cursor-pointer
             opacity-0
+            w-24
+            text-center text-white
             absolute
             top-1/2
             left-1/2
@@ -17,11 +21,6 @@
         >
           Edit profile
         </p>
-        <Avatar
-          :firstName="name"
-          @click="$emit('openModal')"
-          class="group-hover:opacity-50"
-        />
       </div>
       <div class="flex flex-col justify-center ml-3">
         <p class="font-medium text-5xl break-all">
