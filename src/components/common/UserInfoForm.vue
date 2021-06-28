@@ -34,27 +34,15 @@
       </div>
     </div>
     <div class="flex flex-col items-center text-base">
-      <text-input
-        classes="relative w-full mb-24"
-        label="Imię"
-        v-model:value="name"
-      >
-        <Error
-          :message="errors.name"
-          classes="absolute -bottom-22"
-          v-if="errors.name"
-        />
+      <text-input classes="w-full mb-4" label="Imię" v-model:value="name">
+        <Error :message="errors.name" v-if="errors.name" />
       </text-input>
       <text-input
-        classes="relative w-full mb-24"
+        classes="w-full mb-4"
         label="Nazwisko"
         v-model:value="lastname"
       >
-        <Error
-          :message="errors.lastname"
-          classes="absolute -bottom-22"
-          v-if="errors.lastname"
-        />
+        <Error :message="errors.lastname" v-if="errors.lastname" />
       </text-input>
     </div>
     <div class="flex justify-center mb-11 text-base">
