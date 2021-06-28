@@ -59,16 +59,8 @@ export default {
     const store = useStore();
     const name = computed(() => store.getters.getName);
     const lastname = computed(() => store.getters.getLastname);
-    const actualName = computed({
-      get() {
-        return this.actualName;
-      },
-      set(value) {
-        this.actualName = value;
-      },
-    });
 
-    return { name, lastname, actualName };
+    return { name, lastname };
   },
 };
 </script>
