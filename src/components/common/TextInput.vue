@@ -6,6 +6,7 @@
       :value="value"
       :type="type"
       :min="min"
+      :step="step"
       @input="updateValue"
       class="border border-solid border-black rounded-sm w-full px-2"
     />
@@ -44,6 +45,10 @@ export default {
       type: String,
       default: "",
     },
+    step: {
+      type: String,
+      default: null,
+    },
   },
   setup(props, { emit }) {
     const updateValue = (event) => {
@@ -56,3 +61,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+</style>

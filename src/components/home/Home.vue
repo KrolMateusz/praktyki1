@@ -2,24 +2,19 @@
   <div class="container">
     <div class="grid grid-cols-12 items-center">
       <Profile
-        :name="name"
-        :lastname="lastname"
-        :weight="weight"
-        :height="height"
-        :BMI="BMI"
         :FFMI="FFMI"
         :lowTempo="lowTempo"
         :fastTempo="fastTempo"
+        @open-modal="openModal"
         class="col-span-3"
       />
       <div>Trip setting goes here</div>
     </div>
     <GoogleMaps />
   </div>
-  <button @click="openModal">OPEN MODAL</button>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
-    <user-info-form />
+    <user-info-form @close-modal="closeModal" />
   </Modal>
 </template>
 
@@ -39,22 +34,12 @@ export default {
     UserInfoForm,
   },
   setup() {
-    const name = ref("Jan");
-    const lastname = ref("Kowalski");
-    const weight = ref(86);
-    const height = ref(180);
-    const BMI = ref(23.42);
-    const FFMI = ref(null);
+    const FFMI = ref(0);
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
 
     return {
-      name,
-      lastname,
-      weight,
-      height,
-      BMI,
       FFMI,
       lowTempo,
       fastTempo,
