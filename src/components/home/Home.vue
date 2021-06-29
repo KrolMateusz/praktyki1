@@ -39,8 +39,8 @@ export default {
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
     const center = ref({
-      lat: 51.107883,
-      lng: 17.038538,
+      lat: 40.73061,
+      lng: -73.935242,
     });
 
     return {

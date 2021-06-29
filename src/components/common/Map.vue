@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       platform: null,
-      apikey: "{Replace this with HERE API KEY}",
+      apikey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       // You can get the API KEY from developer.here.com
     };
   },
