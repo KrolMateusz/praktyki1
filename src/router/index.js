@@ -20,4 +20,12 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (!routes.filter((route) => route.path === to.path)[0]) {
+    next({ path: "/" });
+  } else {
+    next();
+  }
+});
+
 export default router;
