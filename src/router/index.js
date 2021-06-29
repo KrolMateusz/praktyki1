@@ -21,7 +21,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!routes.filter((route) => route.path === to.path)[0]) {
+  if (!routes.some((route) => route.path === to.path)) {
     next({ path: "/" });
   } else {
     next();

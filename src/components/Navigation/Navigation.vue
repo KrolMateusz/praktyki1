@@ -41,9 +41,9 @@ export default {
     const linkPosition = ref(0);
     const dot = ref(null);
 
-    const setDotPosition = (value) => {
+    const setDotPosition = (link) => {
       linkPosition.value =
-        value.offsetLeft + value.offsetWidth / 2 - dot.value.offsetWidth / 2;
+        link.offsetLeft + link.offsetWidth / 2 - dot.value.offsetWidth / 2;
     };
 
     return {

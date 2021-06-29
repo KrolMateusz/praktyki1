@@ -37,7 +37,7 @@ export default {
     const FFMI = ref(0);
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
-    const isModalOpened = ref(true);
+    const isModalOpened = ref(false);
 
     return {
       FFMI,
