@@ -1,81 +1,105 @@
 <template>
-  <form @submit="checkForm" class="flex flex-col justify-between px-14 py-14">
+  <form
+    @submit.prevent="checkForm(setUser)"
+    class="flex flex-col justify-between px-14 py-14 w-160"
+    novalidate
+  >
     <div class="flex justify-between items-center mb-5">
-      <Avatar :first-name="name" />
-      <div class="flex flex-col justify-between h-24">
-        <Button label="Wrzuć awatar" class="h-10 ml-8" />
-        <Button label="Usuń awatar" class="h-10 ml-8" is-warning />
+      <Avatar :first-name="name" :img-path="image" />
+      <div class="flex flex-col justify-between h-24 text-base">
+        <label
+          class="
+            flex
+            justify-center
+            items-center
+            bg-main
+            rounded-sm
+            text-white
+            font-normal
+            py-1
+            px-10
+            h-11
+            ml-12
+            cursor-pointer
+          "
+        >
+          Wrzuć awatar
+          <input @change="uploadImage" ref="file" type="file" hidden />
+        </label>
+        <Button
+          @click.prevent="clearAvatar"
+          label="Usuń awatar"
+          class="h-11 ml-12"
+          is-warning
+        />
       </div>
     </div>
-    <div class="flex flex-col items-center">
-      <text-input
-        classes="relative w-full mb-10"
-        label="Imię"
-        v-model:value="name"
-      >
-        <Error
-          :message="errors.name"
-          classes="absolute -bottom-7"
-          v-if="errors.name"
-        />
+    <div class="flex flex-col items-center text-base">
+      <text-input classes="w-full mb-4" label="Imię" v-model:value="name">
+        <Error :message="v$.name.$errors[0].$message" v-if="v$.name.$error" />
       </text-input>
       <text-input
-        classes="relative w-full mb-12"
+        classes="w-full mb-4"
         label="Nazwisko"
         v-model:value="lastname"
       >
         <Error
-          :message="errors.lastname"
-          classes="absolute -bottom-12"
-          v-if="errors.lastname"
+          :message="v$.lastname.$errors[0].$message"
+          v-if="v$.lastname.$error"
         />
       </text-input>
     </div>
-    <div class="flex justify-center mb-8">
-      <text-input
-        classes="relative w-24"
-        type="number"
-        step="0.01"
-        label="Wzrost"
-        min="0"
-        v-model:value.number="height"
-      >
-        <Error
-          :message="errors.height"
-          classes="absolute w-max -bottom-6"
-          v-if="errors.height"
+    <div class="flex flex-col items-center mb-2 text-base">
+      <div class="w-80 flex justify-between items-center">
+        <text-input
+          classes="w-32"
+          type="number"
+          label="Wzrost"
+          min="0"
+          step="0.01"
+          v-model:value.number="height"
         />
-      </text-input>
-      <radio-group
-        :options="heightRadioOptions"
-        @change="dynamicHeight"
-        classes="ml-8 w-36"
-        group-label="Jednostka"
-        v-model:selected="heightUnit"
-      />
+        <radio-group
+          :options="heightRadioOptions"
+          @change="dynamicHeight"
+          classes="ml-8 w-36"
+          group-label="Jednostka"
+          v-model:selected="heightUnit"
+        />
+      </div>
+      <div class="w-80">
+        <Error
+          :message="v$.height.$errors[0].$message"
+          classes="w-full"
+          v-if="v$.height.$error"
+        />
+      </div>
     </div>
-    <div class="flex justify-center items-end mb-8">
-      <text-input
-        classes="relative w-24"
-        type="number"
-        label="Waga"
-        step="0.01"
-        min="0"
-        v-model:value.number="weight"
-      >
-        <Error
-          :message="errors.weight"
-          classes="absolute w-max -bottom-6"
-          v-if="errors.weight"
+    <div class="flex flex-col items-center mb-4 text-base">
+      <div class="w-80 flex justify-between items-center">
+        <text-input
+          classes="w-32"
+          type="number"
+          label="Waga"
+          min="0"
+          step="0.1"
+          v-model:value.number="weight"
         />
-      </text-input>
-      <radio-group
-        :options="weightRadioOptions"
-        @change="dynamicWeight"
-        classes="relative ml-8 w-36"
-        group-label="Jednostka"
-        v-model:selected="weightUnit"
-      />
+        <radio-group
+          :options="weightRadioOptions"
+          @change="dynamicWeight"
+          classes="relative ml-8 w-36"
+          group-label="Jednostka"
+          v-model:selected="weightUnit"
+        />
+      </div>
+      <div class="w-80">
+        <Error
+          :message="v$.weight.$errors[0].$message"
+          classes="w-full"
+          v-if="v$.weight.$error"
+        />
+      </div>
     </div>
     <Button class="border border-black mt-6" label="Zapisz" />
   </form>
@@ -84,12 +108,12 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
+import useValidate from "@/composable/useValidate";
 import Avatar from "@/components/common/Avatar";
 import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
-
 export default {
   name: "Modal",
   components: {
@@ -101,12 +125,17 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore();
-    const name = ref(store.getters.getName);
-    const lastname = ref(store.getters.getLastname);
-    const height = ref(store.getters.getHeight);
-    const weight = ref(store.getters.getWeight);
-    const heightUnit = ref(store.getters.getHeightUnit);
-    const weightUnit = ref(store.getters.getWeightUnit);
+    const {
+      name,
+      lastname,
+      height,
+      weight,
+      heightUnit,
+      weightUnit,
+      v$,
+      checkForm,
+    } = useValidate();
+    const image = ref(store.getters.getImage);
     const heightRadioOptions = [
       {
         value: "m",
@@ -127,8 +156,18 @@ export default {
         label: "lbs",
       },
     ];
-    const errors = ref({});
-
+    const calculateBMI = () => {
+      let actualHeight = height.value;
+      let actualWeight = weight.value;
+      if (heightUnit.value === "cm") {
+        actualHeight = height.value / 100;
+      }
+      if (weightUnit.value === "lbs") {
+        actualWeight = weight.value * 0.454;
+      }
+      const actualBMI = actualWeight / actualHeight ** 2;
+      return actualBMI.toFixed(1);
+    };
     const dynamicHeight = () => {
       if (heightUnit.value === "cm") {
         height.value *= 100;
@@ -145,40 +184,30 @@ export default {
         weight.value = (weight.value * 2.205).toFixed(1);
       }
     };
-    const checkForm = (e) => {
-      errors.value = {};
-      e.preventDefault();
-      if (!/^\D{2,}$/.test(name.value) || !name.value) {
-        errors.value.name =
-          "Imię musi posiadać co najmniej 2 litery i żadnych cyfr";
-      }
-      if (!/^\D{2,}$/.test(lastname.value) || !lastname.value) {
-        errors.value.lastname =
-          "Nazwisko musi posiadać co najmniej 2 litery i żadnych cyfr";
-      }
-      if (!height.value) {
-        errors.value.height = "Wzrost jest wymagany";
-      }
-      if (!weight.value) {
-        errors.value.weight = "Waga jest wymagana";
-      }
-      if (Object.keys(errors.value).length === 0) {
-        setUser();
-        emit("closeModal");
-      }
-    };
-    const hideModal = () => store.commit("HIDE_MODAL");
-    const setUser = () =>
+    const setUser = () => {
+      emit("closeModal");
       store.commit("SET_USER", {
-        name: name.value,
-        lastname: lastname.value,
+        name: name.value.charAt(0).toUpperCase() + name.value.slice(1),
+        lastname: lastname.value.charAt(0).toUpperCase() + name.value.slice(1),
         height: height.value,
         heightUnit: heightUnit.value,
         weight: weight.value,
         weightUnit: weightUnit.value,
+        image: image.value,
+        BMI: calculateBMI(),
       });
-
+    };
+    const uploadImage = (e) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        image.value = reader.result;
+        e.target.value = "";
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    };
+    const clearAvatar = () => (image.value = "");
     return {
+      image,
       name,
       lastname,
       height,
@@ -187,10 +216,11 @@ export default {
       weightUnit,
       heightRadioOptions,
       weightRadioOptions,
-      errors,
+      v$,
       checkForm,
-      hideModal,
       setUser,
+      uploadImage,
+      clearAvatar,
       dynamicHeight,
       dynamicWeight,
     };

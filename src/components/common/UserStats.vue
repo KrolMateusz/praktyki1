@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col p-2">
-    <p class="">Podstawowe informacje:</p>
-    <div class="pl-7">
+    <p class="pt-3">Podstawowe informacje:</p>
+    <div class="pl-7 pt-1">
       <p>
         Waga: <span class="font-semibold">{{ weight }} {{ weightUnit }}</span>
       </p>
@@ -21,7 +21,7 @@
   </div>
   <div class="infoContainer p-2">
     <p>Spalasz:</p>
-    <div class="pl-7 pt-3">
+    <div class="pl-7 pt-1">
       <p>
         Wolno:
         <span class="font-semibold">{{ lowTempo }} {{ weightUnit }}/h</span>
