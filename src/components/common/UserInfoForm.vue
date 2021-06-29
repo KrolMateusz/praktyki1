@@ -1,89 +1,75 @@
 <template>
-  <form
-    @submit.prevent="checkForm"
-    class="flex flex-col justify-between px-14 py-14 w-160"
-  >
+  <form @submit="checkForm" class="flex flex-col justify-between px-14 py-14">
     <div class="flex justify-between items-center mb-5">
-      <Avatar :first-name="name" :img-path="image" />
-      <div class="flex flex-col justify-between h-24 text-base">
-        <label
-          class="
-            flex
-            justify-center
-            items-center
-            bg-main
-            rounded-sm
-            text-white
-            font-normal
-            py-1
-            px-10
-            h-11
-            ml-12
-            cursor-pointer
-          "
-        >
-          Wrzuć awatar
-          <input @change="uploadImage" ref="file" type="file" hidden />
-        </label>
-        <Button
-          @click.prevent="clearAvatar"
-          label="Usuń awatar"
-          class="h-11 ml-12"
-          is-warning
-        />
+      <Avatar :first-name="name" />
+      <div class="flex flex-col justify-between h-24">
+        <Button label="Wrzuć awatar" class="h-10 ml-8" />
+        <Button label="Usuń awatar" class="h-10 ml-8" is-warning />
       </div>
     </div>
-    <div class="flex flex-col items-center text-base">
-      <text-input classes="w-full mb-4" label="Imię" v-model:value="name">
-        <Error :message="errors.name" v-if="errors.name" />
+    <div class="flex flex-col items-center">
+      <text-input
+        classes="relative w-full mb-10"
+        label="Imię"
+        v-model:value="name"
+      >
+        <Error
+          :message="errors.name"
+          classes="absolute -bottom-7"
+          v-if="errors.name"
+        />
       </text-input>
       <text-input
-        classes="w-full mb-4"
+        classes="relative w-full mb-12"
         label="Nazwisko"
         v-model:value="lastname"
       >
-        <Error :message="errors.lastname" v-if="errors.lastname" />
+        <Error
+          :message="errors.lastname"
+          classes="absolute -bottom-12"
+          v-if="errors.lastname"
+        />
       </text-input>
     </div>
-    <div class="flex justify-center mb-11 text-base">
+    <div class="flex justify-center mb-8">
       <text-input
         classes="relative w-24"
         type="number"
         label="Wzrost"
         min="0"
-        step="0.1"
         v-model:value.number="height"
-      >
+        ><span>{{ heightUnit }}</span>
         <Error
           :message="errors.height"
-          classes="absolute w-max -bottom-10"
+          classes="absolute w-max -bottom-6"
           v-if="errors.height"
         />
       </text-input>
       <radio-group
         :options="heightRadioOptions"
+        @change="dynamicHeight"
         classes="ml-8 w-36"
         group-label="Jednostka"
         v-model:selected="heightUnit"
       />
     </div>
-    <div class="flex justify-center items-end mb-11 text-base">
+    <div class="flex justify-center items-end mb-8">
       <text-input
         classes="relative w-24"
         type="number"
         label="Waga"
         min="0"
-        step="0.1"
         v-model:value.number="weight"
       >
         <Error
           :message="errors.weight"
-          classes="absolute w-max -bottom-10"
+          classes="absolute w-max -bottom-6"
           v-if="errors.weight"
         />
       </text-input>
       <radio-group
         :options="weightRadioOptions"
+        @change="dynamicWeight"
         classes="relative ml-8 w-36"
         group-label="Jednostka"
         v-model:selected="weightUnit"
@@ -111,7 +97,25 @@ export default {
     RadioGroup,
     TextInput,
   },
-  setup(props, { emit }) {
+  setup() {
+    const dynamicHeight = () => {
+      if (heightUnit.value === "cm") {
+        height.value *= 100;
+      }
+      if (heightUnit.value === "m") {
+        height.value /= 100;
+      }
+    };
+    const dynamicWeight = () => {
+      if (weightUnit.value === "kg") {
+        weight.value = (weight.value * 2.205).toFixed(1);
+        console.log(weight.value);
+      }
+      if (weightUnit.value === "lbs") {
+        weight.value = (weight.value * 0.454).toFixed(1);
+        console.log(weight.value);
+      }
+    };
     const store = useStore();
     const name = ref(store.getters.getName);
     const lastname = ref(store.getters.getLastname);
@@ -119,7 +123,6 @@ export default {
     const weight = ref(store.getters.getWeight);
     const heightUnit = ref(store.getters.getHeightUnit);
     const weightUnit = ref(store.getters.getWeightUnit);
-    const image = ref(store.getters.getImage);
     const heightRadioOptions = [
       {
         value: "m",
@@ -141,21 +144,10 @@ export default {
       },
     ];
     const errors = ref({});
-    const calculateBMI = () => {
-      let actualHeight = height.value;
-      let actualWeight = weight.value;
-      if (heightUnit.value === "cm") {
-        actualHeight = height.value / 100;
-      }
-      if (weightUnit.value === "lbs") {
-        actualWeight = weight.value * 0.454;
-      }
-      const actualBMI = actualWeight / actualHeight ** 2;
-      return actualBMI.toFixed(1);
-    };
 
-    const checkForm = () => {
+    const checkForm = (e) => {
       errors.value = {};
+      e.preventDefault();
       if (!/^\D{2,}$/.test(name.value) || !name.value) {
         errors.value.name =
           "Imię musi posiadać co najmniej 2 litery i żadnych cyfr";
@@ -170,34 +162,20 @@ export default {
       if (!weight.value) {
         errors.value.weight = "Waga jest wymagana";
       }
-      if (Object.keys(errors.value).length === 0) {
-        setUser();
-        emit("closeModal");
-      }
+      if (Object.keys(errors.value).length === 0) setUser();
     };
+    const hideModal = () => store.commit("HIDE_MODAL");
     const setUser = () =>
       store.commit("SET_USER", {
-        name: name.value.charAt(0).toUpperCase() + name.value.slice(1),
-        lastname: lastname.value.charAt(0).toUpperCase() + name.value.slice(1),
+        name: name.value,
+        lastname: lastname.value,
         height: height.value,
         heightUnit: heightUnit.value,
         weight: weight.value,
         weightUnit: weightUnit.value,
-        image: image.value,
-        BMI: calculateBMI(),
       });
-    const uploadImage = (e) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        image.value = reader.result;
-        e.target.value = "";
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    };
-    const clearAvatar = () => (image.value = "");
 
     return {
-      image,
       name,
       lastname,
       height,
@@ -208,9 +186,10 @@ export default {
       weightRadioOptions,
       errors,
       checkForm,
+      hideModal,
       setUser,
-      uploadImage,
-      clearAvatar,
+      dynamicHeight,
+      dynamicWeight,
     };
   },
 };
