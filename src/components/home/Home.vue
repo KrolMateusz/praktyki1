@@ -10,7 +10,7 @@
       />
       <div>Trip setting goes here</div>
     </div>
-    <GoogleMaps />
+    <Map :center="center" />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
@@ -20,17 +20,17 @@
 
 <script>
 import { ref } from "vue";
-import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
-import Profile from "@/components/common/Profile.vue";
+import Map from "@/components/common/Map";
 import Modal from "@/components/common/Modal";
+import Profile from "@/components/common/Profile.vue";
 import UserInfoForm from "@/components/common/UserInfoForm";
 
 export default {
   name: "Home",
   components: {
-    GoogleMaps,
-    Profile,
+    Map,
     Modal,
+    Profile,
     UserInfoForm,
   },
   setup() {
@@ -38,12 +38,17 @@ export default {
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
+    const center = ref({
+      lat: 51.107883,
+      lng: 17.038538,
+    });
 
     return {
       FFMI,
       lowTempo,
       fastTempo,
       isModalOpened,
+      center,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };
