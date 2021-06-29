@@ -16,7 +16,7 @@
       @open-modal="openModal"
       class="col-start-1 col-span-2"
     />
-    <Map class="col-span-6" />
+    <Map class="col-span-6" :center="{ lat: 51.107883, lng: 17.038538 }" />
     <Form class="col-end-13 col-span-4"></Form>
     <div class="container">
       <div class="grid grid-cols-12 items-center"></div>
