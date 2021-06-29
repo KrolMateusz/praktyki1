@@ -5,7 +5,7 @@
       :placeholder="placeholder"
       :value="value"
       @input="updateValue"
-      class="border border-solid border-black rounded-sm max-w-full"
+      class="border border-solid border-black rounded-sm w-full"
       type="text"
     />
   </div>

@@ -8,7 +8,7 @@
 
 <script>
 import HelloWorld from "@/components/HelloWorld.vue";
-import RadioButtons from "@/common/RadioButtons";
+import RadioButtons from "@/components/common/RadioButtons";
 
 export default {
   name: "Home",
