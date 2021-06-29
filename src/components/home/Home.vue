@@ -1,16 +1,26 @@
 <template>
-  <div class="container">
-    <div class="grid grid-cols-12 items-center">
-      <Profile
-        :FFMI="FFMI"
-        :lowTempo="lowTempo"
-        :fastTempo="fastTempo"
-        @open-modal="openModal"
-        class="col-span-3"
-      />
-      <div>Trip setting goes here</div>
+  <div
+    class="
+      space-x-5
+      justify-items-center
+      mx-20
+      my-10
+      grid grid grid-cols-12
+      items-center
+    "
+  >
+    <Profile
+      :FFMI="FFMI"
+      :lowTempo="lowTempo"
+      :fastTempo="fastTempo"
+      @open-modal="openModal"
+      class="col-start-1 col-span-2"
+    />
+    <GoogleMaps class="col-start-3 col-span-6" />
+    <Form class="col-end-13 col-span-4"></Form>
+    <div class="container">
+      <div class="grid grid-cols-12 items-center"></div>
     </div>
-    <GoogleMaps />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
@@ -24,6 +34,7 @@ import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
 import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
+import Form from "@/components/Form.vue";
 
 export default {
   name: "Home",
@@ -32,6 +43,7 @@ export default {
     Profile,
     Modal,
     UserInfoForm,
+    Form,
   },
   setup() {
     const FFMI = ref(0);

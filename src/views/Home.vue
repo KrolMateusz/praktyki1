@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <RadioButtons />
   </div>
 </template>
 
 <script>
+import RadioButtons from "@/components/common/RadioButtons";
+
 export default {
   name: "Home",
+  components: {
+    RadioButtons,
+  },
 };
 </script>
