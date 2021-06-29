@@ -14,6 +14,15 @@ module.exports = {
         large: "2rem",
         xl: "4.8rem",
       },
+      spacing: {
+        22: "5.5rem",
+        120: "30rem",
+        128: "32rem",
+        136: "34rem",
+        144: "38rem",
+        152: "38rem",
+        160: "40rem",
+      },
     },
   },
   variants: {
