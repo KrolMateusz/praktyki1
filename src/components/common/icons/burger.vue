@@ -28,11 +28,5 @@
 </template>
 
 <script>
-export default {
-  setup() {
-    return {
-      value: "burger",
-    };
-  },
-};
+export default {};
 </script>

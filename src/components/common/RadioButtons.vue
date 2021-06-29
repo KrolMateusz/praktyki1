@@ -1,9 +1,9 @@
 <template>
   <div class="flex justify-between max-w-100">
-    <label :key="index" v-for="(icon, index) in iconsArr">
+    <label :key="icon.id" v-for="icon in iconsArr">
       <input
         class="opacity-0 absolute"
-        v-bind:value="icon.value"
+        :value="icon.value"
         name="icon"
         type="radio"
         @change="$emit('update:modelValue', $event.target.value)"

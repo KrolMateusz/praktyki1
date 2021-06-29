@@ -10,7 +10,7 @@
         <p class="font-bold">Punkt docelowy:</p>
         <p>{{ endLocation }}</p>
       </div>
-      <Button label="Szukaj!" />
+      <Button type="submit" label="Szukaj!" />
     </div>
   </form>
 </template>
@@ -45,14 +45,17 @@ export default {
 
     const icons = {
       pizza: {
+        id: 1,
         icon: PizzaIcon,
         value: 1000,
       },
       burger: {
+        id: 2,
         icon: BurgerIcon,
         value: 600,
       },
       kebab: {
+        id: 3,
         icon: KebabIcon,
         value: 800,
       },
