@@ -16,7 +16,7 @@
       @open-modal="openModal"
       class="col-start-1 col-span-2"
     />
-    <GoogleMaps class="col-start-3 col-span-6" />
+    <Map class="col-span-6" />
     <Form class="col-end-13 col-span-4"></Form>
     <div class="container">
       <div class="grid grid-cols-12 items-center"></div>
@@ -30,7 +30,7 @@
 
 <script>
 import { ref } from "vue";
-import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
+import Map from "@/components/common/Map.vue";
 import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
@@ -39,7 +39,7 @@ import Form from "@/components/Form.vue";
 export default {
   name: "Home",
   components: {
-    GoogleMaps,
+    Map,
     Profile,
     Modal,
     UserInfoForm,
