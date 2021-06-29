@@ -61,6 +61,7 @@
         />
         <radio-group
           :options="heightRadioOptions"
+          @change="dynamicHeight"
           classes="ml-8 w-36"
           group-label="Jednostka"
           v-model:selected="heightUnit"
@@ -86,6 +87,7 @@
         />
         <radio-group
           :options="weightRadioOptions"
+          @change="dynamicWeight"
           classes="relative ml-8 w-36"
           group-label="Jednostka"
           v-model:selected="weightUnit"
@@ -112,7 +114,6 @@ import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
-
 export default {
   name: "Modal",
   components: {
@@ -167,7 +168,22 @@ export default {
       const actualBMI = actualWeight / actualHeight ** 2;
       return actualBMI.toFixed(1);
     };
-
+    const dynamicHeight = () => {
+      if (heightUnit.value === "cm") {
+        height.value *= 100;
+      }
+      if (heightUnit.value === "m") {
+        height.value /= 100;
+      }
+    };
+    const dynamicWeight = () => {
+      if (weightUnit.value === "kg") {
+        weight.value = (weight.value * 0.454).toFixed(1);
+      }
+      if (weightUnit.value === "lbs") {
+        weight.value = (weight.value * 2.205).toFixed(1);
+      }
+    };
     const setUser = () => {
       emit("closeModal");
       store.commit("SET_USER", {
@@ -190,7 +206,6 @@ export default {
       reader.readAsDataURL(e.target.files[0]);
     };
     const clearAvatar = () => (image.value = "");
-
     return {
       image,
       name,
@@ -206,6 +221,8 @@ export default {
       setUser,
       uploadImage,
       clearAvatar,
+      dynamicHeight,
+      dynamicWeight,
     };
   },
 };
