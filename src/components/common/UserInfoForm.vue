@@ -35,10 +35,11 @@
       <text-input
         classes="relative w-24"
         type="number"
+        step="0.01"
         label="Wzrost"
         min="0"
         v-model:value.number="height"
-        ><span>{{ heightUnit }}</span>
+      >
         <Error
           :message="errors.height"
           classes="absolute w-max -bottom-6"
@@ -58,6 +59,7 @@
         classes="relative w-24"
         type="number"
         label="Waga"
+        step="0.01"
         min="0"
         v-model:value.number="weight"
       >
@@ -97,25 +99,7 @@ export default {
     RadioGroup,
     TextInput,
   },
-  setup() {
-    const dynamicHeight = () => {
-      if (heightUnit.value === "cm") {
-        height.value *= 100;
-      }
-      if (heightUnit.value === "m") {
-        height.value /= 100;
-      }
-    };
-    const dynamicWeight = () => {
-      if (weightUnit.value === "kg") {
-        weight.value = (weight.value * 2.205).toFixed(1);
-        console.log(weight.value);
-      }
-      if (weightUnit.value === "lbs") {
-        weight.value = (weight.value * 0.454).toFixed(1);
-        console.log(weight.value);
-      }
-    };
+  setup(props, { emit }) {
     const store = useStore();
     const name = ref(store.getters.getName);
     const lastname = ref(store.getters.getLastname);
@@ -145,6 +129,22 @@ export default {
     ];
     const errors = ref({});
 
+    const dynamicHeight = () => {
+      if (heightUnit.value === "cm") {
+        height.value *= 100;
+      }
+      if (heightUnit.value === "m") {
+        height.value /= 100;
+      }
+    };
+    const dynamicWeight = () => {
+      if (weightUnit.value === "kg") {
+        weight.value = (weight.value * 0.454).toFixed(1);
+      }
+      if (weightUnit.value === "lbs") {
+        weight.value = (weight.value * 2.205).toFixed(1);
+      }
+    };
     const checkForm = (e) => {
       errors.value = {};
       e.preventDefault();
@@ -162,7 +162,10 @@ export default {
       if (!weight.value) {
         errors.value.weight = "Waga jest wymagana";
       }
-      if (Object.keys(errors.value).length === 0) setUser();
+      if (Object.keys(errors.value).length === 0) {
+        setUser();
+        emit("closeModal");
+      }
     };
     const hideModal = () => store.commit("HIDE_MODAL");
     const setUser = () =>
