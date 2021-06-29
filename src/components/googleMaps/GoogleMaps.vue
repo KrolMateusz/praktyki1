@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { Loader } from "@googlemaps/js-api-loader";
 import { onMounted, ref } from "vue";
 export default {
@@ -28,12 +27,16 @@ export default {
         };
         const google = await loader.load();
         const map = new google.maps.Map(googleMap.value, mapOptions);
-        console.dir(map);
-        axios
-          .get(
-            `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum&key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`
-          )
-          .then((res) => console.dir(res));
+
+        const request = {
+          query: "Hala stulecia",
+          fields: ["name"],
+        };
+        const service = new google.maps.places.PlacesService(map);
+        service.findPlaceFromQuery(request, (results, status) => {
+          console.dir(results);
+          console.dir(status);
+        });
       } catch (e) {
         console.log(e);
       }
