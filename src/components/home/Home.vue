@@ -9,21 +9,18 @@
       items-center
     "
   >
-    <div class="col-start-1 col-span-2">Profile goes here</div>
+    <Profile
+      :FFMI="FFMI"
+      :lowTempo="lowTempo"
+      :fastTempo="fastTempo"
+      @open-modal="openModal"
+      class="col-start-1 col-span-2"
+    />
     <GoogleMaps class="col-start-3 col-span-6" />
     <Form class="col-end-13 col-span-4"></Form>
-  <div class="container">
-    <div class="grid grid-cols-12 items-center">
-      <Profile
-        :FFMI="FFMI"
-        :lowTempo="lowTempo"
-        :fastTempo="fastTempo"
-        @open-modal="openModal"
-        class="col-span-3"
-      />
-      <div>Trip setting goes here</div>
+    <div class="container">
+      <div class="grid grid-cols-12 items-center"></div>
     </div>
-    <GoogleMaps />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
@@ -62,7 +59,6 @@ export default {
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };
-
   },
 };
 </script>
