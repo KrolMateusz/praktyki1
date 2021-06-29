@@ -1,22 +1,22 @@
 <template>
-  <div class="relative w-24 h-24">
+  <div class="relative w-32 h-32">
     <img
       :src="getImage"
       alt="Your avatar"
-      class="w-24 h-24 rounded-full"
+      class="w-32 h-32 rounded-full"
       v-if="getImage"
     />
     <div
       class="
-        w-24
-        h-24
+        w-32
+        h-32
         relative
         flex
         justify-center
         items-center
         rounded-full
         bg-gray-500
-        text-6xl text-white
+        text-8xl text-white
         uppercase
       "
       v-else

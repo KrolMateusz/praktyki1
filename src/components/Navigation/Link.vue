@@ -1,6 +1,6 @@
 <template>
   <li ref="link">
-    <router-link ref="link" class="text-white text-3xl relative mr-20" :to="to">
+    <router-link ref="link" class="text-white text-3xl relative mx-10" :to="to">
       {{ name }}
     </router-link>
   </li>
@@ -24,7 +24,7 @@ export default {
     watchEffect(() => {
       const isActiveLink = activeLinkName.value === props.name;
       if (isActiveLink && link.value) {
-        emit("getLinkPosition", link.value.offsetLeft);
+        emit("getLinkPosition", link.value);
       }
     });
 
