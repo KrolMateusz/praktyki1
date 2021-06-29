@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex self-center justify-center">
     <div ref="mapContainer" class="w-220 h-144 bg-main"></div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
     const mapContainer = ref(null);
     const H = window.H;
 
-    const initalizeHereMap = (platform) => {
+    const initializeHereMap = (platform) => {
       const mapTypes = platform.createDefaultLayers();
 
       const map = new H.Map(mapContainer.value, mapTypes.vector.normal.map, {
@@ -38,7 +38,7 @@ export default {
       const platform = new H.service.Platform({
         apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       });
-      initalizeHereMap(platform);
+      initializeHereMap(platform);
     });
 
     return {
