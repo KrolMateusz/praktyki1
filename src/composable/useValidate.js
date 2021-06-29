@@ -28,7 +28,7 @@ export default function () {
   const weightUnit = ref(store.getters.getWeightUnit);
   const maxDecimalPlaces = (length) => (value) =>
     new RegExp(
-      `^\\s*-?(\\d+(\\.\\d{1,${length}})?|\\.\\d{1,${length}})\\s*$`
+      `^\\s*-?(\\d+(\\.\\d{0,${length}})?|\\.\\d{0,${length}})\\s*$`
     ).test(value);
   const rules = computed(() => ({
     name: {
