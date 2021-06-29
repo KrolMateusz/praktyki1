@@ -8,7 +8,7 @@
       @open-modal="openModal"
       class="col-start-1 col-end-4"
     />
-    <GoogleMaps class="col-start-4 col-end-9 border-2" />
+    <Map class="col-start-4 col-end-9 border-2" />
     <Form class="col-start-10 col-end-12" />
     <ResultList class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13" />
   </div>
@@ -21,7 +21,7 @@
 
 <script>
 import { ref } from "vue";
-import GoogleMaps from "@/components/googleMaps/GoogleMaps.vue";
+import Map from "@/components/common/Map.vue";
 import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
@@ -35,6 +35,7 @@ export default {
   components: {
     Charts,
     GoogleMaps,
+    Map,
     Profile,
     Modal,
     UserInfoForm,
