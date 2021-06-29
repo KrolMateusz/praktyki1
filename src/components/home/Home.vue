@@ -34,7 +34,6 @@ export default {
   name: "Home",
   components: {
     Charts,
-    GoogleMaps,
     Map,
     Profile,
     Modal,

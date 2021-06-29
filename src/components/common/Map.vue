@@ -20,7 +20,7 @@ export default {
       const mapTypes = platform.createDefaultLayers();
 
       const map = new H.Map(mapContainer.value, mapTypes.vector.normal.map, {
-        zoom: 10,
+        zoom: 14,
         center: props.center,
       });
 
