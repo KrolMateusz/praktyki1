@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col flex-nowrap w-full">
     <RadioButtons
+      :icons="icons"
       @change="$emit('update:modelValue', value)"
       v-model="value"
-      :icons="icons"
     />
   </div>
 </template>
