@@ -7,6 +7,7 @@
 
 <script>
 import { onMounted, ref } from "vue";
+import axios from "axios";
 
 export default {
   name: "Map",
@@ -61,37 +62,37 @@ export default {
     };
 
     const find = () => {
-      const H = window.H;
-      const platform = new H.service.Platform({
-        apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
-      });
-      const searchService = platform.getSearchService();
+      // const H = window.H;
 
       const distance = 2;
-      const cordLat = 51.117883;
-      const cordLng = 17.038538;
-      const cords = calculateCords({ lat: cordLat, lng: cordLng }, distance);
+      const originLat = 51.117883;
+      const originLng = 17.038538;
+      const cords = calculateCords(
+        { lat: originLat, lng: originLng },
+        distance
+      );
+      const createBrowseQueryUrls = ({ lat, lng }) =>
+        `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=800-057&circle:${lat},${lng};r=${
+          distance * 1000
+        }&limit=5&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
+      const createRouteQueryUrls = (restaurant) =>
+        `https://router.hereapi.com/v8/routes?transportMode=pedestrian&origin=${originLat},${originLng}&destination=${restaurant.position.lat},${restaurant.position.lng}&return=travelSummary&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
+      const browseUrls = cords.map(createBrowseQueryUrls);
 
-      cords.forEach((item) => {
-        searchService.browse(
-          {
-            at: `${item.lat},${item.lng}`,
-            foodTypes: "800-057",
-            in: `circle:${item.lat},${item.lng};r=${distance * 1000}`,
-            limit: 10,
-          },
-          (result) => {
-            console.dir(result.items);
-            const properCords = result.items.forEach((item) =>
-              console.log(item.position)
-            );
-            console.dir(properCords);
-            result.items.forEach((item) => {
-              map.value.addObject(new H.map.Marker(item.position));
-            });
-          },
-          alert
-        );
+      const fetchData = (url) => axios.get(url);
+      const browseActions = browseUrls.map(fetchData);
+      Promise.all(browseActions).then((result) => {
+        const restaurants = result.map((item) => item.data.items).flat();
+        const routeUrls = restaurants.map(createRouteQueryUrls);
+        const routeActions = routeUrls.map(fetchData);
+        Promise.all(routeActions).then((response) => {
+          console.dir(response);
+          const filteredRestaurants = response.filter(
+            ({ data }) =>
+              data.routes[0].sections[0].travelSummary.length >= distance * 1000
+          );
+          console.dir(filteredRestaurants);
+        });
       });
     };
 
