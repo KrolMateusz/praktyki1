@@ -49,16 +49,23 @@ export default {
         apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       });
       const service = platform.getSearchService();
-      service.discover(
+      service.browse(
         {
-          q: "pizza",
           at: "51.107883,17.038538",
+          foodTypes: "800-057",
+          in: "circle:51.107883,17.038538;r=8000",
+          limit: 100,
         },
         (result) => {
           // Add a marker for each location found
-          result.items.forEach((item) => {
+          console.dir(result.items);
+          const filteredItems = result.items.filter(
+            (item) => item.distance > 600
+          );
+          filteredItems.forEach((item) => {
             map.value.addObject(new H.map.Marker(item.position));
           });
+          console.dir(filteredItems);
         },
         alert
       );
