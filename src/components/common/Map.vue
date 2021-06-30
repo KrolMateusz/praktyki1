@@ -65,7 +65,7 @@ export default {
       const platform = new H.service.Platform({
         apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       });
-      const service = platform.getSearchService();
+      const searchService = platform.getSearchService();
 
       const distance = 2;
       const cordLat = 51.117883;
@@ -73,7 +73,7 @@ export default {
       const cords = calculateCords({ lat: cordLat, lng: cordLng }, distance);
 
       cords.forEach((item) => {
-        service.browse(
+        searchService.browse(
           {
             at: `${item.lat},${item.lng}`,
             foodTypes: "800-057",
@@ -82,8 +82,11 @@ export default {
           },
           (result) => {
             console.dir(result.items);
+            const properCords = result.items.forEach((item) =>
+              console.log(item.position)
+            );
+            console.dir(properCords);
             result.items.forEach((item) => {
-              console.log(item.position);
               map.value.addObject(new H.map.Marker(item.position));
             });
           },
