@@ -6,6 +6,7 @@
       style="height: 600px; width: 100%"
       ref="hereMap"
     ></div>
+    <button @click="find">SZUKAJ</button>
   </div>
 </template>
 
@@ -19,6 +20,8 @@ export default {
   data() {
     return {
       platform: null,
+      service: null,
+      map: null,
       apikey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
       // You can get the API KEY from developer.here.com
     };
@@ -29,6 +32,7 @@ export default {
       apikey: this.apikey,
     });
     this.platform = platform;
+    this.service = platform.getSearchService();
     this.initializeHereMap();
   },
   methods: {
@@ -41,20 +45,37 @@ export default {
       var maptypes = this.platform.createDefaultLayers();
 
       // Instantiate (and display) a map object:
-      var map = new H.Map(mapContainer, maptypes.vector.normal.map, {
+      this.map = new H.Map(mapContainer, maptypes.vector.normal.map, {
         zoom: 10,
         center: this.center,
         // center object { lat: 40.730610, lng: -73.935242 }
       });
 
-      addEventListener("resize", () => map.getViewPort().resize());
+      addEventListener("resize", () => this.map.getViewPort().resize());
 
       // add behavior control
-      new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+      new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 
       // add UI
-      H.ui.UI.createDefault(map, maptypes);
+      H.ui.UI.createDefault(this.map, maptypes);
       // End rendering the initial map
+    },
+
+    find() {
+      const H = window.H;
+      this.service.discover(
+        {
+          q: "pizza",
+          at: "51.107883,17.038538",
+        },
+        (result) => {
+          // Add a marker for each location found
+          result.items.forEach((item) => {
+            this.map.addObject(new H.map.Marker(item.position));
+          });
+        },
+        alert
+      );
     },
   },
 };
