@@ -1,26 +1,18 @@
 <template>
-  <div
-    class="
-      space-x-5
-      justify-items-center
-      mx-20
-      my-10
-      grid grid grid-cols-12
-      items-center
-    "
-  >
+  <div class="grid grid-cols-12 space-y-12 mx-10 my-10">
+    <ActivityButtons
+      class="col-start-4 col-span-4 mx-14"
+      v-model="activityOption"
+    ></ActivityButtons>
     <Profile
       :FFMI="FFMI"
       :lowTempo="lowTempo"
       :fastTempo="fastTempo"
       @open-modal="openModal"
-      class="col-start-1 col-span-2"
+      class="col-start-1 col-end-4"
     />
-    <GoogleMaps class="col-start-3 col-span-6" />
-    <Form class="col-end-13 col-span-4"></Form>
-    <div class="container">
-      <div class="grid grid-cols-12 items-center"></div>
-    </div>
+    <GoogleMaps class="col-start-4 col-end-9 border-2" />
+    <Form class="col-start-10 col-end-12"></Form>
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
@@ -35,6 +27,7 @@ import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
+import ActivityButtons from "@/components/common/ActivityButtons.vue";
 
 export default {
   name: "Home",
@@ -44,18 +37,21 @@ export default {
     Modal,
     UserInfoForm,
     Form,
+    ActivityButtons,
   },
   setup() {
     const FFMI = ref(0);
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
-    const isModalOpened = ref(true);
+    const isModalOpened = ref(false);
+    const activityOption = ref({ name: null, kcal: null });
 
     return {
       FFMI,
       lowTempo,
       fastTempo,
       isModalOpened,
+      activityOption,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };

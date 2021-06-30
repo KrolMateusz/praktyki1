@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" class="flex flex-col items-start">
+  <div :class="classes" class="flex flex-col items-start w-full">
     <label class="w-full font-medium">{{ label }}</label>
     <input
       :placeholder="placeholder"
