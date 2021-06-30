@@ -44,31 +44,60 @@ export default {
     });
 
     const find = () => {
+      const distance = 3;
+      const cordLat = 51.117883;
+      const cordLng = 17.038538;
       const H = window.H;
-      const platform = new H.service.Platform({
-        apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
-      });
-      const service = platform.getSearchService();
-      service.browse(
-        {
-          at: "51.107883,17.038538",
-          foodTypes: "800-057",
-          in: "circle:51.107883,17.038538;r=8000",
-          limit: 100,
-        },
-        (result) => {
-          // Add a marker for each location found
-          console.dir(result.items);
-          const filteredItems = result.items.filter(
-            (item) => item.distance > 600
-          );
-          filteredItems.forEach((item) => {
-            map.value.addObject(new H.map.Marker(item.position));
-          });
-          console.dir(filteredItems);
-        },
-        alert
+      map.value.addObject(new H.map.Marker({ lat: cordLat, lng: cordLng }));
+      map.value.addObject(
+        new H.map.Marker({
+          lat: cordLat - distance / 100,
+          lng: cordLng,
+        })
       );
+      map.value.addObject(
+        new H.map.Marker({
+          lat: cordLat + distance / 100,
+          lng: cordLng,
+        })
+      );
+      map.value.addObject(
+        new H.map.Marker({
+          lat: cordLat,
+          lng: cordLng - distance / 100,
+        })
+      );
+      map.value.addObject(
+        new H.map.Marker({
+          lat: cordLat,
+          lng: cordLng + distance / 100,
+        })
+      );
+      // const platform = new H.service.Platform({
+      //   apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+      // });
+      // const service = platform.getSearchService();
+      // service.browse(
+      //   {
+      //     at: "51.107883,17.038538",
+      //     foodTypes: "800-057",
+      //     in: "circle:51.107883,17.038538;r=8000",
+      //     limit: 100,
+      //   },
+      //   (result) => {
+      //     // Add a marker for each location found
+      //     console.dir(result.items);
+      //     const filteredItems = result.items.filter(
+      //       (item) => item.distance > 600
+      //     );
+      //     filteredItems.forEach((item) => {
+      //       console.log(item.position)
+      //       map.value.addObject(new H.map.Marker(item.position));
+      //     });
+      //     console.dir(filteredItems);
+      //   },
+      //   alert
+      // );
     };
 
     return {
