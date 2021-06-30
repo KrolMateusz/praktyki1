@@ -18,7 +18,6 @@ import { ref } from "vue";
 
 export default {
   name: "RadioButtons",
-  components: {},
   props: {
     icons: {
       type: Array,

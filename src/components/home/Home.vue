@@ -18,10 +18,8 @@
     />
     <GoogleMaps class="col-start-3 col-span-6" />
     <Form class="col-end-13 col-span-4"></Form>
-    <div class="container">
-      <div class="grid grid-cols-12 items-center"></div>
-    </div>
   </div>
+  <div class="m-20"><Charts /></div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
@@ -35,10 +33,12 @@ import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
+import Charts from "@/components/Charts/Charts.vue";
 
 export default {
   name: "Home",
   components: {
+    Charts,
     GoogleMaps,
     Profile,
     Modal,
