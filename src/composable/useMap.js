@@ -12,28 +12,19 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
 
   const calculateCords = (start, radiusInKm) => {
     const cords = [];
-    for (const distance of [
-      (distanceInKm + radiusInKm) / 100,
+    const distances = [
       -(distanceInKm + radiusInKm) / 100,
-    ]) {
-      cords.push(
-        {
-          lat: start.lat - distance,
-          lng: start.lng,
-        },
-        {
-          lat: start.lat,
-          lng: start.lng - distance,
-        },
-        {
-          lat: start.lat - distance,
-          lng: start.lng - distance,
-        },
-        {
-          lat: start.lat + distance,
-          lng: start.lng - distance,
-        }
-      );
+      0,
+      (distanceInKm + radiusInKm) / 100,
+    ];
+    for (const x of distances) {
+      for (const y of distances) {
+        if (x === 0 && y === 0) continue;
+        cords.push({
+          lat: start.lat + x,
+          lng: start.lng + y,
+        });
+      }
     }
     return cords;
   };
