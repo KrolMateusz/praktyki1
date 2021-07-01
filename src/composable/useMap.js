@@ -5,7 +5,6 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
   const originLat = initCords.lat;
   const originLng = initCords.lng;
   const store = useStore();
-  console.log(store);
   const calculateCords = (start, distance) => {
     const cords = [];
     for (const lat of [distance / 100, -distance / 100]) {
@@ -21,6 +20,16 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
       );
     }
     return cords;
+  };
+
+  const findUserPosition = async (query) => {
+    const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
+    try {
+      const payload = await axios.get(discoveryUrl);
+      return payload.data.items[0].position;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const findRestaurants = () => {
@@ -89,5 +98,6 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
   return {
     findRestaurants,
     drawRouteToRestaurant,
+    findUserPosition,
   };
 };
