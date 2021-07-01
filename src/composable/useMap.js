@@ -26,7 +26,7 @@ export const useMap = () => {
   };
 
   const findUserPosition = async (query) => {
-    const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.API_KEY}`;
+    const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
     try {
       const payload = await axios.get(discoveryUrl);
       return payload.data.items[0].position;
@@ -65,7 +65,7 @@ export const useMap = () => {
     map.addObject(new H.map.Marker({ lat, lng }));
 
     const createBrowseQueryUrls = ({ lat, lng }) =>
-      `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=${id}&in=circle:${lat},${lng};r=${radiusInM}&limit=${limit}&apiKey=${process.env.API_KEY}`;
+      `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=${id}&in=circle:${lat},${lng};r=${radiusInM}&limit=${limit}&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
     const browseUrls = cords.map(createBrowseQueryUrls);
     const browseActions = browseUrls.map((url) => axios.get(url));
 
@@ -91,7 +91,7 @@ export const useMap = () => {
     destinationLng,
     transport = "pedestrian",
   }) => {
-    const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.API_KEY}`;
+    const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
     const H = window.H;
     axios.get(restaurantUrl).then(({ data }) => {
       const map = store.getters.getMap;
