@@ -8,6 +8,7 @@
 <script>
 import { onMounted, ref } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 
 export default {
   name: "Map",
@@ -15,26 +16,30 @@ export default {
     center: Object,
   },
   setup(props) {
+    const store = useStore();
     const mapContainer = ref(null);
     const H = window.H;
-    const map = ref(null);
 
     const initializeHereMap = (platform) => {
       const mapTypes = platform.createDefaultLayers();
 
-      map.value = new H.Map(mapContainer.value, mapTypes.vector.normal.map, {
+      const Map = new H.Map(mapContainer.value, mapTypes.vector.normal.map, {
         zoom: 14,
         center: props.center,
       });
 
-      addEventListener("resize", () => map.value.getViewPort().resize());
+      console.log(Map);
+
+      addEventListener("resize", () => Map.getViewPort().resize());
 
       // add behavior control
-      new H.mapevents.Behavior(new H.mapevents.MapEvents(map.value));
+      new H.mapevents.Behavior(new H.mapevents.MapEvents(Map));
 
       // add UI
-      H.ui.UI.createDefault(map, mapTypes);
+      H.ui.UI.createDefault(Map, mapTypes);
       // End rendering the initial map
+      // store.dispatch("setMap", map.value)
+      store.commit("setMap", Map);
     };
 
     onMounted(async () => {

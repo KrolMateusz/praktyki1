@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import { SET_USER } from "@/store/mutation-types";
 import { SET_ACTIVITY_OPTION } from "@/store/mutation-types";
 import { routerModule } from "./routerModule";
+import { mapModule } from "./mapModule";
 import router from "@/router";
 
 const store = createStore({
@@ -62,6 +63,7 @@ const store = createStore({
   actions: {},
   modules: {
     routerModule,
+    mapModule,
   },
 });
 
