@@ -28,8 +28,6 @@ export default {
         center: props.center,
       });
 
-      console.log(Map);
-
       addEventListener("resize", () => Map.getViewPort().resize());
 
       // add behavior control
@@ -67,8 +65,6 @@ export default {
     };
 
     const find = () => {
-      // const H = window.H;
-
       const distance = 2;
       const originLat = 51.117883;
       const originLng = 17.038538;
