@@ -7,9 +7,9 @@
 
 <script>
 import axios from "axios";
+import { useStore } from "vuex";
 import pizza from "@/components/common/icons/pizza.svg";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 export default {
   name: "Map",
