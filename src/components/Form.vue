@@ -1,5 +1,9 @@
 <template>
-  <form @submit.prevent="submitDetails">
+  <form
+    @submit.prevent="
+      drawRouteToRestaurant({ lat: 51.0995516, lng: 17.0383169 })
+    "
+  >
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
       <RadioButtons :icons="icons" v-model="value" />
       <div>
@@ -24,6 +28,7 @@ import BurgerIcon from "@/components/common/icons/burger.vue";
 import KebabIcon from "@/components/common/icons/kebab.vue";
 import Button from "@/components/common/Button.vue";
 import TextInput from "@/components/common/TextInput.vue";
+import { useMap } from "../composable/useMap";
 
 export default {
   name: "Form",
@@ -40,6 +45,7 @@ export default {
   },
 
   setup() {
+    const { findRestaurants, drawRouteToRestaurant } = useMap();
     const value = ref("");
     const address = ref("");
     const endLocation = ref("Sky Tower");
@@ -53,6 +59,8 @@ export default {
       value,
       address,
       endLocation,
+      findRestaurants,
+      drawRouteToRestaurant,
     };
   },
 };
