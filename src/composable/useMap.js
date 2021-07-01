@@ -1,21 +1,37 @@
 import { useStore } from "vuex";
 import axios from "axios";
+import pizza from "@/components/common/icons/pizza.svg";
 
 export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
   const originLat = initCords.lat;
   const originLng = initCords.lng;
+  // później z store'a
+  const distanceInKm = 3;
+  const H = window.H;
   const store = useStore();
-  const calculateCords = (start, distance) => {
+
+  const calculateCords = (start, radiusInKm) => {
     const cords = [];
-    for (const lat of [distance / 100, -distance / 100]) {
+    for (const distance of [
+      (distanceInKm + radiusInKm) / 100,
+      -(distanceInKm + radiusInKm) / 100,
+    ]) {
       cords.push(
         {
-          lat: start.lat - lat,
+          lat: start.lat - distance,
           lng: start.lng,
         },
         {
           lat: start.lat,
-          lng: start.lng - lat,
+          lng: start.lng - distance,
+        },
+        {
+          lat: start.lat - distance,
+          lng: start.lng - distance,
+        },
+        {
+          lat: start.lat + distance,
+          lng: start.lng - distance,
         }
       );
     }
@@ -32,33 +48,38 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
     }
   };
 
-  const findRestaurants = () => {
-    const distance = 2;
-    const cords = calculateCords({ lat: originLat, lng: originLng }, distance);
-    const createBrowseQueryUrls = ({ lat, lng }) =>
-      `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=800-057&circle:${lat},${lng};r=${
-        distance * 1000
-      }&limit=5&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
-    const createRouteQueryUrls = (restaurant) =>
-      `https://router.hereapi.com/v8/routes?transportMode=pedestrian&origin=${originLat},${originLng}&destination=${restaurant.position.lat},${restaurant.position.lng}&return=travelSummary&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
-    const browseUrls = cords.map(createBrowseQueryUrls);
+  const findRestaurants = async ({
+    lat = 51.117883,
+    lng = 17.038538,
+    radiusInKm = 0.5,
+  }) => {
+    const map = store.getters.getMap;
+    const pizzaIcon = new H.map.Icon(pizza, { size: { w: 20, h: 20 } });
+    const restaurants = [];
+    const cords = calculateCords({ lat, lng }, radiusInKm);
 
-    const fetchData = (url) => axios.get(url);
-    const browseActions = browseUrls.map(fetchData);
-    Promise.all(browseActions).then((result) => {
-      const restaurants = result.map((item) => item.data.items).flat();
-      const routeUrls = restaurants.map(createRouteQueryUrls);
-      const routeActions = routeUrls.map(fetchData);
-      Promise.all(routeActions).then((response) => {
-        console.dir(response);
-        const filteredRestaurants = response.filter(
-          ({ data }) =>
-            data.routes[0].sections[0].travelSummary.length >= distance * 1000
-        );
-        console.dir(filteredRestaurants);
+    const createBrowseQueryUrls = ({ lat, lng }) =>
+      `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=800-057&in=circle:${lat},${lng};r=${
+        radiusInKm * 1000
+      }&limit=20&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
+    const browseUrls = cords.map(createBrowseQueryUrls);
+    const browseActions = browseUrls.map((url) => axios.get(url));
+
+    const result = await Promise.all(browseActions);
+    const places = result.map((item) => item.data.items).flat();
+    for (const place of places) {
+      restaurants.push({
+        name: place.title,
+        address: place.address,
+        openingHours: place.openingHours ? place.openingHours[0].text : null,
+        position: place.position,
       });
+    }
+    restaurants.forEach((item) => {
+      map.addObject(new H.map.Marker(item.position, { icon: pizzaIcon }));
     });
   };
+
   const drawRouteToRestaurant = (restaurantPosition) => {
     const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=pedestrian&origin=${originLat},${originLng}&destination=${restaurantPosition.lat},${restaurantPosition.lng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`;
     const H = window.H;
