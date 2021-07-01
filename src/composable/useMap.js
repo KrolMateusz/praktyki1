@@ -6,7 +6,7 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
   const originLat = initCords.lat;
   const originLng = initCords.lng;
   // później z store'a
-  const distanceInKm = 3;
+  const distanceInKm = 1;
   const H = window.H;
   const store = useStore();
 
@@ -58,6 +58,8 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
     const restaurants = [];
     const cords = calculateCords({ lat, lng }, radiusInKm);
 
+    map.addObject(new H.map.Marker({ lat, lng }));
+
     const createBrowseQueryUrls = ({ lat, lng }) =>
       `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=800-057&in=circle:${lat},${lng};r=${
         radiusInKm * 1000
@@ -78,6 +80,7 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
     restaurants.forEach((item) => {
       map.addObject(new H.map.Marker(item.position, { icon: pizzaIcon }));
     });
+    console.log(restaurants);
   };
 
   const drawRouteToRestaurant = (restaurantPosition) => {
