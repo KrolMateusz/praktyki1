@@ -1,16 +1,14 @@
 <template>
   <div class="flex flex-col flex-nowrap w-full">
-    <RadioButtons
-      :icons="icons"
-      @change="$emit('update:modelValue', value)"
-      v-model="value"
-    />
-    <span>{{ value }}</span>
+    <RadioButtons :icons="icons" @update:modelValue="changeActivity" />
+    <span>{{ activityOption }}</span>
   </div>
 </template>
 <script>
-import { reactive } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import RadioButtons from "@/components/common/RadioButtons";
+import { SET_ACTIVITY_OPTION } from "@/store/mutation-types.js";
 import ShoeIcon from "@/components/common/icons/shoe.vue";
 import RollerbladesIcon from "@/components/common/icons/rollerblades.vue";
 import BicycleIcon from "@/components/common/icons/bicycle.vue";
@@ -21,10 +19,12 @@ export default {
     RadioButtons,
   },
   setup() {
-    const value = reactive({
-      name: "",
-      kcal: null,
-    });
+    const store = useStore();
+    const activityOption = computed(() => store.state.activityOption);
+    const changeActivity = (value) => {
+      console.log(value);
+      store.commit(SET_ACTIVITY_OPTION, value);
+    };
     const icons = {
       shoe: {
         id: 1,
@@ -53,8 +53,9 @@ export default {
     };
 
     return {
+      changeActivity,
       RadioButtons,
-      value,
+      activityOption,
       icons,
     };
   },

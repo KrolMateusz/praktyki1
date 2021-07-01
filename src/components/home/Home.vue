@@ -1,9 +1,6 @@
 <template>
   <div class="grid grid-cols-12 space-y-12 mx-10 my-10">
-    <ActivityButtons
-      class="col-start-4 col-span-4 mx-14"
-      v-model="activityOption"
-    />
+    <ActivityButtons class="col-start-4 col-span-4 mx-14" />
     <Profile
       :FFMI="FFMI"
       :lowTempo="lowTempo"
@@ -44,14 +41,12 @@ export default {
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
-    const activityOption = ref({ name: null, kcal: null });
 
     return {
       FFMI,
       lowTempo,
       fastTempo,
       isModalOpened,
-      activityOption,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };
