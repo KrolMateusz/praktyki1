@@ -46,8 +46,11 @@ export default {
     const handleSubmit = async () => {
       if (!address.value) return;
       const userCords = await findUserPosition(address.value);
-      console.log(userCords);
-      findRestaurants({ lat: userCords.lat, lng: userCords.lng });
+      await findRestaurants({
+        lat: userCords.lat,
+        lng: userCords.lng,
+        foodType: "burger",
+      });
     };
     const icons = foodCategoryData;
 
