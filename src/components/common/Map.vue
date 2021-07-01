@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
 import axios from "axios";
+import pizza from "@/components/common/icons/pizza.svg";
+import { onMounted, ref } from "vue";
 
 export default {
   name: "Map",
@@ -62,8 +63,7 @@ export default {
     };
 
     const find = () => {
-      // const H = window.H;
-
+      const pizzaIcon = new H.map.Icon(pizza, { size: { w: 20, h: 20 } });
       const distance = 2;
       const originLat = 51.117883;
       const originLng = 17.038538;
@@ -83,15 +83,23 @@ export default {
       const browseActions = browseUrls.map(fetchData);
       Promise.all(browseActions).then((result) => {
         const restaurants = result.map((item) => item.data.items).flat();
+        console.log(restaurants);
         const routeUrls = restaurants.map(createRouteQueryUrls);
         const routeActions = routeUrls.map(fetchData);
         Promise.all(routeActions).then((response) => {
-          console.dir(response);
-          const filteredRestaurants = response.filter(
-            ({ data }) =>
-              data.routes[0].sections[0].travelSummary.length >= distance * 1000
+          const filteredResults = response.map(
+            (item) => item.data.routes[0].sections[0]
+          );
+          console.dir(filteredResults);
+          const filteredRestaurants = filteredResults.filter(
+            (item) => item.travelSummary.length >= distance * 1000
           );
           console.dir(filteredRestaurants);
+          filteredRestaurants.forEach((item) => {
+            map.value.addObject(
+              new H.map.Marker(item.arrival.place.location, { icon: pizzaIcon })
+            );
+          });
         });
       });
     };
