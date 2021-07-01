@@ -37,7 +37,7 @@ export default {
 
     onMounted(async () => {
       const platform = new H.service.Platform({
-        apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+        apiKey: process.env.API_KEY,
       });
       initializeHereMap(platform);
     });
