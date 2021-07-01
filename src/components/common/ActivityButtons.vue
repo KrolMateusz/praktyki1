@@ -5,14 +5,15 @@
       @change="$emit('update:modelValue', value)"
       v-model="value"
     />
+    <span>{{ value }}</span>
   </div>
 </template>
 <script>
+import { reactive } from "vue";
 import RadioButtons from "@/components/common/RadioButtons";
 import ShoeIcon from "@/components/common/icons/shoe.vue";
 import RollerbladesIcon from "@/components/common/icons/rollerblades.vue";
 import BicycleIcon from "@/components/common/icons/bicycle.vue";
-import { ref } from "vue";
 
 export default {
   name: "ActivityButtons",
@@ -20,7 +21,7 @@ export default {
     RadioButtons,
   },
   setup() {
-    const value = ref({
+    const value = reactive({
       name: "",
       kcal: null,
     });
@@ -50,15 +51,11 @@ export default {
         },
       },
     };
-    const funkcja = () => {
-      console.log(value.value);
-    };
 
     return {
       RadioButtons,
       value,
       icons,
-      funkcja,
     };
   },
 };

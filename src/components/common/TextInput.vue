@@ -6,6 +6,7 @@
       :value="value"
       :type="type"
       :min="min"
+      :label="label"
       :step="step"
       @input="updateValue"
       class="border border-solid border-black rounded-sm w-full px-2"

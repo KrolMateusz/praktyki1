@@ -4,7 +4,7 @@
       <RadioButtons v-model="value" :icons="icons" />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
-        <TextInput v-model:value="address"></TextInput>
+        <TextInput v-model:value="address" label=""></TextInput>
       </div>
       <div>
         <p class="font-bold">Punkt docelowy:</p>

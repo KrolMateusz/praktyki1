@@ -3,7 +3,7 @@
     <ActivityButtons
       class="col-start-4 col-span-4 mx-14"
       v-model="activityOption"
-    ></ActivityButtons>
+    />
     <Profile
       :FFMI="FFMI"
       :lowTempo="lowTempo"
@@ -12,7 +12,7 @@
       class="col-start-1 col-end-4"
     />
     <GoogleMaps class="col-start-4 col-end-9 border-2" />
-    <Form class="col-start-10 col-end-12"></Form>
+    <Form class="col-start-10 col-end-12" />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
