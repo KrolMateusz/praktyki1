@@ -1,9 +1,5 @@
 <template>
-  <form
-    @submit.prevent="
-      drawRouteToRestaurant({ lat: 51.0995516, lng: 17.0383169 })
-    "
-  >
+  <form @submit.prevent="handleSubmit">
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
       <RadioButtons :icons="icons" v-model="value" />
       <div>
@@ -37,21 +33,21 @@ export default {
     Button,
     TextInput,
   },
-
-  methods: {
-    submitDetails() {
-      console.log(this.value, this.address);
-    },
-  },
-
   setup() {
-    const { findRestaurants, drawRouteToRestaurant } = useMap();
+    const { findRestaurants, drawRouteToRestaurant, findUserPosition } =
+      useMap();
     const value = ref("");
     const address = ref("");
     const endLocation = ref("Sky Tower");
     foodCategoryData.pizza.icon = PizzaIcon;
     foodCategoryData.burger.icon = BurgerIcon;
     foodCategoryData.kebab.icon = KebabIcon;
+
+    const handleSubmit = async () => {
+      if (!address.value) return;
+      const userCords = await findUserPosition(address.value);
+      console.log(userCords);
+    };
     const icons = foodCategoryData;
 
     return {
@@ -61,6 +57,8 @@ export default {
       endLocation,
       findRestaurants,
       drawRouteToRestaurant,
+      findUserPosition,
+      handleSubmit,
     };
   },
 };
