@@ -24,11 +24,6 @@ export default {
       required: true,
     },
   },
-  methods: {
-    formLog() {
-      console.log(event);
-    },
-  },
   setup(props) {
     const iconsArr = ref(props.icons);
     const name = ref("max");

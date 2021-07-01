@@ -18,8 +18,9 @@
     />
     <GoogleMaps class="col-start-3 col-span-6" />
     <Form class="col-end-13 col-span-4"></Form>
+    <ResultList class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13" />
   </div>
-  <div class="m-20"><Charts /></div>
+  <div class="m-20 grid justify-items-center"><Charts /></div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
@@ -34,6 +35,7 @@ import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
 import Charts from "@/components/Charts/Charts.vue";
+import ResultList from "@/components/ResultList/ResultList.vue";
 
 export default {
   name: "Home",
@@ -44,6 +46,7 @@ export default {
     Modal,
     UserInfoForm,
     Form,
+    ResultList,
   },
   setup() {
     const FFMI = ref(0);

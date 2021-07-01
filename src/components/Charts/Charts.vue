@@ -34,7 +34,7 @@ export default defineComponent({
     VChart,
   },
   provide: {
-    [THEME_KEY]: "dark",
+    [THEME_KEY]: "light",
   },
   setup() {
     const app = {};
@@ -86,11 +86,11 @@ export default defineComponent({
     };
 
     app.config = {
-      rotate: 90,
+      rotate: 86,
       align: "left",
-      verticalAlign: "middle",
+      verticalAlign: "bottom",
       position: "insideBottom",
-      distance: 15,
+      distance: 35,
     };
     const labelOption = {
       show: true,
@@ -100,7 +100,7 @@ export default defineComponent({
       verticalAlign: app.config.verticalAlign,
       rotate: app.config.rotate,
       formatter: "{c}  {name|{a}}",
-      fontSize: 16,
+      fontSize: "2rem",
       rich: {
         name: {},
       },
@@ -113,7 +113,7 @@ export default defineComponent({
         },
       },
       legend: {
-        data: ["Walking", "Skating", "Cycling"],
+        data: ["fast", "slow"],
       },
       toolbox: {
         show: true,
@@ -121,9 +121,9 @@ export default defineComponent({
         left: "right",
         top: "center",
         feature: {
-          mark: { show: true },
-          dataView: { show: true, readOnly: false },
-          magicType: { show: true, type: ["line", "bar", "stack", "tiled"] },
+          mark: { show: false },
+          dataView: { show: false, readOnly: false },
+          magicType: { show: true, type: ["bar", "stack", "tiled"] },
           restore: { show: true },
           saveAsImage: { show: true },
         },
@@ -131,8 +131,8 @@ export default defineComponent({
       xAxis: [
         {
           type: "category",
-          axisTick: { show: false },
-          data: ["Burger", "Pizza", "Kebson"],
+          axisTick: { show: true },
+          data: ["Walking", "Skating", "Cycling"],
         },
       ],
       yAxis: [
@@ -142,32 +142,25 @@ export default defineComponent({
       ],
       series: [
         {
-          name: "Walking",
+          name: "fast",
           type: "bar",
-          barGap: 0,
+          barGap: -0.35,
           label: labelOption,
           emphasis: {
             focus: "series",
           },
-          data: [320, 332, 301, 334, 390],
+          data: [320, 332, 301],
+          color: "#ea1885",
         },
         {
-          name: "Skating",
+          name: "slow",
           type: "bar",
           label: labelOption,
           emphasis: {
             focus: "series",
           },
-          data: [150, 232, 201, 154, 190],
-        },
-        {
-          name: "Cycling",
-          type: "bar",
-          label: labelOption,
-          emphasis: {
-            focus: "series",
-          },
-          data: [98, 77, 101, 99, 40],
+          data: [150, 232, 201],
+          color: "#eadc18",
         },
       ],
     });
