@@ -1,6 +1,7 @@
 export const mapModule = {
   state: () => ({
     map: null,
+    distanceInM: 1000,
   }),
   mutations: {
     setMap(state, payload) {
@@ -23,6 +24,9 @@ export const mapModule = {
   getters: {
     getMap(state) {
       return state.map;
+    },
+    getDistance(state) {
+      return state.distanceInM;
     },
   },
 };
