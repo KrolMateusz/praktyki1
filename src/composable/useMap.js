@@ -57,6 +57,7 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
     const pizzaIcon = new H.map.Icon(pizza, { size: { w: 20, h: 20 } });
     const restaurants = [];
     const cords = calculateCords({ lat, lng }, radiusInKm);
+    console.log(cords);
 
     map.addObject(new H.map.Marker({ lat, lng }));
 
@@ -80,7 +81,6 @@ export const useMap = (initCords = { lat: 51.117883, lng: 17.038538 }) => {
     restaurants.forEach((item) => {
       map.addObject(new H.map.Marker(item.position, { icon: pizzaIcon }));
     });
-    console.log(restaurants);
   };
 
   const drawRouteToRestaurant = (restaurantPosition) => {

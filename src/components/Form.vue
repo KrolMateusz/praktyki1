@@ -47,6 +47,7 @@ export default {
       if (!address.value) return;
       const userCords = await findUserPosition(address.value);
       console.log(userCords);
+      findRestaurants({ lat: userCords.lat, lng: userCords.lng });
     };
     const icons = foodCategoryData;
 
