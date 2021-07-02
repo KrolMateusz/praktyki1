@@ -3,7 +3,7 @@
     <ul>
       <li
         class="
-          border-4 border-4
+          border-4
           rounded-xl
           border-main
           m-2
@@ -18,12 +18,12 @@
         v-for="(result, index) in results"
         :key="index"
       >
-        <p class="font-bold px-2">{{ result.name }}</p>
+        <span class="font-bold px-2">{{ result.name }}</span> <br />
 
-        <p class="px-1">
+        <span class="px-1">
           {{ result.address.street }}, {{ result.address.city }},
           {{ result.address.postalCode }}
-        </p>
+        </span>
       </li>
     </ul>
   </div>
@@ -98,5 +98,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

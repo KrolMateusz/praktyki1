@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="chart" :option="option" />
+  <v-chart class="h-chart" :option="option" />
 </template>
 
 <script>
@@ -12,7 +12,7 @@ import {
   LegendComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
-import { ref, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import { ToolboxComponent } from "echarts/components";
 import { GridComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";
@@ -37,61 +37,16 @@ export default defineComponent({
     [THEME_KEY]: "light",
   },
   setup() {
-    const app = {};
-    const posList = [
-      "left",
-      "right",
-      "top",
-      "bottom",
-      "inside",
-      "insideTop",
-      "insideLeft",
-      "insideRight",
-      "insideBottom",
-      "insideTopLeft",
-      "insideTopRight",
-      "insideBottomLeft",
-      "insideBottomRight",
-    ];
-
-    app.configParameters = {
-      rotate: {
-        min: -90,
-        max: 90,
-      },
-      align: {
-        options: {
-          left: "left",
-          center: "center",
-          right: "right",
-        },
-      },
-      verticalAlign: {
-        options: {
-          top: "top",
-          middle: "middle",
-          bottom: "bottom",
-        },
-      },
-      position: {
-        options: posList.reduce(function (map, pos) {
-          map[pos] = pos;
-          return map;
-        }, {}),
-      },
-      distance: {
-        min: 0,
-        max: 100,
+    const app = {
+      config: {
+        rotate: 86,
+        align: "left",
+        verticalAlign: "bottom",
+        position: "insideBottom",
+        distance: 35,
       },
     };
 
-    app.config = {
-      rotate: 86,
-      align: "left",
-      verticalAlign: "bottom",
-      position: "insideBottom",
-      distance: 35,
-    };
     const labelOption = {
       show: true,
       position: app.config.position,
@@ -105,7 +60,7 @@ export default defineComponent({
         name: {},
       },
     };
-    const option = ref({
+    const option = {
       tooltip: {
         trigger: "axis",
         axisPointer: {
@@ -163,7 +118,7 @@ export default defineComponent({
           color: "#eadc18",
         },
       ],
-    });
+    };
 
     return { option };
   },

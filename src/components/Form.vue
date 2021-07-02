@@ -8,6 +8,7 @@
       </div>
       <div>
         <p class="font-bold">Punkt docelowy:</p>
+        git
         <p>{{ endLocation }}</p>
       </div>
       <Button type="submit" label="Szukaj!" />

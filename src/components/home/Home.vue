@@ -20,7 +20,7 @@
     <Form class="col-end-13 col-span-4"></Form>
     <ResultList class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13" />
   </div>
-  <div class="m-20 grid justify-items-center"><Charts /></div>
+  <Charts class="m-20 grid justify-items-center" />
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
