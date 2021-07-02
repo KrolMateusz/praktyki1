@@ -1,32 +1,36 @@
 <template>
   <div class="flex flex-col p-2">
-    <p class="">Podstawowe informacje:</p>
-    <p>
-      Waga: <span class="font-semibold">{{ weight }} {{ weightUnit }}</span>
-    </p>
-    <p>
-      Wzrost: <span class="font-semibold">{{ height }} {{ heightUnit }}</span>
-    </p>
-    <p>
-      BMI: <span class="font-semibold">{{ BMI }}</span>
-    </p>
-    <p v-if="FFMI">
-      FFMI:
-      <span class="font-semibold" v-if="FFMI"
-        >{{ FFMI }} {{ weightUnit }}<sup>2</sup></span
-      >
-    </p>
+    <p class="pt-3">Podstawowe informacje:</p>
+    <div class="pl-7 pt-1">
+      <p>
+        Waga: <span class="font-semibold">{{ weight }} {{ weightUnit }}</span>
+      </p>
+      <p>
+        Wzrost: <span class="font-semibold">{{ height }} {{ heightUnit }}</span>
+      </p>
+      <p>
+        BMI: <span class="font-semibold">{{ BMI }}</span>
+      </p>
+      <p v-if="FFMI">
+        FFMI:
+        <span class="font-semibold" v-if="FFMI"
+          >{{ FFMI }} {{ weightUnit }}<sup>2</sup></span
+        >
+      </p>
+    </div>
   </div>
   <div class="infoContainer p-2">
     <p>Spalasz:</p>
-    <p>
-      Wolno:
-      <span class="font-semibold">{{ lowTempo }} {{ weightUnit }}/h</span>
-    </p>
-    <p>
-      Szybko:
-      <span class="font-semibold">{{ fastTempo }} {{ weightUnit }}/h</span>
-    </p>
+    <div class="pl-7 pt-1">
+      <p>
+        Wolno:
+        <span class="font-semibold">{{ lowTempo }} {{ weightUnit }}/h</span>
+      </p>
+      <p>
+        Szybko:
+        <span class="font-semibold">{{ fastTempo }} {{ weightUnit }}/h</span>
+      </p>
+    </div>
   </div>
 </template>
 

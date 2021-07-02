@@ -1,11 +1,12 @@
 <template>
-  <div :class="classes" class="flex flex-col items-start">
+  <div :class="classes" class="flex flex-col items-start w-full">
     <label class="w-full font-medium">{{ label }}</label>
     <input
       :placeholder="placeholder"
       :value="value"
       :type="type"
       :min="min"
+      :label="label"
       :step="step"
       @input="updateValue"
       class="border border-solid border-black rounded-sm w-full px-2"

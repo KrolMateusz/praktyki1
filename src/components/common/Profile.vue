@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-sm">
-    <div class="flex w-full p-2">
+  <div class="w-full text-base">
+    <div class="flex p-2">
       <div @click="$emit('openModal')" class="group relative cursor-pointer">
         <div
           class="relative group-hover:bg-black rounded-full hover:opacity-100"
@@ -15,7 +15,7 @@
           class="
             cursor-pointer
             opacity-0
-            w-24
+            w-32
             text-center text-white
             absolute
             top-1/2
@@ -32,7 +32,7 @@
         <p class="font-medium text-5xl break-all">
           {{ name }}
         </p>
-        <p class="text-2xl break-all">{{ lastname }}</p>
+        <p class="text-4xl break-all">{{ lastname }}</p>
       </div>
     </div>
     <UserStats :FFMI="FFMI" :lowTempo="lowTempo" :fastTempo="fastTempo" />
