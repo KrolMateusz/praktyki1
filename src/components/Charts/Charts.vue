@@ -124,9 +124,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.chart {
-  height: 400px;
-}
-</style>
