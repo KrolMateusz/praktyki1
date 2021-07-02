@@ -1,0 +1,14 @@
+{
+  "pizza": {
+    "id": 1,
+    "value": 1000
+  },
+  "burger": {
+    "id": 2,
+    "value": 600
+  },
+  "kebab": {
+    "id": 3,
+    "value": 800
+  }
+}

@@ -1,14 +1,14 @@
 <template>
   <div class="flex justify-between max-w-100">
-    <label :key="icon.id" v-for="icon in iconsArr">
+    <label :key="icon.id" v-for="icon in icons">
       <input
-        class="opacity-0 absolute"
         :value="icon.value"
+        @change="$emit('update:modelValue', icon.value)"
+        class="opacity-0 absolute"
         name="icon"
         type="radio"
-        @change="$emit('update:modelValue', $event.target.value)"
       />
-      <component :is="icon.icon"></component>
+      <component :is="icon.icon" />
     </label>
   </div>
 </template>
@@ -18,24 +18,16 @@ import { ref } from "vue";
 
 export default {
   name: "RadioButtons",
-  components: {},
   props: {
     icons: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
-  methods: {
-    formLog() {
-      console.log(event);
-    },
-  },
-  setup(props) {
-    const iconsArr = ref(props.icons);
+  setup() {
     const name = ref("max");
 
     return {
-      iconsArr,
       name,
     };
   },
