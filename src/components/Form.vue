@@ -10,6 +10,7 @@
         <p class="font-bold">Punkt docelowy:</p>
         <p>{{ endLocation }}</p>
       </div>
+      <span>{{ name }}</span>
       <Button type="submit" label="Szukaj!" />
     </div>
   </form>
@@ -24,7 +25,7 @@ import BurgerIcon from "@/components/common/icons/burger.vue";
 import KebabIcon from "@/components/common/icons/kebab.vue";
 import Button from "@/components/common/Button.vue";
 import TextInput from "@/components/common/TextInput.vue";
-import { useMap } from "../composable/useMap";
+import { useMap } from "@/composable/useMap";
 
 export default {
   name: "Form",
