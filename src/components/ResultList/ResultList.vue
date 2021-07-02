@@ -35,14 +35,10 @@ import { ref } from "vue";
 export default {
   name: "ResultList",
 
-  methods: {
-    clickHandler(index) {
-      this.isActive = index;
-      console.log(index);
-    },
-  },
-
   setup() {
+    const clickHandler = function (index) {
+      this.isActive = index;
+    };
     const isActive = ref(-1);
     const results = [
       {
@@ -94,7 +90,7 @@ export default {
         name: "Center Pizza",
       },
     ];
-    return { results, isActive };
+    return { results, isActive, clickHandler };
   },
 };
 </script>

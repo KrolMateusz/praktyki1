@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="submitDetails">
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
-      <RadioButtons v-model="value" :icons="icons" />
+      <RadioButtons :icons="icons" v-model="value" />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
-        <TextInput v-model:value="address"></TextInput>
+        <TextInput label="" v-model:value="address" />
       </div>
       <div>
         <p class="font-bold">Punkt docelowy:</p>
@@ -17,13 +17,14 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import RadioButtons from "@/components/common/RadioButtons";
+import foodCategoryData from "@/data/foodCategory.json";
 import PizzaIcon from "@/components/common/icons/pizza.vue";
 import BurgerIcon from "@/components/common/icons/burger.vue";
 import KebabIcon from "@/components/common/icons/kebab.vue";
 import Button from "@/components/common/Button.vue";
 import TextInput from "@/components/common/TextInput.vue";
-import { ref } from "vue";
 
 export default {
   name: "Form",
@@ -43,24 +44,10 @@ export default {
     const value = ref("");
     const address = ref("");
     const endLocation = ref("Sky Tower");
-
-    const icons = {
-      pizza: {
-        id: 1,
-        icon: PizzaIcon,
-        value: 1000,
-      },
-      burger: {
-        id: 2,
-        icon: BurgerIcon,
-        value: 600,
-      },
-      kebab: {
-        id: 3,
-        icon: KebabIcon,
-        value: 800,
-      },
-    };
+    foodCategoryData.pizza.icon = PizzaIcon;
+    foodCategoryData.burger.icon = BurgerIcon;
+    foodCategoryData.kebab.icon = KebabIcon;
+    const icons = foodCategoryData;
 
     return {
       icons,

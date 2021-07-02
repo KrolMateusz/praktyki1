@@ -1,23 +1,15 @@
 <template>
-  <div
-    class="
-      space-x-5
-      justify-items-center
-      mx-20
-      my-10
-      grid grid grid-cols-12
-      items-center
-    "
-  >
+  <div class="grid grid-cols-12 space-y-12 mx-10 my-10">
+    <ActivityButtons class="col-start-4 col-span-4 mx-14" />
     <Profile
       :FFMI="FFMI"
       :lowTempo="lowTempo"
       :fastTempo="fastTempo"
       @open-modal="openModal"
-      class="col-start-1 col-span-2"
+      class="col-start-1 col-end-4"
     />
-    <GoogleMaps class="col-start-3 col-span-6" />
-    <Form class="col-end-13 col-span-4"></Form>
+    <GoogleMaps class="col-start-4 col-end-9 border-2" />
+    <Form class="col-start-10 col-end-12" />
     <ResultList class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13" />
   </div>
   <Charts class="m-20 grid justify-items-center" />
@@ -34,6 +26,7 @@ import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
+import ActivityButtons from "@/components/common/ActivityButtons.vue";
 import Charts from "@/components/Charts/Charts.vue";
 import ResultList from "@/components/ResultList/ResultList.vue";
 
@@ -46,6 +39,7 @@ export default {
     Modal,
     UserInfoForm,
     Form,
+    ActivityButtons,
     ResultList,
   },
   setup() {

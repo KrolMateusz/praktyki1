@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { SET_USER } from "@/store/mutation-types";
+import { SET_ACTIVITY_OPTION } from "@/store/mutation-types";
 import { routerModule } from "./routerModule";
 import router from "@/router";
 
@@ -15,6 +16,10 @@ const store = createStore({
       image: "",
       BMI: null,
       FFMI: null,
+    },
+    activityOption: {
+      name: null,
+      kcal: null,
     },
   },
   getters: {
@@ -42,10 +47,16 @@ const store = createStore({
     getBMI(state) {
       return state.user?.BMI;
     },
+    getActivityOptyion(state) {
+      return state.activityOption;
+    },
   },
   mutations: {
     [SET_USER](state, payload) {
       state.user = { ...state.user, ...payload };
+    },
+    [SET_ACTIVITY_OPTION](state, payload) {
+      state.activityOption = payload;
     },
   },
   actions: {},

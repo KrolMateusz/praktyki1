@@ -10,7 +10,7 @@ module.exports = {
         "dark-gray": "var(--dark-gray)",
       },
       fontSize: {
-        base: "1.8rem",
+        base: "1.6rem",
         large: "2rem",
         xl: "4.8rem",
       },
