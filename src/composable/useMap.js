@@ -1,12 +1,12 @@
 import { useStore } from "vuex";
 import axios from "axios";
 import { computeDestinationPoint } from "geolib";
+import H from "@here/maps-api-for-javascript";
 import burger from "@/components/common/icons/burger.svg";
 import kebab from "@/components/common/icons/kebab.svg";
 import pizza from "@/components/common/icons/pizza.svg";
 
 export const useMap = () => {
-  const H = window.H;
   const store = useStore();
 
   const calculateCords = (start, distanceInM) => {
@@ -92,7 +92,6 @@ export const useMap = () => {
     transport = "pedestrian",
   }) => {
     const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_API_KEY}`;
-    const H = window.H;
     axios.get(restaurantUrl).then(({ data }) => {
       const map = store.getters.getMap;
       const section = data.routes[0].sections[0];
