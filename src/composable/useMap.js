@@ -9,29 +9,26 @@ import pizza from "@/components/common/icons/pizza.svg";
 export const useMap = () => {
   const store = useStore();
 
-  const calculateCords = (start, distanceInM) => {
-    const cords = [];
-    for (const bearing of [0, 45, 90, 135, 180, 225, 270, 315]) {
+  const calculateCords = (start, distanceInM) =>
+    [0, 45, 90, 135, 180, 225, 270, 315].map((bearing) => {
       const { latitude, longitude } = computeDestinationPoint(
         start,
         distanceInM,
         bearing
       );
-      cords.push({
+      return {
         lat: latitude,
         lng: longitude,
-      });
-    }
-    return cords;
-  };
+      };
+    });
 
   const findUserPosition = async (query) => {
     const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_API_KEY}`;
     try {
-      const payload = await axios.get(discoveryUrl);
-      return payload.data.items[0].position;
+      const { data } = await axios.get(discoveryUrl);
+      return data.items[0].position;
     } catch (e) {
-      console.error(e);
+      throw new Error(e);
     }
   };
 
@@ -42,62 +39,66 @@ export const useMap = () => {
     foodType = "pizza",
     limit = 50,
   }) => {
-    const distanceInM = store.getters.getDistance;
-    const map = store.getters.getMap;
-    const foodTypes = {
-      pizza: {
-        icon: new H.map.Icon(pizza, { size: { w: 20, h: 20 } }),
-        id: "800-057",
-      },
-      burger: {
-        icon: new H.map.Icon(burger, { size: { w: 20, h: 20 } }),
-        id: "800-067",
-      },
-      kebab: {
-        icon: new H.map.Icon(kebab, { size: { w: 20, h: 20 } }),
-        id: "252-000",
-      },
-    };
-    const { icon, id } = foodTypes[foodType];
-    const restaurants = [];
-    const cords = calculateCords({ lat, lng }, radiusInM + distanceInM);
+    try {
+      const distanceInM = store.getters.getDistance;
+      const map = store.getters.getMap;
+      const foodTypes = {
+        pizza: {
+          icon: new H.map.Icon(pizza, { size: { w: 20, h: 20 } }),
+          id: "800-057",
+        },
+        burger: {
+          icon: new H.map.Icon(burger, { size: { w: 20, h: 20 } }),
+          id: "800-067",
+        },
+        kebab: {
+          icon: new H.map.Icon(kebab, { size: { w: 20, h: 20 } }),
+          id: "252-000",
+        },
+      };
+      const { icon, id } = foodTypes[foodType];
+      const restaurants = [];
+      const cords = calculateCords({ lat, lng }, radiusInM + distanceInM);
 
-    map.addObject(new H.map.Marker({ lat, lng }));
+      map.addObject(new H.map.Marker({ lat, lng }));
 
-    const createBrowseQueryUrls = ({ lat, lng }) =>
-      `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=${id}&in=circle:${lat},${lng};r=${radiusInM}&limit=${limit}&apiKey=${process.env.VUE_APP_API_KEY}`;
-    const browseUrls = cords.map(createBrowseQueryUrls);
-    const browseActions = browseUrls.map((url) => axios.get(url));
+      const createBrowseQueryUrls = ({ lat, lng }) =>
+        `https://browse.search.hereapi.com/v1/browse?at=${lat},${lng}&foodTypes=${id}&in=circle:${lat},${lng};r=${radiusInM}&limit=${limit}&apiKey=${process.env.VUE_APP_API_KEY}`;
+      const browseUrls = cords.map(createBrowseQueryUrls);
+      const browseActions = browseUrls.map((url) => axios.get(url));
 
-    const result = await Promise.all(browseActions);
-    const places = result.map((item) => item.data.items).flat();
-    for (const place of places) {
-      restaurants.push({
-        name: place.title,
-        address: place.address,
-        openingHours: place.openingHours ? place.openingHours[0].text : null,
-        position: place.position,
+      const result = await Promise.all(browseActions);
+      const places = result.map((item) => item.data.items).flat();
+      places.forEach((place) => {
+        restaurants.push({
+          name: place.title,
+          address: place.address,
+          openingHours: place.openingHours ? place.openingHours[0].text : null,
+          position: place.position,
+        });
       });
+      restaurants.forEach((item) => {
+        map.addObject(new H.map.Marker(item.position, { icon }));
+      });
+    } catch (e) {
+      throw new Error(e);
     }
-    restaurants.forEach((item) => {
-      map.addObject(new H.map.Marker(item.position, { icon }));
-    });
   };
 
-  const drawRouteToRestaurant = ({
+  const drawRouteToRestaurant = async ({
     originLat,
     originLng,
     destinationLat,
     destinationLng,
     transport = "pedestrian",
   }) => {
-    const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_API_KEY}`;
-    axios.get(restaurantUrl).then(({ data }) => {
+    try {
+      const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_API_KEY}`;
+      const { data } = await axios.get(restaurantUrl);
       const map = store.getters.getMap;
       const section = data.routes[0].sections[0];
       const polyline = section.polyline;
       const lineString = H.geo.LineString.fromFlexiblePolyline(polyline);
-
       const routeOutline = new H.map.Polyline(lineString, {
         style: {
           lineWidth: 10,
@@ -120,9 +121,12 @@ export const useMap = () => {
       routeLine.addObjects([routeOutline, routeArrows]);
       const startMarker = new H.map.Marker(section.departure.place.location);
       const endMarker = new H.map.Marker(section.arrival.place.location);
+
       map.addObjects([routeLine, startMarker, endMarker]);
       map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
-    });
+    } catch (e) {
+      throw new Error(e);
+    }
   };
 
   return {
