@@ -23,6 +23,9 @@ module.exports = {
         152: "38rem",
         160: "40rem",
       },
+      height: {
+        chart: "60rem",
+      },
     },
   },
   variants: {
