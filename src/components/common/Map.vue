@@ -7,13 +7,13 @@
 <script>
 import { useStore } from "vuex";
 import { onMounted, ref } from "vue";
+import H from "@here/maps-api-for-javascript";
 
 export default {
   name: "Map",
   setup(props) {
     const store = useStore();
     const mapContainer = ref(null);
-    const H = window.H;
 
     const initializeHereMap = (platform) => {
       const mapTypes = platform.createDefaultLayers();
