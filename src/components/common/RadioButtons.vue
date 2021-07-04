@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "RadioButtons",
   props: {
@@ -23,13 +21,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  setup() {
-    const name = ref("max");
-
-    return {
-      name,
-    };
   },
 };
 </script>

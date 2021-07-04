@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-import { computed } from "vue";
 import { useStore } from "vuex";
 import RadioButtons from "@/components/common/RadioButtons";
 import { SET_ACTIVITY_OPTION } from "@/store/mutation-types.js";
@@ -20,9 +19,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const activityOption = computed(() => store.state.activityOption);
     const changeActivity = (value) => {
-      store.commit(SET_ACTIVITY_OPTION, value);
+      store.commit(SET_ACTIVITY_OPTION, { ...value });
     };
     activityOptionData.shoe.icon = ShoeIcon;
     activityOptionData.rollerblades.icon = RollerbladesIcon;
@@ -32,7 +30,6 @@ export default {
     return {
       changeActivity,
       RadioButtons,
-      activityOption,
       icons,
     };
   },
