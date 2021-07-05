@@ -178,10 +178,10 @@ export default {
     };
     const dynamicWeight = () => {
       if (weightUnit.value === "kg") {
-        weight.value = (weight.value * 0.454).toFixed(1);
+        weight.value = (weight.value * 0.45359237).toFixed(1);
       }
       if (weightUnit.value === "lbs") {
-        weight.value = (weight.value * 2.205).toFixed(1);
+        weight.value = (weight.value * 2.20462262185).toFixed(1);
       }
     };
     const setUser = () => {
