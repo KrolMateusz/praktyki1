@@ -2,6 +2,7 @@
   <div class="flex justify-between max-w-100">
     <label :key="icon.id" v-for="icon in icons">
       <input
+        :checked="icon.id === 0"
         :value="icon.value"
         @change="$emit('update:modelValue', icon.value)"
         class="opacity-0 absolute"
