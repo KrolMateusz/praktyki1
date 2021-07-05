@@ -3,11 +3,19 @@ import H from "@here/maps-api-for-javascript";
 export const mapModule = {
   state: () => ({
     map: null,
+    originAddress: null,
     distanceInM: 1000,
+    restaurants: [],
   }),
   mutations: {
     setMap(state, payload) {
       state.map = payload.map;
+    },
+    setRestaurants(state, payload) {
+      state.restaurants = [...state.restaurants, ...payload];
+    },
+    setAddress(state, payload) {
+      state.originAddress = payload;
     },
   },
   actions: {
@@ -34,8 +42,12 @@ export const mapModule = {
     getMap(state) {
       return state.map;
     },
-    getDistance(state) {
-      return state.distanceInM;
+    getRestaurants(state) {
+      return state.restaurants;
     },
+    getOriginAddress(state) {
+      return state.originAddress;
+    },
+    getRestaurantById: (state) => (id) => state.restaurants[id],
   },
 };

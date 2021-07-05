@@ -55,6 +55,7 @@ export default {
 
     const handleSubmit = async () => {
       if (!address.value) return;
+      store.commit("setAddress", address.value);
       const userCords = await findUserPosition(address.value);
       await findRestaurants({
         lat: userCords.lat,
