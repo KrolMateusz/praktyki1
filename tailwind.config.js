@@ -22,6 +22,7 @@ module.exports = {
         144: "38rem",
         152: "38rem",
         160: "40rem",
+        220: "50rem",
       },
       height: {
         chart: "60rem",

@@ -1,20 +1,20 @@
 {
   "shoe": {
-    "id": 1,
+    "id": 0,
     "value": {
       "transportMode": "pedestrian",
       "kcal": 700
     }
   },
   "rollerblades": {
-    "id": 2,
+    "id": 1,
     "value": {
       "transportMode": "pedestrian",
       "kcal": 500
     }
   },
   "bicycle": {
-    "id": 3,
+    "id": 2,
     "value": {
       "transportMode": "bicycle",
       "kcal": 400

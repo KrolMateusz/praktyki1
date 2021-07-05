@@ -1,7 +1,11 @@
 import { createStore } from "vuex";
-import { SET_USER } from "@/store/mutation-types";
-import { SET_ACTIVITY_OPTION } from "@/store/mutation-types";
+import {
+  SET_USER,
+  SET_ACTIVITY_OPTION,
+  SET_FOOD_TYPE,
+} from "@/store/mutation-types";
 import { routerModule } from "./routerModule";
+import { mapModule } from "./mapModule";
 import router from "@/router";
 
 const store = createStore({
@@ -18,8 +22,12 @@ const store = createStore({
       FFMI: null,
     },
     activityOption: {
-      name: null,
-      kcal: null,
+      transportMode: "pedestrian",
+      kcal: 700,
+    },
+    foodType: {
+      name: "pizza",
+      kcal: 700,
     },
   },
   getters: {
@@ -47,21 +55,22 @@ const store = createStore({
     getBMI(state) {
       return state.user?.BMI;
     },
-    getActivityOptyion(state) {
-      return state.activityOption;
-    },
   },
   mutations: {
     [SET_USER](state, payload) {
       state.user = { ...state.user, ...payload };
     },
     [SET_ACTIVITY_OPTION](state, payload) {
-      state.activityOption = payload;
+      state.activityOption = { ...state.activityOption, ...payload };
+    },
+    [SET_FOOD_TYPE](state, payload) {
+      state.foodType = { ...state.foodType, ...payload };
     },
   },
   actions: {},
   modules: {
     routerModule,
+    mapModule,
   },
 });
 
