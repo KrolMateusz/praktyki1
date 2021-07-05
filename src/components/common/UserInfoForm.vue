@@ -5,7 +5,7 @@
     novalidate
   >
     <div class="flex justify-between items-center mb-5">
-      <Avatar :first-name="name" :img-path="image" />
+      <Avatar :first-name="avatarLetter" :img-path="image" />
       <div class="flex flex-col justify-between h-24 text-base">
         <label
           class="
@@ -106,9 +106,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import useValidate from "@/composable/useValidate";
+import useVuelidate from "@vuelidate/core";
 import Avatar from "@/components/common/Avatar";
 import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
@@ -134,7 +135,15 @@ export default {
       weightUnit,
       v$,
       checkForm,
+      rules,
     } = useValidate();
+    const validator = useVuelidate(rules, {
+      name,
+    });
+    const avatarLetter = computed(() => {
+      validator.value.name.$touch();
+      return validator.value.name.$error ? "" : name.value;
+    });
     const image = ref(store.getters.getImage);
     const heightRadioOptions = [
       {
@@ -224,6 +233,7 @@ export default {
       clearAvatar,
       dynamicHeight,
       dynamicWeight,
+      avatarLetter,
     };
   },
 };
