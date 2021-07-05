@@ -1,7 +1,12 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
-      <RadioButtons :icons="icons" @update:modelValue="changeFoodType" />
+      <ActivityButtons name="group1" />
+      <RadioButtons
+        :icons="icons"
+        @update:modelValue="changeFoodType"
+        name="group2"
+      />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
         <TextInput label="" v-model:value="address" />
@@ -18,6 +23,7 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
+import ActivityButtons from "@/components/common/ActivityButtons.vue";
 import RadioButtons from "@/components/common/RadioButtons";
 import foodCategoryData from "@/data/foodCategory.json";
 import PizzaIcon from "@/components/common/icons/pizza.vue";
@@ -31,6 +37,7 @@ import { SET_FOOD_TYPE } from "@/store/mutation-types";
 export default {
   name: "Form",
   components: {
+    ActivityButtons,
     RadioButtons,
     Button,
     TextInput,

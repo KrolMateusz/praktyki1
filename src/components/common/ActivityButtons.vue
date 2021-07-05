@@ -1,6 +1,10 @@
 <template>
   <div class="flex flex-col flex-nowrap w-full">
-    <RadioButtons :icons="icons" @update:modelValue="changeActivity" />
+    <RadioButtons
+      :icons="icons"
+      @update:modelValue="changeActivity"
+      name="activityButtons"
+    />
   </div>
 </template>
 <script>

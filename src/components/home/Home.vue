@@ -1,6 +1,5 @@
 <template>
-  <div class="grid grid-cols-12 space-y-12 mx-10 my-10">
-    <ActivityButtons class="col-start-4 col-span-4 mx-14" />
+  <div class="grid grid-cols-12 m-10 mainContainerHeight">
     <Profile
       :FFMI="FFMI"
       :lowTempo="lowTempo"
@@ -10,9 +9,10 @@
     />
     <Map class="col-start-4 col-end-9 border-2" />
     <Form class="col-start-10 col-end-12" />
-    <ResultList class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13" />
+    <ResultList
+      class="col-start-4 col-span-5 mt-24 pr-4 h-124 overflow-x-scroll"
+    />
   </div>
-  <Charts class="m-20 grid justify-items-center" />
   <Modal @close-modal="closeModal" v-if="isModalOpened">
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
@@ -26,20 +26,16 @@ import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
-import ActivityButtons from "@/components/common/ActivityButtons.vue";
-import Charts from "@/components/Charts/Charts.vue";
 import ResultList from "@/components/ResultList/ResultList.vue";
 
 export default {
   name: "Home",
   components: {
-    Charts,
     Map,
     Profile,
     Modal,
     UserInfoForm,
     Form,
-    ActivityButtons,
     ResultList,
   },
   setup() {
@@ -59,3 +55,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.mainContainerHeight {
+  height: calc(100vh - 11rem);
+}
+</style>
