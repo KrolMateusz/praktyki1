@@ -5,7 +5,7 @@
     novalidate
   >
     <div class="flex justify-between items-center mb-5">
-      <Avatar :first-name="avatarLetter" :img-path="image" />
+      <Avatar :first-name="avatarFirstName" :img-path="image" />
       <div class="flex flex-col justify-between h-24 text-base">
         <label
           class="
@@ -140,7 +140,7 @@ export default {
     const validator = useVuelidate(rules, {
       name,
     });
-    const avatarLetter = computed(() => {
+    const avatarFirstName = computed(() => {
       validator.value.name.$touch();
       return validator.value.name.$error ? "" : name.value;
     });
@@ -233,7 +233,7 @@ export default {
       clearAvatar,
       dynamicHeight,
       dynamicWeight,
-      avatarLetter,
+      avatarFirstName,
     };
   },
 };
