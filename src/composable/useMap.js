@@ -35,12 +35,12 @@ export const useMap = () => {
   const findRestaurants = async ({
     lat = 51.117883,
     lng = 17.038538,
-    radiusInM = 5000,
+    distanceInM = 3000,
     foodType = "pizza",
+    radiusInM = 5000,
     limit = 50,
   }) => {
     try {
-      const distanceInM = store.getters.getDistance;
       const map = store.getters.getMap;
       const foodTypes = {
         pizza: {
