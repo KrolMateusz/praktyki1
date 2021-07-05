@@ -55,6 +55,7 @@ export default {
     const selectRestaurant = async (index) => {
       const userPosition = await findUserPosition(address.value);
       const restaurant = store.getters.getRestaurantById(index);
+      store.commit("setDestinationAddress", restaurant.address);
       await drawRouteToRestaurant({
         originLng: userPosition.lng,
         originLat: userPosition.lat,

@@ -4,6 +4,7 @@ export const mapModule = {
   state: () => ({
     map: null,
     originAddress: null,
+    destinationAddress: null,
     distanceInM: 1000,
     restaurants: [],
   }),
@@ -16,6 +17,9 @@ export const mapModule = {
     },
     setAddress(state, payload) {
       state.originAddress = payload;
+    },
+    setDestinationAddress(state, payload) {
+      state.destinationAddress = payload;
     },
   },
   actions: {
@@ -47,6 +51,9 @@ export const mapModule = {
     },
     getOriginAddress(state) {
       return state.originAddress;
+    },
+    getDestinationAddress(state) {
+      return state.destinationAddress?.label;
     },
     getRestaurantById: (state) => (id) => state.restaurants[id],
   },

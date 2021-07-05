@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import ActivityButtons from "@/components/common/ActivityButtons.vue";
 import RadioButtons from "@/components/common/RadioButtons";
@@ -46,7 +46,7 @@ export default {
     const { findRestaurants, drawRouteToRestaurant, findUserPosition } =
       useMap();
     const address = ref("");
-    const endLocation = ref("Sky Tower");
+    const endLocation = computed(() => store.getters.getDestinationAddress);
     foodCategoryData.pizza.icon = PizzaIcon;
     foodCategoryData.burger.icon = BurgerIcon;
     foodCategoryData.kebab.icon = KebabIcon;
