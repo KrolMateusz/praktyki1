@@ -13,16 +13,16 @@
           cursor-pointer
         "
         :class="{ 'bg-main text-white hover:bg-main': isActive === index }"
+        :key="index"
         @click="clickHandler(index)"
         id="index"
-        v-for="(result, index) in results"
-        :key="index"
+        v-for="(restaurant, index) in restaurants"
       >
-        <span class="font-bold px-2">{{ result.name }}</span> <br />
+        <span class="font-bold px-2">{{ restaurant.name }}</span> <br />
 
         <span class="px-1">
-          {{ result.address.street }}, {{ result.address.city }},
-          {{ result.address.postalCode }}
+          {{ restaurant.address.street }}, {{ restaurant.address.city }},
+          {{ restaurant.address.postalCode }}
         </span>
       </li>
     </ul>
@@ -31,18 +31,35 @@
 
 <script>
 import { ref } from "vue";
-import { results } from "./results.js";
 
 export default {
   name: "ResultList",
+  props: {
+    restaurants: {
+      type: Array,
+      validator(restaurants) {
+        return restaurants.every(
+          (restaurant) =>
+            "address" in restaurant &&
+            "name" in restaurant &&
+            "position" in restaurant
+        );
+      },
+    },
+  },
+  emits: ["selectRestaurant"],
+  setup(props, { emit }) {
+    const isActive = ref(null);
 
-  setup() {
     const clickHandler = function (index) {
       this.isActive = index;
+      emit("selectRestaurant", index);
     };
-    const isActive = ref(-1);
 
-    return { results, isActive, clickHandler };
+    return {
+      isActive,
+      clickHandler,
+    };
   },
 };
 </script>

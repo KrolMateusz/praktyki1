@@ -10,7 +10,9 @@
     <Map class="col-start-4 col-end-9 border-2" />
     <Form class="col-start-10 col-end-12" />
     <ResultList
-      class="col-start-4 col-span-5 mt-24 pr-4 h-124 overflow-x-scroll"
+      :restaurants="restaurants"
+      @select-restaurant="selectRestaurant"
+      class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13"
     />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
@@ -20,7 +22,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useMap } from "@/composable/useMap";
 import Map from "@/components/common/Map.vue";
 import Profile from "@/components/common/Profile.vue";
 import Modal from "@/components/common/Modal";
@@ -39,16 +43,34 @@ export default {
     ResultList,
   },
   setup() {
+    const { findUserPosition, drawRouteToRestaurant } = useMap();
+    const store = useStore();
     const FFMI = ref(0);
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
+    const restaurants = computed(() => store.getters.getRestaurants);
+    const address = computed(() => store.getters.getOriginAddress);
+
+    const selectRestaurant = async (index) => {
+      const userPosition = await findUserPosition(address.value);
+      const restaurant = store.getters.getRestaurantById(index);
+      await drawRouteToRestaurant({
+        originLng: userPosition.lng,
+        originLat: userPosition.lat,
+        destinationLng: restaurant.position.lng,
+        destinationLat: restaurant.position.lat,
+        transport: store.state.activityOption.transportMode,
+      });
+    };
 
     return {
       FFMI,
       lowTempo,
       fastTempo,
       isModalOpened,
+      restaurants,
+      selectRestaurant,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };

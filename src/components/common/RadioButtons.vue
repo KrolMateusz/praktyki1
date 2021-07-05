@@ -2,7 +2,7 @@
   <fieldset class="flex justify-between max-w-100">
     <label :key="icon.id" :id="name" v-for="icon in icons">
       <input
-        :checked="icon.id === 0"
+        :checked="icon.value.id === currentId"
         :value="icon.value"
         :name="name"
         @change="$emit('update:modelValue', icon.value)"
@@ -25,6 +25,10 @@ export default {
     name: {
       type: String,
       required: true,
+    },
+    currentId: {
+      type: Number,
+      default: 0,
     },
   },
 };
