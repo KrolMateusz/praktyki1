@@ -10,7 +10,6 @@
         <p class="font-bold">Punkt docelowy:</p>
         <p>{{ endLocation }}</p>
       </div>
-      <span>{{ name }}</span>
       <Button type="submit" label="Szukaj!" />
     </div>
   </form>
@@ -53,6 +52,7 @@ export default {
       await findRestaurants({
         lat: userCords.lat,
         lng: userCords.lng,
+        distanceInM: 2137,
         foodType: store.state.foodType.name,
       });
     };

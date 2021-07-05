@@ -22,12 +22,12 @@ const store = createStore({
       FFMI: null,
     },
     activityOption: {
-      transportMode: null,
-      kcal: null,
+      transportMode: "pedestrian",
+      kcal: 700,
     },
     foodType: {
-      name: null,
-      kcal: null,
+      name: "pizza",
+      kcal: 700,
     },
   },
   getters: {
