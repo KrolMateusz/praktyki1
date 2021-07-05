@@ -1,6 +1,6 @@
 <template>
-  <nav class="px-40 py-8 relative bg-main">
-    <ul class="flex">
+  <nav class="flex px-40 h-24 text-base relative bg-main">
+    <ul class="flex items-center">
       <Link
         v-for="route in routes"
         :key="route.name"

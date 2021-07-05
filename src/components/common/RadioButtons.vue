@@ -1,17 +1,17 @@
 <template>
-  <div class="flex justify-between max-w-100">
+  <fieldset class="flex justify-between max-w-100" :id="name">
     <label :key="icon.id" v-for="icon in icons">
       <input
         :checked="icon.id === 0"
         :value="icon.value"
         @change="$emit('update:modelValue', icon.value)"
         class="opacity-0 absolute"
-        name="icon"
+        :name="name"
         type="radio"
       />
       <component :is="icon.icon" />
     </label>
-  </div>
+  </fieldset>
 </template>
 
 <script>
@@ -20,6 +20,10 @@ export default {
   props: {
     icons: {
       type: Object,
+      required: true,
+    },
+    name: {
+      type: String,
       required: true,
     },
   },
