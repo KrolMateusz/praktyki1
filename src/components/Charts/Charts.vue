@@ -1,9 +1,13 @@
 <template>
-  <v-chart class="h-chart" :option="option" />
+  <div class="m-20 grid justify-items-center">
+    <v-chart class="h-chart" :option="option" />
+    cos
+  </div>
 </template>
 
 <script>
 import { use } from "echarts/core";
+import { useStore } from "vuex";
 import { CanvasRenderer } from "echarts/renderers";
 import { BarChart } from "echarts/charts";
 import {
@@ -46,6 +50,8 @@ export default defineComponent({
         distance: 35,
       },
     };
+    const store = useStore();
+    const foodType = store.state.foodType.name;
 
     const labelOption = {
       show: true,
@@ -120,7 +126,7 @@ export default defineComponent({
       ],
     };
 
-    return { option };
+    return { option, foodType };
   },
 });
 </script>
