@@ -120,6 +120,7 @@ export const useMap = () => {
         },
       });
       const routeLine = new H.map.Group();
+      routeLine.removeObjects([routeLine, routeArrows]);
       routeLine.addObjects([routeOutline, routeArrows]);
       const startMarker = new H.map.Marker(section.departure.place.location);
       const endMarker = new H.map.Marker(section.arrival.place.location);
