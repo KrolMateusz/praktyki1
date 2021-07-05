@@ -60,6 +60,8 @@ export const useMap = () => {
       const restaurants = [];
       const cords = calculateCords({ lat, lng }, radiusInM + distanceInM);
 
+      map.removeObjects(map.getObjects());
+
       map.addObject(new H.map.Marker({ lat, lng }));
 
       const createBrowseQueryUrls = ({ lat, lng }) =>
@@ -121,7 +123,6 @@ export const useMap = () => {
       routeLine.addObjects([routeOutline, routeArrows]);
       const startMarker = new H.map.Marker(section.departure.place.location);
       const endMarker = new H.map.Marker(section.arrival.place.location);
-
       map.addObjects([routeLine, startMarker, endMarker]);
       map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
     } catch (e) {
