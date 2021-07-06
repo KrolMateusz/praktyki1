@@ -1,6 +1,6 @@
 <template>
   <div class="flex self-center justify-center">
-    <div ref="mapContainer" class="w-220 h-144 bg-main" />
+    <div ref="mapContainer" class="w-full h-144 bg-main" />
   </div>
 </template>
 
