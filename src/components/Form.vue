@@ -1,10 +1,16 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="drawRestaurantsOnMap">
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
-      <RadioButtons :icons="icons" @update:modelValue="changeFoodType" />
+      <ActivityButtons name="group1" />
+      <RadioButtons
+        :icons="icons"
+        @update:modelValue="changeFoodType"
+        @click="drawRestaurantsOnMap"
+        name="foodTypeButtons"
+      />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
-        <TextInput label="" v-model:value="address" />
+        <TextInput v-model:value="address" />
       </div>
       <div>
         <p class="font-bold">Punkt docelowy:</p>
@@ -16,8 +22,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import ActivityButtons from "@/components/common/ActivityButtons.vue";
 import RadioButtons from "@/components/common/RadioButtons";
 import foodCategoryData from "@/data/foodCategory.json";
 import PizzaIcon from "@/components/common/icons/pizza.vue";
@@ -31,6 +38,7 @@ import { SET_FOOD_TYPE } from "@/store/mutation-types";
 export default {
   name: "Form",
   components: {
+    ActivityButtons,
     RadioButtons,
     Button,
     TextInput,
@@ -39,15 +47,16 @@ export default {
     const { findRestaurants, drawRouteToRestaurant, findUserPosition } =
       useMap();
     const address = ref("");
-    const endLocation = ref("Sky Tower");
+    const endLocation = computed(() => store.getters.getDestinationAddress);
     foodCategoryData.pizza.icon = PizzaIcon;
     foodCategoryData.burger.icon = BurgerIcon;
     foodCategoryData.kebab.icon = KebabIcon;
     const icons = foodCategoryData;
     const store = useStore();
 
-    const handleSubmit = async () => {
+    const drawRestaurantsOnMap = async () => {
       if (!address.value) return;
+      store.commit("setAddress", address.value);
       const userCords = await findUserPosition(address.value);
       await findRestaurants({
         lat: userCords.lat,
@@ -67,7 +76,7 @@ export default {
       findRestaurants,
       drawRouteToRestaurant,
       findUserPosition,
-      handleSubmit,
+      drawRestaurantsOnMap,
       changeFoodType,
     };
   },
