@@ -12,7 +12,7 @@
     <ResultList
       :restaurants="restaurants"
       @select-restaurant="selectRestaurantById"
-      class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13"
+      class="col-start-4 col-span-5 mt-24 pr-4 h-124 overflow-x-scroll"
     />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
