@@ -1,6 +1,11 @@
 <template>
   <div class="flex flex-col flex-nowrap w-full">
-    <RadioButtons :icons="icons" @update:modelValue="changeActivity" />
+    <RadioButtons
+      :icons="icons"
+      @update:modelValue="changeActivity"
+      @click.stop="$emit('findRoute')"
+      name="activityButtons"
+    />
   </div>
 </template>
 <script>
@@ -17,6 +22,7 @@ export default {
   components: {
     RadioButtons,
   },
+  emits: ["findRoute"],
   setup() {
     const store = useStore();
     const changeActivity = (value) => {

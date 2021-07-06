@@ -22,9 +22,14 @@ export const useMap = () => {
       };
     });
 
-  const findUserPosition = async (query) => {
-    const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_API_KEY}`;
+  const findUserPosition = async (query = null) => {
     try {
+      if (navigator.geolocation && !query) {
+        return new Promise((resolve, reject) =>
+          navigator.geolocation.getCurrentPosition(resolve, reject)
+        );
+      }
+      const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_API_KEY}`;
       const { data } = await axios.get(discoveryUrl);
       return data.items[0].position;
     } catch (e) {
@@ -37,7 +42,7 @@ export const useMap = () => {
     lng = 17.038538,
     distanceInM = 3000,
     foodType = "pizza",
-    radiusInM = 5000,
+    radiusInM = 2000,
     limit = 50,
   }) => {
     try {
@@ -73,13 +78,22 @@ export const useMap = () => {
       const places = result.map((item) => item.data.items).flat();
       places.forEach((place) => {
         restaurants.push({
+          id: place.id,
           name: place.title,
           address: place.address,
           openingHours: place.openingHours ? place.openingHours[0].text : null,
           position: place.position,
         });
       });
-      restaurants.forEach((item) => {
+      const restaurantsChecked = new Map();
+      restaurants.forEach((restaurant) => {
+        if (!restaurantsChecked.has(restaurant.id)) {
+          restaurantsChecked.set(restaurant.id, restaurant);
+        }
+      });
+      const distinctRestaurants = [...restaurantsChecked.values()];
+      store.commit("setRestaurants", distinctRestaurants);
+      distinctRestaurants.forEach((item) => {
         map.addObject(new H.map.Marker(item.position, { icon }));
       });
     } catch (e) {

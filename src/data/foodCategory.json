@@ -1,21 +1,21 @@
 {
   "pizza": {
-    "id": 0,
     "value": {
+      "id": 0,
       "name": "pizza",
       "kcal": 700
     }
   },
   "burger": {
-    "id": 1,
     "value": {
+      "id": 1,
       "name": "burger",
       "kcal": 1000
     }
   },
   "kebab": {
-    "id": 2,
     "value": {
+      "id": 2,
       "name": "kebab",
       "kcal": 800
     }
