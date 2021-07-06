@@ -11,7 +11,7 @@
     <Form class="col-start-10 col-end-12" />
     <ResultList
       :restaurants="restaurants"
-      @select-restaurant="selectRestaurant"
+      @select-restaurant="selectRestaurantById"
       class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13"
     />
   </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useMap } from "@/composable/useMap";
 import Map from "@/components/common/Map.vue";
@@ -49,18 +49,30 @@ export default {
     const lowTempo = ref(0.3);
     const fastTempo = ref(0.9);
     const isModalOpened = ref(false);
+    const restaurant = reactive({ value: null });
     const restaurants = computed(() => store.getters.getRestaurants);
     const address = computed(() => store.getters.getOriginAddress);
 
-    const selectRestaurant = async (index) => {
+    const redrawRoute = async () => {
       const userPosition = await findUserPosition(address.value);
-      const restaurant = store.getters.getRestaurantById(index);
-      store.commit("setDestinationAddress", restaurant.address);
+
       await drawRouteToRestaurant({
         originLng: userPosition.lng,
         originLat: userPosition.lat,
-        destinationLng: restaurant.position.lng,
-        destinationLat: restaurant.position.lat,
+        destinationLng: restaurant.value.position.lng,
+        destinationLat: restaurant.value.position.lat,
+        transport: store.state.activityOption.transportMode,
+      });
+    };
+    const selectRestaurantById = async (id) => {
+      const userPosition = await findUserPosition(address.value);
+      restaurant.value = store.getters.getRestaurantById(id);
+      store.commit("setDestinationAddress", restaurant.value.address);
+      await drawRouteToRestaurant({
+        originLng: userPosition.lng,
+        originLat: userPosition.lat,
+        destinationLng: restaurant.value.position.lng,
+        destinationLat: restaurant.value.position.lat,
         transport: store.state.activityOption.transportMode,
       });
     };
@@ -71,7 +83,8 @@ export default {
       fastTempo,
       isModalOpened,
       restaurants,
-      selectRestaurant,
+      redrawRoute,
+      selectRestaurantById,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
     };

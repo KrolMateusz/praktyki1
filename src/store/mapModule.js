@@ -13,7 +13,7 @@ export const mapModule = {
       state.map = payload.map;
     },
     setRestaurants(state, payload) {
-      state.restaurants = [...state.restaurants, ...payload];
+      state.restaurants = [...payload];
     },
     setAddress(state, payload) {
       state.originAddress = payload;
