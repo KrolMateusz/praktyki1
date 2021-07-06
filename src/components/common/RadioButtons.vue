@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between max-w-100">
-    <label class="cursor-pointer" :key="icon.id" v-for="icon in icons">
+    <label :key="icon.id" class="cursor-pointer" v-for="icon in icons">
       <input
         :checked="icon.id === 0"
         :value="icon.value"
