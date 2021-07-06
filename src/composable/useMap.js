@@ -118,7 +118,9 @@ export const useMap = () => {
       const objectsToRemove = map
         .getObjects()
         .filter((object) => object.id === "route");
-      map.removeObjects(objectsToRemove);
+      if (objectsToRemove.length) {
+        map.removeObjects(objectsToRemove);
+      }
       const lineString = H.geo.LineString.fromFlexiblePolyline(polyline);
       const routeOutline = new H.map.Polyline(lineString, {
         style: {
