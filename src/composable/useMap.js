@@ -85,6 +85,7 @@ export const useMap = () => {
         }
       });
       const distinctRestaurants = [...restaurantsChecked.values()];
+      store.commit("setRestaurants", distinctRestaurants);
       distinctRestaurants.forEach((item) => {
         map.addObject(new H.map.Marker(item.position, { icon }));
       });
