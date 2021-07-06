@@ -1,6 +1,11 @@
 <template>
   <fieldset class="flex justify-between max-w-100">
-    <label :key="icon.id" :id="name" v-for="icon in icons">
+    <label
+      :key="icon.id"
+      class="cursor-pointer"
+      :id="name"
+      v-for="icon in icons"
+    >
       <input
         :checked="icon.value.id === currentId"
         :value="icon.value"
