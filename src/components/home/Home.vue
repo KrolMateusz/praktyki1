@@ -58,6 +58,7 @@ export default {
 
 <style>
 .mainContainerHeight {
-  height: calc(100vh - 11rem);
+  --height-without-navbar: 11rem;
+  height: calc(100vh - var(--height-without-navbar));
 }
 </style>
