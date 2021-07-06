@@ -208,10 +208,9 @@ export default {
         BMI: calculateBMI(),
       });
       store.commit("SET_KCAL_BURNED", {
-        walking: (activityOptionData.shoe.value.kcal / 70) * weight.value,
-        skating:
-          (activityOptionData.rollerblades.value.kcal / 70) * weight.value,
-        cycling: (activityOptionData.bicycle.value.kcal / 70) * weight.value,
+        walking: activityOptionData.shoe.value.kcal * weight.value,
+        skating: activityOptionData.rollerblades.value.kcal * weight.value,
+        cycling: activityOptionData.bicycle.value.kcal * weight.value,
       });
     };
     const uploadImage = (e) => {

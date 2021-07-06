@@ -4,7 +4,7 @@
     "value": {
       "type": "walking",
       "transportMode": "pedestrian",
-      "kcal": 700
+      "kcal": 10
     }
   },
   "rollerblades": {
@@ -12,7 +12,7 @@
     "value": {
       "type": "skating",
       "transportMode": "pedestrian",
-      "kcal": 500
+      "kcal": 7
     }
   },
   "bicycle": {
@@ -20,7 +20,7 @@
     "value": {
       "type": "cycling",
       "transportMode": "bicycle",
-      "kcal": 400
+      "kcal": 5
     }
   }
 }

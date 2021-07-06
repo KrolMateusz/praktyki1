@@ -23,6 +23,7 @@ import { computed, defineComponent } from "vue";
 import { ToolboxComponent } from "echarts/components";
 import { GridComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";
+import { weightUnitLBS } from "./variables.js";
 
 use([
   CanvasRenderer,
@@ -61,7 +62,7 @@ export default defineComponent({
     };
 
     const dataSlow = Object.keys(kcalBurned.value).map((key) => {
-      if (weightUnit.value === "lbs") {
+      if (weightUnit.value === weightUnitLBS) {
         return (
           ((foodType.kcal / kcalBurned.value[key]) * 60 * 2) /
           0.45359237
@@ -72,7 +73,7 @@ export default defineComponent({
     });
 
     const dataFast = Object.keys(kcalBurned.value).map((key) => {
-      if (weightUnit.value === "lbs") {
+      if (weightUnit.value === weightUnitLBS) {
         return (
           ((foodType.kcal / kcalBurned.value[key]) * 60) /
           0.45359237
