@@ -109,11 +109,16 @@ export const useMap = () => {
     transport = "pedestrian",
   }) => {
     try {
-      const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_API_KEY}`;
-      const { data } = await axios.get(restaurantUrl);
       const map = store.getters.getMap;
+      const restaurantUrl = `https://router.hereapi.com/v8/routes?transportMode=${transport}&origin=${originLat},${originLng}&destination=${destinationLat},${destinationLng}&return=travelSummary,polyline&apiKey=${process.env.VUE_APP_API_KEY}`;
+      const routeLine = new H.map.Group();
+      const { data } = await axios.get(restaurantUrl);
       const section = data.routes[0].sections[0];
       const polyline = section.polyline;
+      const objectsToRemove = map
+        .getObjects()
+        .filter((object) => object.id === "route");
+      map.removeObjects(objectsToRemove);
       const lineString = H.geo.LineString.fromFlexiblePolyline(polyline);
       const routeOutline = new H.map.Polyline(lineString, {
         style: {
@@ -133,12 +138,15 @@ export const useMap = () => {
           lineHeadCap: "arrow-head",
         },
       });
-      const routeLine = new H.map.Group();
-      routeLine.removeObjects([routeLine, routeArrows]);
       routeLine.addObjects([routeOutline, routeArrows]);
+
       const startMarker = new H.map.Marker(section.departure.place.location);
       const endMarker = new H.map.Marker(section.arrival.place.location);
-      map.addObjects([routeLine, startMarker, endMarker]);
+      const markers = [routeLine, startMarker, endMarker];
+      markers.forEach((m) => {
+        m.id = "route";
+      });
+      map.addObjects(markers);
       map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
     } catch (e) {
       throw new Error(e);
