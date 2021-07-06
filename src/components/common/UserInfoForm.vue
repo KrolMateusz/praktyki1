@@ -115,6 +115,7 @@ import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
+import activityOptionData from "@/data/activityOption.json";
 export default {
   name: "Modal",
   components: {
@@ -193,6 +194,7 @@ export default {
         weight.value = (weight.value * 2.20462262185).toFixed(1);
       }
     };
+
     const setUser = () => {
       emit("closeModal");
       store.commit("SET_USER", {
@@ -206,6 +208,12 @@ export default {
         image: image.value,
         BMI: calculateBMI(),
       });
+      const payloadKcalBurned = {
+        walking: activityOptionData.shoe.value.kcal * weight.value,
+        skating: activityOptionData.rollerblades.value.kcal * weight.value,
+        cycling: activityOptionData.bicycle.value.kcal * weight.value,
+      };
+      store.commit("SET_KCAL_BURNED", payloadKcalBurned);
     };
     const uploadImage = (e) => {
       const reader = new FileReader();

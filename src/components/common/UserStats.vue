@@ -24,11 +24,25 @@
     <div class="pl-7 pt-1">
       <p>
         Wolno:
-        <span class="font-semibold">{{ lowTempo }} {{ weightUnit }}/h</span>
+        <span class="font-semibold"
+          >{{
+            weightUnit == "kg"
+              ? currentConsumption
+              : (currentConsumption * 0.45359237).toFixed(0)
+          }}
+          kcal/h</span
+        >
       </p>
       <p>
         Szybko:
-        <span class="font-semibold">{{ fastTempo }} {{ weightUnit }}/h</span>
+        <span class="font-semibold"
+          >{{
+            weightUnit == "kg"
+              ? currentConsumption * 2
+              : (currentConsumption * 2 * 0.45359237).toFixed(0)
+          }}
+          kcal/h</span
+        >
       </p>
     </div>
   </div>
@@ -38,20 +52,6 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
-  props: {
-    FFMI: {
-      Number,
-      default: "",
-    },
-    lowTempo: {
-      Number,
-      required: true,
-    },
-    fastTempo: {
-      Number,
-      required: true,
-    },
-  },
   setup() {
     const store = useStore();
     const weight = computed(() => store.getters.getWeight);
@@ -59,8 +59,13 @@ export default {
     const weightUnit = computed(() => store.getters.getWeightUnit);
     const heightUnit = computed(() => store.getters.getHeightUnit);
     const BMI = computed(() => store.getters.getBMI);
+    const kcalBurned = computed(() => store.getters.getKcalBurned);
+    const currentActivity = computed(() => store.getters.getActivityOptionType);
+    const currentConsumption = computed(
+      () => kcalBurned.value[currentActivity.value]
+    );
 
-    return { weightUnit, heightUnit, weight, height, BMI };
+    return { weightUnit, heightUnit, weight, height, BMI, currentConsumption };
   },
 };
 </script>

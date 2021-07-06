@@ -46,8 +46,7 @@ export default {
     const { findUserPosition, drawRouteToRestaurant } = useMap();
     const store = useStore();
     const FFMI = ref(0);
-    const lowTempo = ref(0.3);
-    const fastTempo = ref(0.9);
+
     const isModalOpened = ref(false);
     const restaurant = reactive({ value: null });
     const restaurants = computed(() => store.getters.getRestaurants);
@@ -79,8 +78,7 @@ export default {
 
     return {
       FFMI,
-      lowTempo,
-      fastTempo,
+
       isModalOpened,
       restaurants,
       redrawRoute,
