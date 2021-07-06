@@ -57,6 +57,12 @@ const store = createStore({
     getBMI(state) {
       return state.user?.BMI;
     },
+    getCurrentActivityId(state) {
+      return state.activityOption.id;
+    },
+    getFoodTypeId(state) {
+      return state.foodType.id;
+    },
   },
   mutations: {
     [SET_USER](state, payload) {
