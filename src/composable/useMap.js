@@ -22,14 +22,9 @@ export const useMap = () => {
       };
     });
 
-  const findUserPosition = async (query = null) => {
+  const findUserPosition = async (query) => {
+    const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_API_KEY}`;
     try {
-      if (navigator.geolocation && !query) {
-        return new Promise((resolve, reject) =>
-          navigator.geolocation.getCurrentPosition(resolve, reject)
-        );
-      }
-      const discoveryUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&apiKey=${process.env.VUE_APP_API_KEY}`;
       const { data } = await axios.get(discoveryUrl);
       return data.items[0].position;
     } catch (e) {
