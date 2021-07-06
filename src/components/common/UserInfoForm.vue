@@ -194,6 +194,7 @@ export default {
         weight.value = (weight.value * 2.20462262185).toFixed(1);
       }
     };
+
     const setUser = () => {
       emit("closeModal");
       store.commit("SET_USER", {
@@ -207,11 +208,12 @@ export default {
         image: image.value,
         BMI: calculateBMI(),
       });
-      store.commit("SET_KCAL_BURNED", {
+      const payloadKcalBurned = {
         walking: activityOptionData.shoe.value.kcal * weight.value,
         skating: activityOptionData.rollerblades.value.kcal * weight.value,
         cycling: activityOptionData.bicycle.value.kcal * weight.value,
-      });
+      };
+      store.commit("SET_KCAL_BURNED", payloadKcalBurned);
     };
     const uploadImage = (e) => {
       const reader = new FileReader();
