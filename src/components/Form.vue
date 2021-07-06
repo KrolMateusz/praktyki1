@@ -1,11 +1,12 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="drawRestaurantsOnMap">
     <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
       <ActivityButtons name="group1" />
       <RadioButtons
         :icons="icons"
         @update:modelValue="changeFoodType"
-        name="group2"
+        @click="drawRestaurantsOnMap"
+        name="foodTypeButtons"
       />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
@@ -53,7 +54,7 @@ export default {
     const icons = foodCategoryData;
     const store = useStore();
 
-    const handleSubmit = async () => {
+    const drawRestaurantsOnMap = async () => {
       if (!address.value) return;
       store.commit("setAddress", address.value);
       const userCords = await findUserPosition(address.value);
@@ -75,7 +76,7 @@ export default {
       findRestaurants,
       drawRouteToRestaurant,
       findUserPosition,
-      handleSubmit,
+      drawRestaurantsOnMap,
       changeFoodType,
     };
   },

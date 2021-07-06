@@ -3,6 +3,7 @@
     <RadioButtons
       :icons="icons"
       @update:modelValue="changeActivity"
+      @click.stop="$emit('findRoute')"
       name="activityButtons"
     />
   </div>
@@ -21,6 +22,7 @@ export default {
   components: {
     RadioButtons,
   },
+  emits: ["findRoute"],
   setup() {
     const store = useStore();
     const changeActivity = (value) => {
