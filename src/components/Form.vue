@@ -10,7 +10,7 @@
       />
       <div>
         <p class="font-bold">Punkt początkowy:</p>
-        <TextInput label="" v-model:value="address" />
+        <TextInput v-model:value="address" />
       </div>
       <div>
         <p class="font-bold">Punkt docelowy:</p>
