@@ -78,7 +78,7 @@ export const useMap = () => {
         });
       });
       restaurants.forEach((item) => {
-        map.addObject(new H.map.Marker(item.position, { icon }));
+        map.addObject(new H.map.Marker(item.position, { icon, zIndex: 9999 }));
       });
     } catch (e) {
       throw new Error(e);
