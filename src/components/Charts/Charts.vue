@@ -1,7 +1,10 @@
 <template>
   <div class="m-20 grid justify-items-center">
     <v-chart class="h-chart" :option="option" />
-    cos
+    <p class="text-base">
+      Current Food Type:
+      <span class="font-bold">{{ foodType.name.toUpperCase() }}</span>
+    </p>
   </div>
 </template>
 
@@ -16,7 +19,7 @@ import {
   LegendComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { ToolboxComponent } from "echarts/components";
 import { GridComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";
@@ -41,6 +44,12 @@ export default defineComponent({
     [THEME_KEY]: "light",
   },
   setup() {
+    const store = useStore();
+    const kcalBurned = computed(() => store.getters.getKcalBurned);
+    const weightUnit = computed(() => store.getters.getWeightUnit);
+
+    const foodType = store.state.foodType;
+
     const app = {
       config: {
         rotate: 86,
@@ -50,8 +59,28 @@ export default defineComponent({
         distance: 35,
       },
     };
-    const store = useStore();
-    const foodType = store.state.foodType.name;
+
+    const dataSlow = Object.keys(kcalBurned.value).map((key) => {
+      if (weightUnit.value === "lbs") {
+        return (
+          ((foodType.kcal / kcalBurned.value[key]) * 60 * 2) /
+          0.45359237
+        ).toFixed(0);
+      } else {
+        return ((foodType.kcal / kcalBurned.value[key]) * 60 * 2).toFixed(0);
+      }
+    });
+
+    const dataFast = Object.keys(kcalBurned.value).map((key) => {
+      if (weightUnit.value === "lbs") {
+        return (
+          ((foodType.kcal / kcalBurned.value[key]) * 60) /
+          0.45359237
+        ).toFixed(0);
+      } else {
+        return ((foodType.kcal / kcalBurned.value[key]) * 60).toFixed(0);
+      }
+    });
 
     const labelOption = {
       show: true,
@@ -73,9 +102,7 @@ export default defineComponent({
           type: "shadow",
         },
       },
-      legend: {
-        data: ["fast", "slow"],
-      },
+
       toolbox: {
         show: true,
         orient: "vertical",
@@ -91,6 +118,7 @@ export default defineComponent({
       },
       xAxis: [
         {
+          name: "Activities",
           type: "category",
           axisTick: { show: true },
           data: ["Walking", "Skating", "Cycling"],
@@ -98,6 +126,9 @@ export default defineComponent({
       ],
       yAxis: [
         {
+          name: "Time",
+          nameLocation: "middle",
+          nameGap: 30,
           type: "value",
         },
       ],
@@ -110,7 +141,7 @@ export default defineComponent({
           emphasis: {
             focus: "series",
           },
-          data: [320, 332, 301],
+          data: dataFast,
           color: "#ea1885",
         },
         {
@@ -120,7 +151,7 @@ export default defineComponent({
           emphasis: {
             focus: "series",
           },
-          data: [150, 232, 201],
+          data: dataSlow,
           color: "#eadc18",
         },
       ],

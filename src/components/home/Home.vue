@@ -41,14 +41,12 @@ export default {
   },
   setup() {
     const FFMI = ref(0);
-    const lowTempo = ref(0.3);
-    const fastTempo = ref(0.9);
+
     const isModalOpened = ref(false);
 
     return {
       FFMI,
-      lowTempo,
-      fastTempo,
+
       isModalOpened,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),

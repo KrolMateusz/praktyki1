@@ -114,6 +114,7 @@ import Button from "@/components/common/Button";
 import Error from "@/components/common/Error";
 import RadioGroup from "@/components/common/RadioGroup";
 import TextInput from "@/components/common/TextInput";
+import activityOptionData from "@/data/activityOption.json";
 export default {
   name: "Modal",
   components: {
@@ -196,6 +197,12 @@ export default {
         weightUnit: weightUnit.value,
         image: image.value,
         BMI: calculateBMI(),
+      });
+      store.commit("SET_KCAL_BURNED", {
+        walking: (activityOptionData.shoe.value.kcal / 70) * weight.value,
+        skating:
+          (activityOptionData.rollerblades.value.kcal / 70) * weight.value,
+        cycling: (activityOptionData.bicycle.value.kcal / 70) * weight.value,
       });
     };
     const uploadImage = (e) => {

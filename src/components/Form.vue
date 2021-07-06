@@ -58,6 +58,7 @@ export default {
     };
     const changeFoodType = (value) => {
       store.commit(SET_FOOD_TYPE, { ...value });
+      console.log(value);
     };
 
     return {
