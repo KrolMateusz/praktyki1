@@ -1,5 +1,7 @@
 <template>
   <button
+    :class="{ 'px-40': isBig, 'bg-warning text-gray-900': isWarning }"
+    :type="type"
     data-test="button"
     class="
       flex
@@ -13,7 +15,6 @@
       px-10
       text-base
     "
-    :class="{ 'px-40': isBig, 'bg-warning text-gray-900': isWarning }"
   >
     {{ label }}
   </button>
@@ -34,6 +35,10 @@ export default {
     isWarning: {
       type: Boolean,
       default: false,
+    },
+    type: {
+      type: String,
+      default: "button",
     },
   },
 };

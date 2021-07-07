@@ -101,7 +101,7 @@
         />
       </div>
     </div>
-    <Button class="border border-black mt-6" label="Zapisz" />
+    <Button type="submit" class="border border-black mt-6" label="Zapisz" />
   </form>
 </template>
 
