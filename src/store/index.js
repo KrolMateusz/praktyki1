@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { auth, users } from "../firebase";
 import {
   SET_USER,
   SET_ACTIVITY_OPTION,
@@ -21,6 +22,7 @@ const store = createStore({
       image: "",
       BMI: null,
       FFMI: null,
+      userAuthData: null,
     },
     activityOption: {
       id: 0,
@@ -76,6 +78,9 @@ const store = createStore({
     getActivityOptionType(state) {
       return state.activityOption.type;
     },
+    getUserAuthData(state) {
+      return state.userAuthData;
+    },
   },
   mutations: {
     [SET_USER](state, payload) {
@@ -90,8 +95,30 @@ const store = createStore({
     [SET_KCAL_BURNED](state, payload) {
       state.kcalBurned = { ...state.kcalBurned, ...payload };
     },
+    setUserAuth(state, payload) {
+      state.userAuthData = payload;
+    },
   },
-  actions: {},
+  actions: {
+    async login({ dispatch }, { email, password }) {
+      const { user } = await auth.signInWithEmailAndPassword({
+        email,
+        password,
+      });
+
+      dispatch("fetchUserProfile", user);
+    },
+    async signup({ dispatch }, { name, surname, email, password }) {
+      console.log(name, surname, email, password);
+      console.log(dispatch);
+    },
+
+    async fetchUserProfile({ commit }, user) {
+      const userProfile = await users.doc(user.uuid).get();
+      commit("setUserAuth", userProfile.data());
+      router.push("/");
+    },
+  },
   modules: {
     routerModule,
     mapModule,
