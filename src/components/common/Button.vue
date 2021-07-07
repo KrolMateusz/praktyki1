@@ -1,5 +1,6 @@
 <template>
   <button
+    data-test="button"
     class="
       flex
       justify-center
