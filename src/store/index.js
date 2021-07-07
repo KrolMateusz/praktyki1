@@ -96,15 +96,12 @@ const store = createStore({
       state.kcalBurned = { ...state.kcalBurned, ...payload };
     },
     setUserAuth(state, payload) {
-      state.userAuthData = payload;
+      state.userAuthData = { ...state.userAuthData, ...payload };
     },
   },
   actions: {
     async login({ dispatch }, { email, password }) {
-      const { user } = await auth.signInWithEmailAndPassword({
-        email,
-        password,
-      });
+      const { user } = await auth.signInWithEmailAndPassword(email, password);
 
       dispatch("fetchUserProfile", user);
     },
@@ -119,7 +116,6 @@ const store = createStore({
         name,
         surname,
       });
-
       dispatch("fetchUserProfile", user);
     },
 

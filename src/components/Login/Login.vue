@@ -16,7 +16,7 @@
       <label>Login</label>
       <TextInput v-model:value="email" placeholder="Login" />
       <label>Hasło</label>
-      <TextInput v-model:value="password" placeholder="Hasło" />
+      <TextInput v-model:value="password" placeholder="Hasło" type="password" />
       <div class="mt-14 flex flex-col items-center">
         <Button type="submit" :isBig="true" label="Zaloguj się!" />
         <Button
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { reactive, ref, toRefs } from "vue";
 import { useStore } from "vuex";
 import TextInput from "@/components/common/TextInput.vue";
 import Button from "@/components/common/Button";
@@ -52,19 +52,19 @@ export default {
     Modal,
   },
   setup() {
-    const email = ref("");
-    const password = ref("");
+    const formValues = reactive({ email: "", password: "" });
     const isModalOpened = ref(false);
     const store = useStore();
 
     const handleSubmit = () => {
-      if (!email.value || !password.value) return;
-      store.dispatch("login", { email, password });
+      if (!formValues.email || !formValues.password) return;
+
+      store.dispatch("login", formValues);
     };
     return {
-      email,
-      password,
       isModalOpened,
+      formValues,
+      ...toRefs(formValues),
       handleSubmit,
       handleModalVisibility: () => (isModalOpened.value = !isModalOpened.value),
     };

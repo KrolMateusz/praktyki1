@@ -8,7 +8,11 @@
     <label>Email</label>
     <TextInput v-model:value="email" placeholder="Wprowadź swój mail" />
     <label>Hasło</label>
-    <TextInput v-model:value="password" placeholder="Wprowadź hasło" />
+    <TextInput
+      v-model:value="password"
+      placeholder="Wprowadź hasło"
+      type="password"
+    />
     <Button :isBig="true" label="Zarejestruj się!" />
   </FormWrapper>
 </template>

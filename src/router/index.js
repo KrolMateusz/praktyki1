@@ -29,7 +29,9 @@ export const routes = [
   {
     path: "/logout",
     name: "Logout",
-    redirect: { name: "Login" },
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 

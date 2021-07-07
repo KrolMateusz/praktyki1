@@ -1,6 +1,11 @@
 <template>
   <li ref="link">
-    <router-link ref="link" class="text-white text-3xl relative mx-10" :to="to">
+    <router-link
+      ref="link"
+      class="text-white text-3xl relative mx-10"
+      :to="to"
+      @click="logout"
+    >
       {{ name }}
     </router-link>
   </li>
@@ -9,6 +14,8 @@
 <script>
 import { computed, watchEffect, ref } from "vue";
 import { useStore } from "vuex";
+import { auth } from "../../firebase";
+import router from "../../router";
 
 export default {
   emits: ["getLinkPosition"],
@@ -29,9 +36,11 @@ export default {
       }
     });
 
-    const logout = () => {
-      if (props.to === "/login") {
-        console.log("");
+    const logout = async () => {
+      if (props.name === "Logout") {
+        store.commit("setUserAuth", null);
+        await auth.signOut();
+        router.push("/login");
       }
     };
 

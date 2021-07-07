@@ -6,7 +6,7 @@
         :to="route.path"
         :name="route.name"
         @getLinkPosition="setDotPosition"
-        v-for="route in routes"
+        v-for="route in filterRoutes"
       />
     </ul>
     <div
@@ -41,6 +41,9 @@ export default {
     const linkPosition = ref(0);
     const dot = ref(null);
 
+    console.log(routes);
+    const filterRoutes = routes.filter((r) => r.meta);
+
     const setDotPosition = (link) => {
       linkPosition.value =
         link.offsetLeft + link.offsetWidth / 2 - dot.value.offsetWidth / 2;
@@ -49,11 +52,16 @@ export default {
     return {
       linkPosition,
       dot,
-      routes,
+      filterRoutes,
       setDotPosition,
     };
   },
 };
 </script>
 
-<style></style>
+<style>
+li:last-child {
+  justify-self: flex-start;
+  color: red;
+}
+</style>
