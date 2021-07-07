@@ -19,6 +19,12 @@
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
   </Modal>
+  <Toast :show="true">
+    <span>TOAST</span>
+  </Toast>
+  <Toast :show="true" duration-in-seconds="10">
+    <span>TOAST2</span>
+  </Toast>
 </template>
 
 <script>
@@ -31,10 +37,12 @@ import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
 import ResultList from "@/components/ResultList/ResultList.vue";
+import Toast from "@/components/common/Toast";
 
 export default {
   name: "Home",
   components: {
+    Toast,
     Map,
     Profile,
     Modal,
