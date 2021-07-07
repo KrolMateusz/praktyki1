@@ -16,6 +16,7 @@ export default {
     to: { type: String, required: true },
     name: { type: String, required: true },
   },
+
   setup(props, { emit }) {
     const store = useStore();
     const activeLinkName = computed(() => store.getters.getActiveRouteName);
@@ -28,7 +29,13 @@ export default {
       }
     });
 
-    return { activeLinkName, link };
+    const logout = () => {
+      if (props.to === "/login") {
+        console.log("");
+      }
+    };
+
+    return { activeLinkName, link, logout };
   },
 };
 </script>

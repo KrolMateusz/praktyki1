@@ -26,6 +26,11 @@ export const routes = [
     name: "Login",
     component: Login,
   },
+  {
+    path: "/logout",
+    name: "Logout",
+    redirect: { name: "Login" },
+  },
 ];
 
 const router = createRouter({

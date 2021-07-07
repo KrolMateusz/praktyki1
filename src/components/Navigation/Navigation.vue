@@ -10,8 +10,8 @@
       />
     </ul>
     <div
-      ref="dot"
       :style="{ transform: `translate(${linkPosition}px, 1.5rem)  ` }"
+      ref="dot"
       class="
         absolute
         w-10

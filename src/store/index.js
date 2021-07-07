@@ -110,7 +110,17 @@ const store = createStore({
     },
     async signup({ dispatch }, { name, surname, email, password }) {
       console.log(name, surname, email, password);
-      console.log(dispatch);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await users.doc(user.uuid).set({
+        name,
+        surname,
+      });
+
+      dispatch("fetchUserProfile", user);
     },
 
     async fetchUserProfile({ commit }, user) {
