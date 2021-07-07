@@ -1,5 +1,7 @@
 <template>
-  <span class="text-warning" :class="classes">{{ message }}</span>
+  <span data-test="error" class="text-warning" :class="classes">{{
+    message
+  }}</span>
 </template>
 
 <script>
