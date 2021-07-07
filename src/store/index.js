@@ -3,6 +3,7 @@ import {
   SET_USER,
   SET_ACTIVITY_OPTION,
   SET_FOOD_TYPE,
+  SET_KCAL_BURNED,
 } from "@/store/mutation-types";
 import { routerModule } from "./routerModule";
 import { mapModule } from "./mapModule";
@@ -23,6 +24,7 @@ const store = createStore({
     },
     activityOption: {
       id: 0,
+      type: "walking",
       transportMode: "pedestrian",
       kcal: 700,
     },
@@ -30,6 +32,11 @@ const store = createStore({
       id: 0,
       name: "pizza",
       kcal: 700,
+    },
+    kcalBurned: {
+      walking: null,
+      skating: null,
+      cycling: null,
     },
   },
   getters: {
@@ -63,6 +70,12 @@ const store = createStore({
     getFoodTypeId(state) {
       return state.foodType.id;
     },
+    getKcalBurned(state) {
+      return state.kcalBurned;
+    },
+    getActivityOptionType(state) {
+      return state.activityOption.type;
+    },
   },
   mutations: {
     [SET_USER](state, payload) {
@@ -73,6 +86,9 @@ const store = createStore({
     },
     [SET_FOOD_TYPE](state, payload) {
       state.foodType = { ...state.foodType, ...payload };
+    },
+    [SET_KCAL_BURNED](state, payload) {
+      state.kcalBurned = { ...state.kcalBurned, ...payload };
     },
   },
   actions: {},

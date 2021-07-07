@@ -1,23 +1,26 @@
 {
   "shoe": {
     "value": {
+      "type": "walking",
       "id": 0,
       "transportMode": "pedestrian",
-      "kcal": 700
+      "kcal": 10
     }
   },
   "rollerblades": {
     "value": {
+      "type": "skating",
       "id": 1,
       "transportMode": "pedestrian",
-      "kcal": 500
+      "kcal": 7
     }
   },
   "bicycle": {
     "value": {
+      "type": "cycling",
       "id": 2,
       "transportMode": "bicycle",
-      "kcal": 400
+      "kcal": 5
     }
   }
 }

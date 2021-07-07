@@ -12,7 +12,7 @@
     <ResultList
       :restaurants="restaurants"
       @select-restaurant="selectRestaurantById"
-      class="pr-4 h-96 overflow-y-scroll col-span-4 col-end-13"
+      class="col-start-4 col-span-5 mt-24 pr-4 h-124 overflow-x-scroll"
     />
   </div>
   <Modal @close-modal="closeModal" v-if="isModalOpened">
@@ -46,8 +46,7 @@ export default {
     const { findUserPosition, drawRouteToRestaurant } = useMap();
     const store = useStore();
     const FFMI = ref(0);
-    const lowTempo = ref(0.3);
-    const fastTempo = ref(0.9);
+
     const isModalOpened = ref(false);
     const restaurant = reactive({ value: null });
     const restaurants = computed(() => store.getters.getRestaurants);
@@ -79,8 +78,7 @@ export default {
 
     return {
       FFMI,
-      lowTempo,
-      fastTempo,
+
       isModalOpened,
       restaurants,
       redrawRoute,
