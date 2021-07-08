@@ -13,11 +13,7 @@ export default {
     const isAuth = ref(false);
 
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        isAuth.value = true;
-      } else {
-        isAuth.value = false;
-      }
+      user ? (isAuth.value = true) : (isAuth.value = false);
     });
 
     return {

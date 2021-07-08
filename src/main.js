@@ -5,6 +5,9 @@ import store from "@/store";
 import { auth } from "@/firebase";
 import "@/index.css";
 
+let app;
 auth.onAuthStateChanged(() => {
-  createApp(App).use(store).use(router).mount("#app");
+  if (!app) {
+    app = createApp(App).use(store).use(router).mount("#app");
+  }
 });

@@ -13,7 +13,7 @@
       placeholder="Wprowadź hasło"
       type="password"
     />
-    <Button :isBig="true" label="Zarejestruj się!" />
+    <Button :isBig="true" class="mt-6" type="submit" label="Zarejestruj się!" />
   </FormWrapper>
 </template>
 
