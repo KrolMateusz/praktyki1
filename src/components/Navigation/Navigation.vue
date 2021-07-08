@@ -31,7 +31,7 @@
 <script>
 import { ref } from "vue";
 import { routes } from "@/router/index";
-import Link from "./Link.vue";
+import Link from "@/components/Navigation/Link.vue";
 
 export default {
   components: {
@@ -41,7 +41,6 @@ export default {
     const linkPosition = ref(0);
     const dot = ref(null);
 
-    console.log(routes);
     const filterRoutes = routes.filter((r) => r.meta);
 
     const setDotPosition = (link) => {
@@ -59,9 +58,4 @@ export default {
 };
 </script>
 
-<style>
-li:last-child {
-  justify-self: flex-start;
-  color: red;
-}
-</style>
+<style></style>

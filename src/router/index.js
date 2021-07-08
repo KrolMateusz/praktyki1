@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/components/home/Home.vue";
 import Charts from "@/components/Charts/Charts.vue";
 import Login from "@/components/Login/Login.vue";
-import { auth } from "../firebase";
+import { auth } from "@/firebase.js";
 
 export const routes = [
   {

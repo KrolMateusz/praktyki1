@@ -1,6 +1,5 @@
 <template>
   <form
-    @submit.prevent="handleSubmit"
     class="
       border border-dark-grey
       p-8

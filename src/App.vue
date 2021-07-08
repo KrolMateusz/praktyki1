@@ -4,9 +4,9 @@
 </template>
 
 <script>
-import Navigation from "@/components/Navigation/Navigation";
-import { auth } from "./firebase";
 import { ref } from "vue";
+import Navigation from "@/components/Navigation/Navigation";
+import { auth } from "@/firebase";
 export default {
   components: { Navigation },
   setup() {

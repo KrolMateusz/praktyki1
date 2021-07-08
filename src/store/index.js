@@ -1,13 +1,13 @@
 import { createStore } from "vuex";
-import { auth, users } from "../firebase";
+import { auth, users } from "@/firebase";
 import {
   SET_USER,
   SET_ACTIVITY_OPTION,
   SET_FOOD_TYPE,
   SET_KCAL_BURNED,
 } from "@/store/mutation-types";
-import { routerModule } from "./routerModule";
-import { mapModule } from "./mapModule";
+import { routerModule } from "@/store/routerModule";
+import { mapModule } from "@/store/mapModule";
 import router from "@/router";
 
 const store = createStore({

@@ -20,9 +20,9 @@
 <script>
 import { useStore } from "vuex";
 import { reactive, toRefs } from "vue";
-import FormWrapper from "./FormWrapper";
-import TextInput from "../common/TextInput";
-import Button from "../common/Button";
+import FormWrapper from "@/components/Login/FormWrapper";
+import TextInput from "@/components/common/TextInput";
+import Button from "@/components/common/Button";
 export default {
   name: "RegisterForm",
   components: { Button, TextInput, FormWrapper },

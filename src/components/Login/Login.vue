@@ -40,8 +40,8 @@ import { useStore } from "vuex";
 import TextInput from "@/components/common/TextInput.vue";
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
-import FormWrapper from "./FormWrapper";
-import RegisterForm from "./RegisterForm";
+import FormWrapper from "@/components/Login/FormWrapper";
+import RegisterForm from "@/components/Login/RegisterForm";
 export default {
   name: "Login",
   components: {
