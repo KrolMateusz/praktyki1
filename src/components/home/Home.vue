@@ -1,12 +1,6 @@
 <template>
   <div class="grid grid-cols-12 m-10 mainContainerHeight">
-    <Profile
-      :FFMI="FFMI"
-      :lowTempo="lowTempo"
-      :fastTempo="fastTempo"
-      @open-modal="openModal"
-      class="col-start-1 col-end-4"
-    />
+    <Profile @open-modal="openModal" class="col-start-1 col-end-4" />
     <Map class="col-start-4 col-end-9 border-2" />
     <Form class="col-start-10 col-end-12" />
     <ResultList
@@ -45,7 +39,6 @@ export default {
   setup() {
     const { findUserPosition, drawRouteToRestaurant } = useMap();
     const store = useStore();
-    const FFMI = ref(0);
 
     const isModalOpened = ref(false);
     const restaurant = reactive({ value: null });
@@ -77,7 +70,6 @@ export default {
     };
 
     return {
-      FFMI,
       isModalOpened,
       restaurants,
       redrawRoute,

@@ -64,6 +64,9 @@ const store = createStore({
     getBMI(state) {
       return state.user?.BMI;
     },
+    getFFMI(state) {
+      return state.user?.FFMI;
+    },
     getKcalBurned(state) {
       return state.kcalBurned;
     },

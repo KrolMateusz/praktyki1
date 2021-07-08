@@ -59,13 +59,22 @@ export default {
     const weightUnit = computed(() => store.getters.getWeightUnit);
     const heightUnit = computed(() => store.getters.getHeightUnit);
     const BMI = computed(() => store.getters.getBMI);
+    const FFMI = computed(() => store.getters.getFFMI);
     const kcalBurned = computed(() => store.getters.getKcalBurned);
     const currentActivity = computed(() => store.getters.getActivityOptionType);
     const currentConsumption = computed(
       () => kcalBurned.value[currentActivity.value]
     );
 
-    return { weightUnit, heightUnit, weight, height, BMI, currentConsumption };
+    return {
+      weightUnit,
+      heightUnit,
+      weight,
+      height,
+      BMI,
+      FFMI,
+      currentConsumption,
+    };
   },
 };
 </script>

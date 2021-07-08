@@ -35,7 +35,7 @@
         <p class="text-4xl break-all">{{ lastname }}</p>
       </div>
     </div>
-    <UserStats :FFMI="FFMI" :lowTempo="lowTempo" :fastTempo="fastTempo" />
+    <UserStats />
   </div>
 </template>
 
@@ -47,20 +47,6 @@ import UserStats from "@/components/common/UserStats.vue";
 
 export default {
   components: { Avatar, UserStats },
-  props: {
-    FFMI: {
-      Number,
-      default: "",
-    },
-    lowTempo: {
-      Number,
-      required: true,
-    },
-    fastTempo: {
-      Number,
-      required: true,
-    },
-  },
   setup() {
     const store = useStore();
     const name = computed(() => store.getters.getName);

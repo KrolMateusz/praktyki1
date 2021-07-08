@@ -50,9 +50,9 @@
       </text-input>
     </div>
     <div class="flex flex-col items-center mb-2 text-base">
-      <div class="w-80 flex justify-between items-center">
+      <div class="w-72 flex justify-between items-center">
         <text-input
-          classes="w-32"
+          classes="w-36"
           type="number"
           label="Wzrost"
           min="0"
@@ -62,12 +62,12 @@
         <radio-group
           :options="heightRadioOptions"
           @change="dynamicHeight"
-          classes="ml-8 w-36"
+          classes="relative ml-8"
           group-label="Jednostka"
           v-model:selected="heightUnit"
         />
       </div>
-      <div class="w-80">
+      <div class="w-72">
         <Error
           :message="v$.height.$errors[0].$message"
           classes="w-full"
@@ -76,9 +76,9 @@
       </div>
     </div>
     <div class="flex flex-col items-center mb-4 text-base">
-      <div class="w-80 flex justify-between items-center">
+      <div class="w-72 flex justify-between items-center">
         <text-input
-          classes="w-32"
+          classes="w-36 justify-between"
           type="number"
           label="Waga"
           min="0"
@@ -88,16 +88,28 @@
         <radio-group
           :options="weightRadioOptions"
           @change="dynamicWeight"
-          classes="relative ml-8 w-36"
+          classes="relative ml-8"
           group-label="Jednostka"
           v-model:selected="weightUnit"
         />
       </div>
-      <div class="w-80">
+      <div class="w-72">
         <Error
           :message="v$.weight.$errors[0].$message"
           classes="w-full"
           v-if="v$.weight.$error"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col items-center mb-4 text-base">
+      <div class="w-72 flex justify-between items-center">
+        <text-input
+          classes="w-72"
+          type="number"
+          label="Tkanka tłuszczowa w %"
+          min="0"
+          step="0.1"
+          v-model:value.number="fat"
         />
       </div>
     </div>
@@ -166,6 +178,12 @@ export default {
         label: "lbs",
       },
     ];
+    const fatRadioOptions = [
+      {
+        value: "%",
+        label: "%",
+      },
+    ];
     const calculateBMI = () => {
       let actualHeight = height.value;
       let actualWeight = weight.value;
@@ -173,7 +191,7 @@ export default {
         actualHeight = height.value / 100;
       }
       if (weightUnit.value === "lbs") {
-        actualWeight = weight.value * 0.454;
+        actualWeight = weight.value * 0.45359237;
       }
       const actualBMI = actualWeight / actualHeight ** 2;
       return actualBMI.toFixed(1);
@@ -194,6 +212,13 @@ export default {
         weight.value = (weight.value * 2.20462262185).toFixed(1);
       }
     };
+    // const calculateFFMI = () => {
+    //   const equation = percentageBodyFat/100
+    //   const bodyFat = weight.value * ( percentageBodyFat/100);
+    //   const fatFreeMass = weight.value * (1- );
+    //   const unNormalizedFFMI = ;
+    //   return unNormalizedFFMI + 6.1 * (1.8 - height.value)
+    // }
 
     const setUser = () => {
       emit("closeModal");
@@ -234,6 +259,7 @@ export default {
       weightUnit,
       heightRadioOptions,
       weightRadioOptions,
+      fatRadioOptions,
       v$,
       checkForm,
       setUser,

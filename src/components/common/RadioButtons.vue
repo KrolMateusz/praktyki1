@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="flex justify-between max-w-100">
+  <fieldset class="flex justify-between w-full">
     <label
       :key="icon.id"
       class="cursor-pointer"
@@ -11,7 +11,7 @@
         :value="icon.value"
         :name="name"
         @change="$emit('update:modelValue', icon.value)"
-        class="opacity-0 absolute"
+        class="opacity-0 absolute px-10"
         type="radio"
       />
       <component :is="icon.icon" />

@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" class="flex flex-col items-center">
     <span>{{ groupLabel }}</span>
-    <div class="w-full flex justify-between">
+    <div class="w-36 flex justify-between">
       <label :key="option.key" v-for="option in options">
         <input
           :name="option.name"
