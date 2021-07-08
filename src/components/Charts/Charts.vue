@@ -91,7 +91,7 @@ export default defineComponent({
       verticalAlign: app.config.verticalAlign,
       rotate: app.config.rotate,
       formatter: "{c}  {name|{a}}",
-      fontSize: "2rem",
+      fontSize: "1.6rem",
       rich: {
         name: {},
       },

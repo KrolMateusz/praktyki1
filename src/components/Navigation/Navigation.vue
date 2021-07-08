@@ -1,5 +1,16 @@
 <template>
-  <nav class="flex px-40 h-24 text-base relative bg-main">
+  <nav
+    class="
+      grid
+      justify-items-center
+      lg:flex lg:px-40
+      h-24
+      text-base
+      lg:relative
+      bg-main
+      w-full
+    "
+  >
     <ul class="flex items-center">
       <Link
         :key="route.name"
@@ -10,15 +21,16 @@
       />
     </ul>
     <div
-      :style="{ transform: `translate(${linkPosition}px, 1.5rem)  ` }"
       ref="dot"
+      :style="{ transform: `translate(${linkPosition}px, 1.2rem)  ` }"
       class="
         absolute
         w-10
         h-10
+        bottom-24
         bg-main
         rounded-full
-        bottom-0
+        lg:bottom-0
         left-0
         border-4 border-white
         transform

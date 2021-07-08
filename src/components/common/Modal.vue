@@ -5,7 +5,10 @@
       class="flex justify-center items-center w-full h-full"
     >
       <div class="relative flex flex-col bg-white">
-        <button @click="$emit('closeModal')" class="w-4 absolute top-3 right-4">
+        <button
+          @click="$emit('closeModal')"
+          class="w-4 absolute right-12 top-3 sm:right-4"
+        >
           x
         </button>
         <slot />

@@ -1,5 +1,5 @@
 <template>
-  <Navigation v-if="isAuth" />
+  <Navigation v-if="isAuth" class="bottom-0 fixed z-50" />
   <router-view />
 </template>
 

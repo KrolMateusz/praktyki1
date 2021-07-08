@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full text-base">
+  <div class="w-full text-base p-10">
     <div class="flex p-2">
       <div @click="$emit('openModal')" class="group relative cursor-pointer">
         <div
