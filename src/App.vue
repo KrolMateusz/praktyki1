@@ -1,5 +1,5 @@
 <template>
-  <Navigation />
+  <Navigation class="bottom-0 fixed z-50" />
   <router-view />
 </template>
 

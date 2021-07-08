@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="drawRestaurantsOnMap">
-    <div class="flex flex-col gap-y-10 flex-nowrap text-base w-full">
+    <div class="flex flex-col gap-y-4 flex-nowrap text-base">
       <ActivityButtons name="group1" />
       <RadioButtons
         :icons="icons"

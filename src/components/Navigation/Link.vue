@@ -22,10 +22,14 @@ export default {
     const link = ref(null);
 
     watchEffect(() => {
-      const isActiveLink = activeLinkName.value === props.name;
-      if (isActiveLink && link.value) {
-        emit("getLinkPosition", link.value);
-      }
+      const setDot = () => {
+        const isActiveLink = activeLinkName.value === props.name;
+        if (isActiveLink && link.value) {
+          emit("getLinkPosition", link.value);
+        }
+      };
+      window.addEventListener("resize", setDot);
+      setDot();
     });
 
     return { activeLinkName, link };
