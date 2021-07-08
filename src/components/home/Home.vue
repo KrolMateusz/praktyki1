@@ -8,7 +8,7 @@
       class="col-start-1 col-end-4"
     />
     <Map class="col-start-4 col-end-9 border-2" />
-    <Form class="col-start-10 col-end-12" />
+    <Form @find-route="redrawRoute" class="col-start-10 col-end-12" />
     <ResultList
       :restaurants="restaurants"
       @select-restaurant="selectRestaurantById"

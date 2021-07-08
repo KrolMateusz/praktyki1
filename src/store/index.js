@@ -64,6 +64,12 @@ const store = createStore({
     getBMI(state) {
       return state.user?.BMI;
     },
+    getCurrentActivityId(state) {
+      return state.activityOption.id;
+    },
+    getFoodTypeId(state) {
+      return state.foodType.id;
+    },
     getKcalBurned(state) {
       return state.kcalBurned;
     },
