@@ -106,7 +106,6 @@ const store = createStore({
       dispatch("fetchUserProfile", user);
     },
     async signup({ dispatch }, { name, surname, email, password }) {
-      console.log(name, surname, email, password);
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
