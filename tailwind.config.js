@@ -2,6 +2,10 @@ module.exports = {
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: false,
   theme: {
+    maxHeight: {
+      "1/2": "50%",
+      "3/4": "75%",
+    },
     extend: {
       colors: {
         main: "var(--main)",

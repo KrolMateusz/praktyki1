@@ -17,5 +17,6 @@
 <script>
 export default {
   name: "Modal",
+  emits: ["closeModal"],
 };
 </script>

@@ -6,12 +6,12 @@
         :to="route.path"
         :name="route.name"
         @getLinkPosition="setDotPosition"
-        v-for="route in routes"
+        v-for="route in filterRoutes"
       />
     </ul>
     <div
-      ref="dot"
       :style="{ transform: `translate(${linkPosition}px, 1.5rem)  ` }"
+      ref="dot"
       class="
         absolute
         w-10
@@ -31,7 +31,7 @@
 <script>
 import { ref } from "vue";
 import { routes } from "@/router/index";
-import Link from "./Link.vue";
+import Link from "@/components/Navigation/Link.vue";
 
 export default {
   components: {
@@ -41,6 +41,8 @@ export default {
     const linkPosition = ref(0);
     const dot = ref(null);
 
+    const filterRoutes = routes.filter((r) => r.meta);
+
     const setDotPosition = (link) => {
       linkPosition.value =
         link.offsetLeft + link.offsetWidth / 2 - dot.value.offsetWidth / 2;
@@ -49,7 +51,7 @@ export default {
     return {
       linkPosition,
       dot,
-      routes,
+      filterRoutes,
       setDotPosition,
     };
   },
