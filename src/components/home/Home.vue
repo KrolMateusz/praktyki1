@@ -19,10 +19,8 @@
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
   </Modal>
-  <Toast :show="true">
-    <span>TOAST</span>
-  </Toast>
-  <Toast :show="true" duration-in-seconds="10">
+  <button @click="show = !show">SHOW TOAST</button>
+  <Toast :show="show" type="success" position="bottom-center">
     <span>TOAST2</span>
   </Toast>
 </template>
@@ -83,6 +81,7 @@ export default {
         transport: store.state.activityOption.transportMode,
       });
     };
+    const show = ref(false);
 
     return {
       FFMI,
@@ -92,6 +91,7 @@ export default {
       selectRestaurantById,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
+      show,
     };
   },
 };

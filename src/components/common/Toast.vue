@@ -1,16 +1,15 @@
 <template>
-  <div :class="selectedPositionClass" class="fixed" v-if="isToastDisplayed">
-    <div
-      :class="selectedTypeClass"
-      class="px-20 py-7 rounded-2xl shadow text-base"
-    >
-      <slot />
+  <transition name="toast">
+    <div :class="position" class="fixed" v-if="isToastDisplayed">
+      <div :class="type" class="px-20 py-7 rounded-2xl shadow text-base">
+        <slot />
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { ref, watch } from "vue";
 
 export default {
   name: "Toast",
@@ -46,36 +45,73 @@ export default {
     },
   },
   setup(props) {
-    const positionClasses = new Map([
-      ["top-right", "top-12 right-12"],
-      ["top-center", "top-12 left-1/2"],
-      ["top-left", "top-12 left-12"],
-      ["bottom-right", "bottom-12 right-12"],
-      ["bottom-center", "bottom-12 left-1/2"],
-      ["bottom-left", "bottom-12 left-12"],
-    ]);
-    const typeClasses = new Map([
-      ["info", "bg-blue-600 text-white"],
-      ["success", "bg-green-500"],
-      ["error", "bg-warning"],
-    ]);
-    const selectedPositionClass = computed(() =>
-      positionClasses.get(props.position)
-    );
-    const selectedTypeClass = computed(() => typeClasses.get(props.type));
     const isToastDisplayed = ref(props.show);
-    setTimeout(
-      () => (isToastDisplayed.value = false),
-      props.durationInSeconds * 1000
+    let timeout;
+
+    watch(
+      () => props.show,
+      (show) => {
+        clearTimeout(timeout);
+        isToastDisplayed.value = show;
+        timeout = setTimeout(
+          () => (isToastDisplayed.value = false),
+          props.durationInSeconds * 1000
+        );
+      }
     );
 
     return {
-      selectedPositionClass,
-      selectedTypeClass,
       isToastDisplayed,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.top-right {
+  @apply top-12 right-12;
+}
+
+.top-center {
+  @apply top-12 left-1/2;
+}
+
+.top-left {
+  @apply top-12 left-12;
+}
+
+.bottom-right {
+  @apply bottom-12 right-12;
+}
+
+.bottom-center {
+  @apply bottom-12 left-1/2;
+}
+
+.bottom-left {
+  @apply bottom-12 left-12;
+}
+
+.info {
+  @apply bg-blue-600 text-white;
+}
+
+.success {
+  @apply bg-green-500;
+}
+
+.error {
+  @apply bg-warning;
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.toast-leave-to,
+.toast-enter-from {
+  transform: translateY(-50px);
+  opacity: 0;
+}
+</style>
