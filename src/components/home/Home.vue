@@ -54,6 +54,7 @@
       "
     />
     <Form
+      @find-route="redrawRoute"
       class="
         m-10
         row-start-1
@@ -65,7 +66,6 @@
       "
     />
     <ResultList
-      id="resultList"
       :restaurants="restaurants"
       @select-restaurant="selectRestaurantById"
       class="
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useMap } from "@/composable/useMap";
 import Map from "@/components/common/Map.vue";

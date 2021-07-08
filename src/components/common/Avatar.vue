@@ -4,6 +4,7 @@
       :src="getImage"
       alt="Your avatar"
       class="w-32 h-32 rounded-full"
+      data-test="avatar-image"
       v-if="getImage"
     />
     <div
@@ -19,6 +20,7 @@
         text-8xl text-white
         uppercase
       "
+      data-test="avatar-letter"
       v-else
     >
       {{ getName }}
@@ -28,6 +30,7 @@
 
 <script>
 import { computed } from "vue";
+
 export default {
   props: {
     firstName: {

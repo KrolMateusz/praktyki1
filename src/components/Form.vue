@@ -1,9 +1,14 @@
 <template>
   <form @submit.prevent="drawRestaurantsOnMap">
     <div class="flex flex-col gap-y-4 flex-nowrap text-base">
-      <ActivityButtons name="group1" />
+      <ActivityButtons
+        :currentId="activityId"
+        @find-route="$emit('findRoute')"
+        name="activityButtons"
+      />
       <RadioButtons
         :icons="icons"
+        :currentId="foodTypeId"
         @update:modelValue="changeFoodType"
         @click="drawRestaurantsOnMap"
         name="foodTypeButtons"
@@ -53,6 +58,8 @@ export default {
     foodCategoryData.kebab.icon = KebabIcon;
     const icons = foodCategoryData;
     const store = useStore();
+    const activityId = computed(() => store.getters.getCurrentActivityId);
+    const foodTypeId = computed(() => store.getters.getFoodTypeId);
 
     const drawRestaurantsOnMap = async () => {
       if (!address.value) return;
@@ -76,6 +83,8 @@ export default {
       findRestaurants,
       drawRouteToRestaurant,
       findUserPosition,
+      foodTypeId,
+      activityId,
       drawRestaurantsOnMap,
       changeFoodType,
     };
