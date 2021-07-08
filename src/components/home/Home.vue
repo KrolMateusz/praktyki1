@@ -18,11 +18,7 @@
         @click="openProfile"
         class="absolute right-0 top-4"
       />
-      <Arrow
-        v-if="isHidden"
-        @click="openProfile"
-        class="absolute right-0 top-4"
-      />
+      <Arrow v-else @click="openProfile" class="absolute right-0 top-4" />
     </div>
     <Profile
       :FFMI="FFMI"
@@ -41,10 +37,7 @@
         transition
         duration-700
       "
-      :class="{
-        '': isHidden,
-        'transform translate-x-full lg:translate-x-0': !isHidden,
-      }"
+      :class="isHidden ? '' : 'transform translate-x-full lg:translate-x-0'"
     />
     <Map
       class="
@@ -119,7 +112,6 @@ export default {
     const isHidden = ref(false);
     const openProfile = () => {
       isHidden.value = !isHidden.value;
-      console.log(isHidden.value);
     };
 
     const isModalOpened = ref(false);
