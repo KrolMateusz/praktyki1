@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useMap } from "@/composable/useMap";
 import Map from "@/components/common/Map.vue";
@@ -78,7 +78,6 @@ export default {
 
     return {
       FFMI,
-
       isModalOpened,
       restaurants,
       redrawRoute,
