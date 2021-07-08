@@ -4,11 +4,11 @@
       <ActivityButtons
         :currentId="activityId"
         @find-route="$emit('findRoute')"
-        name="group1"
+        name="activityButtons"
       />
       <RadioButtons
         :icons="icons"
-        :currentId="foodType"
+        :currentId="foodTypeId"
         @update:modelValue="changeFoodType"
         @click="drawRestaurantsOnMap"
         name="foodTypeButtons"
@@ -59,7 +59,7 @@ export default {
     const icons = foodCategoryData;
     const store = useStore();
     const activityId = computed(() => store.getters.getCurrentActivityId);
-    const foodType = computed(() => store.getters.getFoodTypeId);
+    const foodTypeId = computed(() => store.getters.getFoodTypeId);
 
     const drawRestaurantsOnMap = async () => {
       if (!address.value) return;
@@ -83,7 +83,7 @@ export default {
       findRestaurants,
       drawRouteToRestaurant,
       findUserPosition,
-      foodType,
+      foodTypeId,
       activityId,
       drawRestaurantsOnMap,
       changeFoodType,
