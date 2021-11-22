@@ -19,6 +19,10 @@
     <span class="absolute top-3 left-4">Edytuj profil</span>
     <user-info-form @close-modal="closeModal" />
   </Modal>
+  <button @click="show = !show">SHOW TOAST</button>
+  <Toast :show="show" type="success" position="bottom-center">
+    <span>TOAST2</span>
+  </Toast>
 </template>
 
 <script>
@@ -31,10 +35,12 @@ import Modal from "@/components/common/Modal";
 import UserInfoForm from "@/components/common/UserInfoForm";
 import Form from "@/components/Form.vue";
 import ResultList from "@/components/ResultList/ResultList.vue";
+import Toast from "@/components/common/Toast";
 
 export default {
   name: "Home",
   components: {
+    Toast,
     Map,
     Profile,
     Modal,
@@ -75,6 +81,7 @@ export default {
         transport: store.state.activityOption.transportMode,
       });
     };
+    const show = ref(false);
 
     return {
       FFMI,
@@ -84,6 +91,7 @@ export default {
       selectRestaurantById,
       openModal: () => (isModalOpened.value = true),
       closeModal: () => (isModalOpened.value = false),
+      show,
     };
   },
 };

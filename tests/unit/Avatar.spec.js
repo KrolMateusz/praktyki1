@@ -5,7 +5,6 @@ describe("Avatar with firstName and empty imgPath props ", () => {
   const wrapper = mount(Avatar, {
     props: {
       firstName: "Janusz",
-      imgPath: "",
     },
   });
   it("renders properly", () => {
@@ -22,7 +21,6 @@ describe("Avatar with firstName and empty imgPath props ", () => {
     expect(avatarImg.exists()).toBeFalsy();
   });
 });
-
 describe("Avatar with firstName and path to in imgPath props ", () => {
   const wrapper = mount(Avatar, {
     props: {
